@@ -9,49 +9,59 @@ export function KpiRow() {
   const connected = useGovernanceStore((s) => s.connected)
 
   const mutationCount = events.filter((e) => e.type === "mutation").length
+
+  // Stability: trust-weighted authority proxy
   const stabilityScore =
     snapshot && snapshot.agents.length > 0
-      ? snapshot.agents.reduce((acc, a) => acc + a.trustScore * a.authorityWeight, 0)
-      : 0
+      ? snapshot.agents.reduce((acc, a) => acc + a.trustScore * a.authorityWeight, 0) /
+        snapshot.agents.length
+      : null
 
   const stabilityTone =
-    stabilityScore >= 0.75
-      ? "green"
-      : stabilityScore >= 0.55
-      ? "amber"
-      : "red"
+    stabilityScore === null
+      ? "muted"
+      : stabilityScore >= 0.75
+        ? "green"
+        : stabilityScore >= 0.55
+          ? "amber"
+          : "red"
 
   const stabilityClass =
     stabilityTone === "green"
-      ? "text-emerald-600"
+      ? "text-emerald-500"
       : stabilityTone === "amber"
-      ? "text-amber-600"
-      : "text-red-600"
+        ? "text-amber-500"
+        : stabilityTone === "red"
+          ? "text-red-500"
+          : "text-muted-foreground"
 
   const metrics = [
     {
       label: "Stability",
-      value: snapshot
-        ? stabilityScore.toFixed(3)
-        : "—",
+      value: stabilityScore !== null ? stabilityScore.toFixed(3) : "\u2014",
+      sublabel: "proxy",
     },
     { label: "Agents", value: snapshot?.agents.length ?? 0 },
     { label: "Suppressed", value: snapshot?.suppressedCount ?? 0 },
     { label: "Mutations", value: mutationCount },
     { label: "Events", value: events.length },
-    { label: "Connection", value: connected ? "connected" : "disconnected" },
   ]
 
   return (
-    <div className="grid grid-cols-1 gap-3 md:grid-cols-5">
+    <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
       {metrics.map((metric) => (
         <Card key={metric.label} className="p-4">
           <div className="text-xs uppercase tracking-wide text-muted-foreground">
             {metric.label}
+            {"sublabel" in metric && metric.sublabel && (
+              <span className="ml-1 text-[9px] normal-case opacity-60">({metric.sublabel})</span>
+            )}
           </div>
-          <div className={`mt-2 text-2xl font-semibold ${
-            metric.label === "Stability" ? stabilityClass : ""
-          }`}>
+          <div
+            className={`mt-2 text-2xl font-semibold ${
+              metric.label === "Stability" ? stabilityClass : ""
+            }`}
+          >
             {metric.value}
           </div>
         </Card>

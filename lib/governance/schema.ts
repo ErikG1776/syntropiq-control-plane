@@ -42,7 +42,8 @@ export type DataSourceKey =
   | "replay_infra_chain"
   | "replay_readmission"
   | "replay_finance"
-  | "live_api_stub"
+  | "live_api"
+  | "live_ws"
 
 export interface GovernanceSnapshot {
   timestamp: string

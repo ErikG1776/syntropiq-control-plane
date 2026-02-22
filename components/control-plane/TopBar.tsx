@@ -16,6 +16,14 @@ function getHealthTone(latencyMs: number | null): "green" | "yellow" | "red" {
   return "red"
 }
 
+const SOURCE_LABELS: Record<string, string> = {
+  live_api: "Live API",
+  live_ws: "WebSocket",
+  replay_infra_chain: "Replay: Infra",
+  replay_readmission: "Replay: Readmission",
+  replay_finance: "Replay: Finance",
+}
+
 export function TopBar() {
   const connected = useGovernanceStore((s) => s.connected)
   const source = useGovernanceStore((s) => s.source)
@@ -36,25 +44,24 @@ export function TopBar() {
         ? "bg-amber-500 text-black"
         : "bg-red-600 text-white"
 
+  const sourceLabel = source ? (SOURCE_LABELS[source] ?? source) : "no source"
+
   return (
     <div className="flex flex-wrap items-center justify-between gap-4">
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Syntropiq Control Plane</h1>
         <p className="text-sm text-muted-foreground">Governance and infrastructure monitoring</p>
       </div>
-      <div className="flex flex-wrap items-center gap-3">
+      <div className="flex flex-wrap items-center gap-2">
         <Badge variant={connected ? "default" : "secondary"}>
           {connected ? "connected" : "disconnected"}
         </Badge>
-        <Badge variant="outline">{source ?? "no-source"}</Badge>
+        <Badge variant="outline">{sourceLabel}</Badge>
         <Badge className={healthClass}>
           heartbeat{" "}
           {streamLatencyMs === null ? "n/a" : `${Math.floor(streamLatencyMs / 1000)}s`}
         </Badge>
         <Badge variant="outline">epm {eventsPerMinute}</Badge>
-        <Badge variant="outline">
-          latency {streamLatencyMs === null ? "n/a" : `${streamLatencyMs}ms`}
-        </Badge>
         <ConnectSourceDialog />
       </div>
     </div>

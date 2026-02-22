@@ -6,6 +6,7 @@ import {
   normalizeReadmission,
 } from "@/lib/datasources/normalize"
 import { runReplayStream } from "@/lib/datasources/replay"
+import { connectWebSocket } from "@/lib/datasources/websocket"
 
 const speedMs = 800
 
@@ -52,9 +53,9 @@ export const dataSources: Record<DataSourceKey, GovernanceDataSource> = {
         onStatus: opts.onStatus,
       }),
   },
-  live_api_stub: {
-    key: "live_api_stub",
-    label: "Live Syntropiq API",
+  live_api: {
+    key: "live_api",
+    label: "Live API (Poll)",
     mode: "poll",
     connect: async ({ onMessage, onStatus }) => {
       let stopped = false
@@ -83,7 +84,7 @@ export const dataSources: Record<DataSourceKey, GovernanceDataSource> = {
             connected: true,
             message: "Connected to Syntropiq backend",
           })
-        } catch (err) {
+        } catch {
           onStatus?.({
             connected: false,
             message: "Backend connection failed",
@@ -103,5 +104,15 @@ export const dataSources: Record<DataSourceKey, GovernanceDataSource> = {
         })
       }
     },
+  },
+  live_ws: {
+    key: "live_ws",
+    label: "Live WebSocket",
+    mode: "stream",
+    connect: (opts) =>
+      connectWebSocket({
+        onMessage: opts.onMessage,
+        onStatus: opts.onStatus,
+      }),
   },
 }

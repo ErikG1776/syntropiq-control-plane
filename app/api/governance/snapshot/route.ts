@@ -5,7 +5,7 @@ export async function GET() {
   const payload: GovernanceStreamPayload = {
     snapshot: {
       timestamp: now,
-      source: "live_api_stub",
+      source: "live_api",
       runId: "stub-run",
       sequence: 1,
       healthy: true,
@@ -33,7 +33,7 @@ export async function GET() {
         timestamp: now,
         type: "heartbeat",
         severity: "info",
-        message: "live_api_stub heartbeat",
+        message: "live_api heartbeat",
         tags: ["stub", "api"],
       },
     ],

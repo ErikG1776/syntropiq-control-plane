@@ -197,3 +197,11 @@ export function normalizeReadmission(json: unknown): GovernanceStreamPayload {
 export function normalizeFinance(json: unknown): GovernanceStreamPayload {
   return safeNormalize(json, "replay_finance")
 }
+
+export function normalizeLiveApi(json: unknown): GovernanceStreamPayload {
+  return safeNormalize(json, "live_api")
+}
+
+export function normalizeLiveWs(json: unknown): GovernanceStreamPayload {
+  return safeNormalize(json, "live_ws")
+}

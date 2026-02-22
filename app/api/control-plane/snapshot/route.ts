@@ -101,10 +101,15 @@ function normalizeAgents(raw: unknown): AgentState[] {
       .map((capability) => asString(capability))
       .filter(Boolean)
 
+    const trustScore = asNumber(agent.trustScore, asNumber(agent.trust_score, 0))
+    const rawAuthority = asNumber(agent.authorityWeight, asNumber(agent.authority_weight, -1))
+    // Proxy: if backend doesn't provide authority_weight, use trustScore as proxy
+    const authorityWeight = rawAuthority >= 0 ? rawAuthority : trustScore
+
     return {
       id: asString(agent.id || agent.agent_id, `agent_${idx + 1}`),
-      trustScore: asNumber(agent.trustScore, asNumber(agent.trust_score, 0)),
-      authorityWeight: asNumber(agent.authorityWeight, asNumber(agent.authority_weight, 0)),
+      trustScore,
+      authorityWeight,
       status: toStatus(agent.status || agent.state),
       capabilities: capabilities.length > 0 ? capabilities : undefined,
       labels: Object.keys(labels).length > 0 ? labels : undefined,
@@ -150,12 +155,13 @@ function toCanonicalPayload(
       source: "live_api",
       agents,
       thresholds: {
-        trustThreshold: asNumber(stats.trustThreshold, asNumber(stats.trust_threshold, 0)),
+        // Use -1 sentinel when backend doesn't provide thresholds; UI renders "—"
+        trustThreshold: asNumber(stats.trustThreshold, asNumber(stats.trust_threshold, -1)),
         suppressionThreshold: asNumber(
           stats.suppressionThreshold,
-          asNumber(stats.suppression_threshold, 0),
+          asNumber(stats.suppression_threshold, -1),
         ),
-        driftDelta: asNumber(stats.driftDelta, asNumber(stats.drift_delta, 0)),
+        driftDelta: asNumber(stats.driftDelta, asNumber(stats.drift_delta, -1)),
       },
       eventCount: asNumber(stats.eventCount, asNumber(stats.event_count, events.length)),
       suppressedCount,

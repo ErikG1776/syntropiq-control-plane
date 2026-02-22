@@ -12,7 +12,7 @@ export default function EventsPage() {
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Events</h1>
         <p className="text-sm text-muted-foreground">
-          Live governance event stream and severity telemetry.
+          Live governance event stream with filtering and search.
         </p>
       </div>
 
@@ -21,7 +21,7 @@ export default function EventsPage() {
           Connect a source to view the event stream.
         </Card>
       ) : (
-        <EventStreamPanel />
+        <EventStreamPanel fullPage />
       )}
     </div>
   )

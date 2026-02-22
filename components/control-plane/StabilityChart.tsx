@@ -16,15 +16,19 @@ import { useGovernanceStore } from "@/store/governance-store"
 
 export function StabilityChart() {
   const history = useGovernanceStore((s) => s.stabilityHistory)
-  const thresholds = useGovernanceStore(
-    (s) => s.snapshot?.thresholds
-  )
+  const thresholds = useGovernanceStore((s) => s.snapshot?.thresholds)
+
+  const trustThreshold = thresholds?.trustThreshold ?? -1
+  const suppressionThreshold = thresholds?.suppressionThreshold ?? -1
 
   return (
     <Card className="p-5">
-      <h2 className="text-base font-semibold mb-4">
+      <h2 className="text-base font-semibold mb-1">
         Stability Over Time
       </h2>
+      <p className="text-xs text-muted-foreground mb-4">
+        Weighted trust-authority composite {trustThreshold < 0 && "(thresholds unavailable)"}
+      </p>
 
       {history.length === 0 ? (
         <p className="text-sm text-muted-foreground">
@@ -35,13 +39,8 @@ export function StabilityChart() {
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={history}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis
-                dataKey="ts"
-                tick={false}
-              />
-              <YAxis
-                domain={[0, 1]}
-              />
+              <XAxis dataKey="ts" tick={false} />
+              <YAxis domain={[0, 1]} />
               <Tooltip />
               <Line
                 type="monotone"
@@ -51,19 +50,19 @@ export function StabilityChart() {
                 strokeWidth={2}
               />
 
-              {thresholds && (
-                <>
-                  <ReferenceLine
-                    y={thresholds.trustThreshold}
-                    stroke="#f59e0b"
-                    strokeDasharray="4 4"
-                  />
-                  <ReferenceLine
-                    y={thresholds.suppressionThreshold}
-                    stroke="#ef4444"
-                    strokeDasharray="4 4"
-                  />
-                </>
+              {trustThreshold >= 0 && (
+                <ReferenceLine
+                  y={trustThreshold}
+                  stroke="#f59e0b"
+                  strokeDasharray="4 4"
+                />
+              )}
+              {suppressionThreshold >= 0 && (
+                <ReferenceLine
+                  y={suppressionThreshold}
+                  stroke="#ef4444"
+                  strokeDasharray="4 4"
+                />
               )}
             </LineChart>
           </ResponsiveContainer>
