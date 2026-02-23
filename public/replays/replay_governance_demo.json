@@ -1,0 +1,5922 @@
+{
+  "summary": {
+    "title": "Governance Control Plane -- Hero Demo",
+    "description": "A 60-frame replay demonstrating trust drift, suppression, probation, mutation, and recovery across five governance agents in the Syntropiq control plane.",
+    "frameCount": 60,
+    "frameIntervalMs": 800,
+    "startTime": "2026-02-23T10:00:00.000Z",
+    "endTime": "2026-02-23T10:00:47.200Z",
+    "agents": [
+      {
+        "id": "agent_sentinel",
+        "name": "Sentinel-7",
+        "role": "Monitoring specialist"
+      },
+      {
+        "id": "agent_arbiter",
+        "name": "Arbiter-3",
+        "role": "Decision arbiter"
+      },
+      {
+        "id": "agent_collector",
+        "name": "Collector-9",
+        "role": "Data collector"
+      },
+      {
+        "id": "agent_executor",
+        "name": "Executor-1",
+        "role": "Task executor"
+      },
+      {
+        "id": "agent_auditor",
+        "name": "Auditor-5",
+        "role": "Compliance auditor"
+      }
+    ],
+    "keyEvents": [
+      "Frame 15: Drift detected in Arbiter-3",
+      "Frame 22: Collector-9 data corruption (critical)",
+      "Frame 23: Collector-9 suppressed",
+      "Frame 30: Arbiter-3 enters probation",
+      "Frame 38: Governance mutation -- driftDelta tightened",
+      "Frame 40: Routing freeze + Auditor threshold breach alert",
+      "Frame 42: Collector-9 enters probation (recovery)",
+      "Frame 45: Arbiter-3 restored to active",
+      "Frame 50: Collector-9 restored to active"
+    ]
+  },
+  "timeline": [
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9181,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8833,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.8538,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.952,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.7962,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_0_1",
+          "timestamp": "2026-02-23T10:00:00.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "System heartbeat -- frame 0. All governance loops nominal.",
+          "tags": [
+            "heartbeat",
+            "governance"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:00.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9237,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8788,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.8526,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.948,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8025,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_1_1",
+          "timestamp": "2026-02-23T10:00:00.800Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Routine trust evaluation for agent_arbiter: score=0.8788",
+          "tags": [
+            "trust",
+            "routine"
+          ],
+          "agentId": "agent_arbiter"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:00.800Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9173,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8833,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.8503,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.946,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.802,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_2_1",
+          "timestamp": "2026-02-23T10:00:01.600Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Routine trust evaluation for agent_collector: score=0.8503",
+          "tags": [
+            "trust",
+            "routine"
+          ],
+          "agentId": "agent_collector"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:01.600Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9233,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8777,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.8537,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9515,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.802,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_3_1",
+          "timestamp": "2026-02-23T10:00:02.400Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Routine trust evaluation for agent_executor: score=0.9515",
+          "tags": [
+            "trust",
+            "routine"
+          ],
+          "agentId": "agent_executor"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:02.400Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9163,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8793,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.8479,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9538,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8039,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_4_1",
+          "timestamp": "2026-02-23T10:00:03.200Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Routine trust evaluation for agent_auditor: score=0.8039",
+          "tags": [
+            "trust",
+            "routine"
+          ],
+          "agentId": "agent_auditor"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:03.200Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9179,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8828,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.8512,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9545,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8044,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_5_1",
+          "timestamp": "2026-02-23T10:00:04.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "System heartbeat -- frame 5. All governance loops nominal.",
+          "tags": [
+            "heartbeat",
+            "governance"
+          ]
+        },
+        {
+          "id": "evt_demo_5_2",
+          "timestamp": "2026-02-23T10:00:04.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Routine trust evaluation for agent_sentinel: score=0.9179",
+          "tags": [
+            "trust",
+            "routine"
+          ],
+          "agentId": "agent_sentinel"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:04.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.92,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.877,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.8464,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9478,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8038,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_6_1",
+          "timestamp": "2026-02-23T10:00:04.800Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Routine trust evaluation for agent_arbiter: score=0.877",
+          "tags": [
+            "trust",
+            "routine"
+          ],
+          "agentId": "agent_arbiter"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:04.800Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9219,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8799,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.85,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9537,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8052,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_7_1",
+          "timestamp": "2026-02-23T10:00:05.600Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Routine trust evaluation for agent_collector: score=0.85",
+          "tags": [
+            "trust",
+            "routine"
+          ],
+          "agentId": "agent_collector"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:05.600Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9233,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8788,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.8488,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9545,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8093,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_8_1",
+          "timestamp": "2026-02-23T10:00:06.400Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Routine trust evaluation for agent_executor: score=0.9545",
+          "tags": [
+            "trust",
+            "routine"
+          ],
+          "agentId": "agent_executor"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:06.400Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9194,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8829,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.8468,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9511,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8052,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_9_1",
+          "timestamp": "2026-02-23T10:00:07.200Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Routine trust evaluation for agent_auditor: score=0.8052",
+          "tags": [
+            "trust",
+            "routine"
+          ],
+          "agentId": "agent_auditor"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:07.200Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9182,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8787,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.8532,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9487,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8047,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_10_1",
+          "timestamp": "2026-02-23T10:00:08.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "System heartbeat -- frame 10. All governance loops nominal.",
+          "tags": [
+            "heartbeat",
+            "governance"
+          ]
+        },
+        {
+          "id": "evt_demo_10_2",
+          "timestamp": "2026-02-23T10:00:08.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Routine trust evaluation for agent_sentinel: score=0.9182",
+          "tags": [
+            "trust",
+            "routine"
+          ],
+          "agentId": "agent_sentinel"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:08.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9211,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8794,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.8521,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9504,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8091,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_11_1",
+          "timestamp": "2026-02-23T10:00:08.800Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Routine trust evaluation for agent_arbiter: score=0.8794",
+          "tags": [
+            "trust",
+            "routine"
+          ],
+          "agentId": "agent_arbiter"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:08.800Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9212,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8813,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.8497,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9507,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8058,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_12_1",
+          "timestamp": "2026-02-23T10:00:09.600Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Routine trust evaluation for agent_collector: score=0.8497",
+          "tags": [
+            "trust",
+            "routine"
+          ],
+          "agentId": "agent_collector"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:09.600Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.922,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8779,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.8492,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9516,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8093,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_13_1",
+          "timestamp": "2026-02-23T10:00:10.400Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Routine trust evaluation for agent_executor: score=0.9516",
+          "tags": [
+            "trust",
+            "routine"
+          ],
+          "agentId": "agent_executor"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:10.400Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9233,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8775,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.8539,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9493,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8086,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_14_1",
+          "timestamp": "2026-02-23T10:00:11.200Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Routine trust evaluation for agent_auditor: score=0.8086",
+          "tags": [
+            "trust",
+            "routine"
+          ],
+          "agentId": "agent_auditor"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:11.200Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9191,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8784,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.8479,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9473,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8127,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_15_1",
+          "timestamp": "2026-02-23T10:00:12.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "System heartbeat -- frame 15. All governance loops nominal.",
+          "tags": [
+            "heartbeat",
+            "governance"
+          ]
+        },
+        {
+          "id": "evt_demo_15_2",
+          "timestamp": "2026-02-23T10:00:12.000Z",
+          "type": "system_alert",
+          "severity": "warn",
+          "message": "Auditor-5 detected trust drift in Arbiter-3: routing decisions showing increasing deviation from consensus patterns.",
+          "tags": [
+            "drift",
+            "detection",
+            "arbiter"
+          ],
+          "agentId": "agent_auditor"
+        },
+        {
+          "id": "evt_demo_15_3",
+          "timestamp": "2026-02-23T10:00:12.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Arbiter-3 trust declining: score=0.8784 (threshold=0.70)",
+          "tags": [
+            "trust",
+            "decline",
+            "arbiter"
+          ],
+          "agentId": "agent_arbiter"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:12.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9216,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8713,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.8521,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9536,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8143,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_16_1",
+          "timestamp": "2026-02-23T10:00:12.800Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Arbiter-3 trust declining: score=0.8713 (threshold=0.70)",
+          "tags": [
+            "trust",
+            "decline",
+            "arbiter"
+          ],
+          "agentId": "agent_arbiter"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:12.800Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9222,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8629,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.8528,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9547,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8111,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_17_1",
+          "timestamp": "2026-02-23T10:00:13.600Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Arbiter-3 trust declining: score=0.8629 (threshold=0.70)",
+          "tags": [
+            "trust",
+            "decline",
+            "arbiter"
+          ],
+          "agentId": "agent_arbiter"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:13.600Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9192,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8504,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.8497,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9485,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8159,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_18_1",
+          "timestamp": "2026-02-23T10:00:14.400Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Arbiter-3 trust declining: score=0.8504 (threshold=0.70)",
+          "tags": [
+            "trust",
+            "decline",
+            "arbiter"
+          ],
+          "agentId": "agent_arbiter"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:14.400Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9173,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8415,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.8491,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9467,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8126,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_19_1",
+          "timestamp": "2026-02-23T10:00:15.200Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Arbiter-3 trust declining: score=0.8415 (threshold=0.70)",
+          "tags": [
+            "trust",
+            "decline",
+            "arbiter"
+          ],
+          "agentId": "agent_arbiter"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:15.200Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.923,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8297,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.85,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9497,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8132,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_20_1",
+          "timestamp": "2026-02-23T10:00:16.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "System heartbeat -- frame 20. All governance loops nominal.",
+          "tags": [
+            "heartbeat",
+            "governance"
+          ]
+        },
+        {
+          "id": "evt_demo_20_2",
+          "timestamp": "2026-02-23T10:00:16.000Z",
+          "type": "trust_update",
+          "severity": "warn",
+          "message": "Arbiter-3 trust declining: score=0.8297 (threshold=0.70)",
+          "tags": [
+            "trust",
+            "decline",
+            "arbiter"
+          ],
+          "agentId": "agent_arbiter"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:16.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9177,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8196,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.651,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.952,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8115,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_21_1",
+          "timestamp": "2026-02-23T10:00:16.800Z",
+          "type": "trust_update",
+          "severity": "warn",
+          "message": "Arbiter-3 trust declining: score=0.8196 (threshold=0.70)",
+          "tags": [
+            "trust",
+            "decline",
+            "arbiter"
+          ],
+          "agentId": "agent_arbiter"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:16.800Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9184,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8083,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.45,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9544,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.816,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_22_1",
+          "timestamp": "2026-02-23T10:00:17.600Z",
+          "type": "trust_update",
+          "severity": "warn",
+          "message": "Arbiter-3 trust declining: score=0.8083 (threshold=0.70)",
+          "tags": [
+            "trust",
+            "decline",
+            "arbiter"
+          ],
+          "agentId": "agent_arbiter"
+        },
+        {
+          "id": "evt_demo_22_2",
+          "timestamp": "2026-02-23T10:00:17.600Z",
+          "type": "system_alert",
+          "severity": "critical",
+          "message": "CRITICAL: Collector-9 data corruption detected -- validation checksums failed on 3 consecutive payloads. Trust plummeted from 0.85 to 0.45.",
+          "tags": [
+            "corruption",
+            "data-integrity",
+            "collector",
+            "critical"
+          ],
+          "agentId": "agent_collector"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:17.600Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9185,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8008,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.38,
+          "authorityWeight": 0.7,
+          "status": "suppressed",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9535,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8136,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_23_1",
+          "timestamp": "2026-02-23T10:00:18.400Z",
+          "type": "suppression",
+          "severity": "error",
+          "message": "Collector-9 suppressed: trust score 0.38 fell below suppression threshold (0.40). Agent removed from active routing.",
+          "tags": [
+            "suppression",
+            "collector",
+            "threshold"
+          ],
+          "agentId": "agent_collector"
+        },
+        {
+          "id": "evt_demo_23_2",
+          "timestamp": "2026-02-23T10:00:18.400Z",
+          "type": "status_change",
+          "severity": "error",
+          "message": "Collector-9 status changed: active -> suppressed",
+          "tags": [
+            "status",
+            "suppressed",
+            "collector"
+          ],
+          "agentId": "agent_collector"
+        },
+        {
+          "id": "evt_demo_23_3",
+          "timestamp": "2026-02-23T10:00:18.400Z",
+          "type": "trust_update",
+          "severity": "warn",
+          "message": "Arbiter-3 trust continuing decline: score=0.8008",
+          "tags": [
+            "trust",
+            "decline",
+            "arbiter"
+          ],
+          "agentId": "agent_arbiter"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:18.400Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9193,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.7893,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.3787,
+          "authorityWeight": 0.7,
+          "status": "suppressed",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9489,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8121,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_24_1",
+          "timestamp": "2026-02-23T10:00:19.200Z",
+          "type": "trust_update",
+          "severity": "warn",
+          "message": "Arbiter-3 trust continuing decline: score=0.7893",
+          "tags": [
+            "trust",
+            "decline",
+            "arbiter"
+          ],
+          "agentId": "agent_arbiter"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:19.200Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9187,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.7828,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.3795,
+          "authorityWeight": 0.7,
+          "status": "suppressed",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9548,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8206,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_25_1",
+          "timestamp": "2026-02-23T10:00:20.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "System heartbeat -- frame 25. All governance loops nominal.",
+          "tags": [
+            "heartbeat",
+            "governance"
+          ]
+        },
+        {
+          "id": "evt_demo_25_2",
+          "timestamp": "2026-02-23T10:00:20.000Z",
+          "type": "threshold_breach",
+          "severity": "warn",
+          "message": "Auditor-5 reports: Arbiter-3 approaching trust threshold (current=0.7828, threshold=0.70). Recommend increased monitoring.",
+          "tags": [
+            "threshold",
+            "arbiter",
+            "warning"
+          ],
+          "agentId": "agent_auditor"
+        },
+        {
+          "id": "evt_demo_25_3",
+          "timestamp": "2026-02-23T10:00:20.000Z",
+          "type": "trust_update",
+          "severity": "warn",
+          "message": "Arbiter-3 trust continuing decline: score=0.7828",
+          "tags": [
+            "trust",
+            "decline",
+            "arbiter"
+          ],
+          "agentId": "agent_arbiter"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:20.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9196,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.7703,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.3785,
+          "authorityWeight": 0.7,
+          "status": "suppressed",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9525,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8168,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_26_1",
+          "timestamp": "2026-02-23T10:00:20.800Z",
+          "type": "trust_update",
+          "severity": "warn",
+          "message": "Arbiter-3 trust continuing decline: score=0.7703",
+          "tags": [
+            "trust",
+            "decline",
+            "arbiter"
+          ],
+          "agentId": "agent_arbiter"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:20.800Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9221,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.7603,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.3796,
+          "authorityWeight": 0.7,
+          "status": "suppressed",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.954,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.818,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_27_1",
+          "timestamp": "2026-02-23T10:00:21.600Z",
+          "type": "trust_update",
+          "severity": "warn",
+          "message": "Arbiter-3 trust continuing decline: score=0.7603",
+          "tags": [
+            "trust",
+            "decline",
+            "arbiter"
+          ],
+          "agentId": "agent_arbiter"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:21.600Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9172,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.7479,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.3789,
+          "authorityWeight": 0.7,
+          "status": "suppressed",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9524,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.822,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_28_1",
+          "timestamp": "2026-02-23T10:00:22.400Z",
+          "type": "trust_update",
+          "severity": "warn",
+          "message": "Arbiter-3 trust continuing decline: score=0.7479",
+          "tags": [
+            "trust",
+            "decline",
+            "arbiter"
+          ],
+          "agentId": "agent_arbiter"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:22.400Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9188,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.742,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.3801,
+          "authorityWeight": 0.7,
+          "status": "suppressed",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.952,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8163,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_29_1",
+          "timestamp": "2026-02-23T10:00:23.200Z",
+          "type": "trust_update",
+          "severity": "warn",
+          "message": "Arbiter-3 trust continuing decline: score=0.742",
+          "tags": [
+            "trust",
+            "decline",
+            "arbiter"
+          ],
+          "agentId": "agent_arbiter"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:23.200Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9227,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.7299,
+          "authorityWeight": 0.9,
+          "status": "probation",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.3782,
+          "authorityWeight": 0.7,
+          "status": "suppressed",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9484,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8236,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_30_1",
+          "timestamp": "2026-02-23T10:00:24.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "System heartbeat -- frame 30. All governance loops nominal.",
+          "tags": [
+            "heartbeat",
+            "governance"
+          ]
+        },
+        {
+          "id": "evt_demo_30_2",
+          "timestamp": "2026-02-23T10:00:24.000Z",
+          "type": "probation",
+          "severity": "warn",
+          "message": "Arbiter-3 placed on probation: trust score 0.7299 breached threshold 0.70. Routing authority reduced.",
+          "tags": [
+            "probation",
+            "arbiter",
+            "threshold"
+          ],
+          "agentId": "agent_arbiter"
+        },
+        {
+          "id": "evt_demo_30_3",
+          "timestamp": "2026-02-23T10:00:24.000Z",
+          "type": "status_change",
+          "severity": "warn",
+          "message": "Arbiter-3 status changed: active -> probation",
+          "tags": [
+            "status",
+            "probation",
+            "arbiter"
+          ],
+          "agentId": "agent_arbiter"
+        },
+        {
+          "id": "evt_demo_30_4",
+          "timestamp": "2026-02-23T10:00:24.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Periodic trust snapshot -- Sentinel=0.9227, Executor=0.9484",
+          "tags": [
+            "trust",
+            "snapshot"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:24.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.921,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.7257,
+          "authorityWeight": 0.9,
+          "status": "probation",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.3817,
+          "authorityWeight": 0.7,
+          "status": "suppressed",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9472,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8244,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [],
+      "timestamp": "2026-02-23T10:00:24.800Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9208,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.7238,
+          "authorityWeight": 0.9,
+          "status": "probation",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.3791,
+          "authorityWeight": 0.7,
+          "status": "suppressed",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9487,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8197,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [],
+      "timestamp": "2026-02-23T10:00:25.600Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9193,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.719,
+          "authorityWeight": 0.9,
+          "status": "probation",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.3786,
+          "authorityWeight": 0.7,
+          "status": "suppressed",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9458,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8223,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_33_1",
+          "timestamp": "2026-02-23T10:00:26.400Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Periodic trust snapshot -- Sentinel=0.9193, Executor=0.9458",
+          "tags": [
+            "trust",
+            "snapshot"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:26.400Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9193,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.7146,
+          "authorityWeight": 0.9,
+          "status": "probation",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.3819,
+          "authorityWeight": 0.7,
+          "status": "suppressed",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9466,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8258,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [],
+      "timestamp": "2026-02-23T10:00:27.200Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.919,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.7088,
+          "authorityWeight": 0.9,
+          "status": "probation",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.3784,
+          "authorityWeight": 0.7,
+          "status": "suppressed",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9502,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8271,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_35_1",
+          "timestamp": "2026-02-23T10:00:28.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "System heartbeat -- frame 35. All governance loops nominal.",
+          "tags": [
+            "heartbeat",
+            "governance"
+          ]
+        },
+        {
+          "id": "evt_demo_35_2",
+          "timestamp": "2026-02-23T10:00:28.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Arbiter-3 showing recovery signals: trust=0.7088. Routing recalibration in effect.",
+          "tags": [
+            "trust",
+            "recovery",
+            "arbiter"
+          ],
+          "agentId": "agent_arbiter"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:28.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9187,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.7164,
+          "authorityWeight": 0.9,
+          "status": "probation",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.3791,
+          "authorityWeight": 0.7,
+          "status": "suppressed",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9525,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8244,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_36_1",
+          "timestamp": "2026-02-23T10:00:28.800Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Periodic trust snapshot -- Sentinel=0.9187, Executor=0.9525",
+          "tags": [
+            "trust",
+            "snapshot"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:28.800Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9234,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.7254,
+          "authorityWeight": 0.9,
+          "status": "probation",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.3808,
+          "authorityWeight": 0.7,
+          "status": "suppressed",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9458,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8237,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [],
+      "timestamp": "2026-02-23T10:00:29.600Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9173,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.7341,
+          "authorityWeight": 0.9,
+          "status": "probation",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.3799,
+          "authorityWeight": 0.7,
+          "status": "suppressed",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.954,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8282,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_38_1",
+          "timestamp": "2026-02-23T10:00:30.400Z",
+          "type": "mutation",
+          "severity": "warn",
+          "message": "Governance mutation: driftDelta threshold tightened from 0.08 to 0.06. System adapting to recent instability in Arbiter-3 and Collector-9.",
+          "tags": [
+            "mutation",
+            "threshold",
+            "adaptation",
+            "governance"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:30.400Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9181,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.74,
+          "authorityWeight": 0.9,
+          "status": "probation",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.3794,
+          "authorityWeight": 0.7,
+          "status": "suppressed",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9457,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8295,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_39_1",
+          "timestamp": "2026-02-23T10:00:31.200Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Periodic trust snapshot -- Sentinel=0.9181, Executor=0.9457",
+          "tags": [
+            "trust",
+            "snapshot"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:31.200Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9231,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.75,
+          "authorityWeight": 0.9,
+          "status": "probation",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.3807,
+          "authorityWeight": 0.7,
+          "status": "suppressed",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9504,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8229,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_40_1",
+          "timestamp": "2026-02-23T10:00:32.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "System heartbeat -- frame 40. All governance loops nominal.",
+          "tags": [
+            "heartbeat",
+            "governance"
+          ]
+        },
+        {
+          "id": "evt_demo_40_2",
+          "timestamp": "2026-02-23T10:00:32.000Z",
+          "type": "routing_freeze",
+          "severity": "warn",
+          "message": "Temporary routing freeze enacted: stability concerns due to prolonged Collector-9 suppression and Arbiter-3 probation. Re-evaluation in progress.",
+          "tags": [
+            "routing",
+            "freeze",
+            "stability"
+          ]
+        },
+        {
+          "id": "evt_demo_40_3",
+          "timestamp": "2026-02-23T10:00:32.000Z",
+          "type": "threshold_breach",
+          "severity": "warn",
+          "message": "Auditor-5 threshold breach alert: prolonged suppression of Collector-9 (17 frames) impacting system data pipeline stability.",
+          "tags": [
+            "threshold",
+            "collector",
+            "stability",
+            "prolonged"
+          ],
+          "agentId": "agent_auditor"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:32.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9203,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.759,
+          "authorityWeight": 0.9,
+          "status": "probation",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.3808,
+          "authorityWeight": 0.7,
+          "status": "suppressed",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9543,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8236,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_41_1",
+          "timestamp": "2026-02-23T10:00:32.800Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Collector-9 recovery initiated: trust climbing from 0.38. Data validation modules reloaded.",
+          "tags": [
+            "trust",
+            "recovery",
+            "collector"
+          ],
+          "agentId": "agent_collector"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:32.800Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9214,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.7676,
+          "authorityWeight": 0.9,
+          "status": "probation",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.3976,
+          "authorityWeight": 0.7,
+          "status": "probation",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9463,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8274,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_42_1",
+          "timestamp": "2026-02-23T10:00:33.600Z",
+          "type": "status_change",
+          "severity": "info",
+          "message": "Collector-9 status changed: suppressed -> probation. Trust=0.3976. Limited data collection resumed.",
+          "tags": [
+            "status",
+            "probation",
+            "collector",
+            "recovery"
+          ],
+          "agentId": "agent_collector"
+        },
+        {
+          "id": "evt_demo_42_2",
+          "timestamp": "2026-02-23T10:00:33.600Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Periodic trust snapshot -- Sentinel=0.9214, Executor=0.9463",
+          "tags": [
+            "trust",
+            "snapshot"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:33.600Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9168,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.7723,
+          "authorityWeight": 0.9,
+          "status": "probation",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.4197,
+          "authorityWeight": 0.7,
+          "status": "probation",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9478,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8317,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [],
+      "timestamp": "2026-02-23T10:00:34.400Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9222,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.7817,
+          "authorityWeight": 0.9,
+          "status": "probation",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.4385,
+          "authorityWeight": 0.7,
+          "status": "probation",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9486,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8263,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [],
+      "timestamp": "2026-02-23T10:00:35.200Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9217,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.7904,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.4546,
+          "authorityWeight": 0.7,
+          "status": "probation",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9518,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8298,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_45_1",
+          "timestamp": "2026-02-23T10:00:36.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "System heartbeat -- frame 45. All governance loops nominal.",
+          "tags": [
+            "heartbeat",
+            "governance"
+          ]
+        },
+        {
+          "id": "evt_demo_45_2",
+          "timestamp": "2026-02-23T10:00:36.000Z",
+          "type": "status_change",
+          "severity": "info",
+          "message": "Arbiter-3 status changed: probation -> active. Trust=0.7904 now above threshold. Full routing authority restored.",
+          "tags": [
+            "status",
+            "active",
+            "arbiter",
+            "recovery"
+          ],
+          "agentId": "agent_arbiter"
+        },
+        {
+          "id": "evt_demo_45_3",
+          "timestamp": "2026-02-23T10:00:36.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Periodic trust snapshot -- Sentinel=0.9217, Executor=0.9518",
+          "tags": [
+            "trust",
+            "snapshot"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:36.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9167,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.7891,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.4742,
+          "authorityWeight": 0.7,
+          "status": "probation",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9494,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8288,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [],
+      "timestamp": "2026-02-23T10:00:36.800Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9203,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.795,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.4939,
+          "authorityWeight": 0.7,
+          "status": "probation",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9541,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8324,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [],
+      "timestamp": "2026-02-23T10:00:37.600Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.919,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.7986,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.5148,
+          "authorityWeight": 0.7,
+          "status": "probation",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.945,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8323,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_48_1",
+          "timestamp": "2026-02-23T10:00:38.400Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Periodic trust snapshot -- Sentinel=0.919, Executor=0.945",
+          "tags": [
+            "trust",
+            "snapshot"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:38.400Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9235,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.7966,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.5336,
+          "authorityWeight": 0.7,
+          "status": "probation",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9459,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8294,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [],
+      "timestamp": "2026-02-23T10:00:39.200Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9211,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8022,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.5526,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9463,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8367,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_50_1",
+          "timestamp": "2026-02-23T10:00:40.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "System heartbeat -- frame 50. All governance loops nominal.",
+          "tags": [
+            "heartbeat",
+            "governance"
+          ]
+        },
+        {
+          "id": "evt_demo_50_2",
+          "timestamp": "2026-02-23T10:00:40.000Z",
+          "type": "status_change",
+          "severity": "info",
+          "message": "Collector-9 status changed: probation -> active. Trust=0.5526. Full data collection privileges restored.",
+          "tags": [
+            "status",
+            "active",
+            "collector",
+            "recovery"
+          ],
+          "agentId": "agent_collector"
+        },
+        {
+          "id": "evt_demo_50_3",
+          "timestamp": "2026-02-23T10:00:40.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "System stabilizing -- agent_sentinel trust=0.9211",
+          "tags": [
+            "trust",
+            "stability",
+            "recovery"
+          ],
+          "agentId": "agent_sentinel"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:40.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9191,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.803,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.5606,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9493,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8349,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_51_1",
+          "timestamp": "2026-02-23T10:00:40.800Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "System stabilizing -- agent_arbiter trust=0.803",
+          "tags": [
+            "trust",
+            "stability",
+            "recovery"
+          ],
+          "agentId": "agent_arbiter"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:40.800Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9191,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8035,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.5739,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9452,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8344,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_52_1",
+          "timestamp": "2026-02-23T10:00:41.600Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "System stabilizing -- agent_collector trust=0.5739",
+          "tags": [
+            "trust",
+            "stability",
+            "recovery"
+          ],
+          "agentId": "agent_collector"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:41.600Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9209,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8038,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.5882,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9538,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8362,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_53_1",
+          "timestamp": "2026-02-23T10:00:42.400Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "System stabilizing -- agent_executor trust=0.9538",
+          "tags": [
+            "trust",
+            "stability",
+            "recovery"
+          ],
+          "agentId": "agent_executor"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:42.400Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9204,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8106,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.6034,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9489,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8379,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_54_1",
+          "timestamp": "2026-02-23T10:00:43.200Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "System stabilizing -- agent_auditor trust=0.8379",
+          "tags": [
+            "trust",
+            "stability",
+            "recovery"
+          ],
+          "agentId": "agent_auditor"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:43.200Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9207,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8078,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.6135,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9477,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8406,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_55_1",
+          "timestamp": "2026-02-23T10:00:44.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "System heartbeat -- frame 55. All governance loops nominal.",
+          "tags": [
+            "heartbeat",
+            "governance"
+          ]
+        },
+        {
+          "id": "evt_demo_55_2",
+          "timestamp": "2026-02-23T10:00:44.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "System stabilizing -- agent_sentinel trust=0.9207",
+          "tags": [
+            "trust",
+            "stability",
+            "recovery"
+          ],
+          "agentId": "agent_sentinel"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:44.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9187,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8111,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.6253,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9482,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8403,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_56_1",
+          "timestamp": "2026-02-23T10:00:44.800Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "System stabilizing -- agent_arbiter trust=0.8111",
+          "tags": [
+            "trust",
+            "stability",
+            "recovery"
+          ],
+          "agentId": "agent_arbiter"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:44.800Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9235,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8116,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.6384,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9508,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8348,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_57_1",
+          "timestamp": "2026-02-23T10:00:45.600Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "System stabilizing -- agent_collector trust=0.6384",
+          "tags": [
+            "trust",
+            "stability",
+            "recovery"
+          ],
+          "agentId": "agent_collector"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:45.600Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9224,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.814,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.656,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.9496,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8421,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_58_1",
+          "timestamp": "2026-02-23T10:00:46.400Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "System stabilizing -- agent_executor trust=0.9496",
+          "tags": [
+            "trust",
+            "stability",
+            "recovery"
+          ],
+          "agentId": "agent_executor"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:46.400Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "agent_sentinel",
+          "trustScore": 0.9175,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "role": "sentinel",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_arbiter",
+          "trustScore": 0.8195,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "arbitration"
+          ],
+          "labels": {
+            "role": "arbiter",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_collector",
+          "trustScore": 0.6688,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "collection",
+            "validation"
+          ],
+          "labels": {
+            "role": "collector",
+            "env": "production"
+          }
+        },
+        {
+          "id": "agent_executor",
+          "trustScore": 0.949,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "scheduling"
+          ],
+          "labels": {
+            "role": "executor",
+            "env": "production",
+            "tier": "critical"
+          }
+        },
+        {
+          "id": "agent_auditor",
+          "trustScore": 0.8405,
+          "authorityWeight": 0.6,
+          "status": "active",
+          "capabilities": [
+            "auditing",
+            "compliance"
+          ],
+          "labels": {
+            "role": "auditor",
+            "env": "production"
+          }
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_demo_59_1",
+          "timestamp": "2026-02-23T10:00:47.200Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "System stabilizing -- agent_auditor trust=0.8405",
+          "tags": [
+            "trust",
+            "stability",
+            "recovery"
+          ],
+          "agentId": "agent_auditor"
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:47.200Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    }
+  ]
+}
