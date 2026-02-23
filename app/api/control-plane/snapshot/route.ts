@@ -65,6 +65,7 @@ function toEventType(value: unknown): GovernanceEventType {
     case "suppression":
     case "probation":
     case "mutation":
+    case "reflection":
     case "routing_freeze":
     case "system_alert":
     case "status_change":

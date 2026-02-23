@@ -21,6 +21,7 @@ export type GovernanceEventType =
   | "suppression"
   | "probation"
   | "mutation"
+  | "reflection"
   | "routing_freeze"
   | "system_alert"
   | "status_change"
@@ -42,8 +43,10 @@ export type DataSourceKey =
   | "replay_infra_chain"
   | "replay_readmission"
   | "replay_finance"
+  | "replay_fraud"
   | "live_api"
   | "live_ws"
+  | "live_events_stream"
 
 export interface GovernanceSnapshot {
   timestamp: string

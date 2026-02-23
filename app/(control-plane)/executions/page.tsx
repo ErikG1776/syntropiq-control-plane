@@ -1,28 +1,105 @@
 "use client"
 
-import { Card } from "@/components/ui/card"
+import { useEffect, useMemo, useState } from "react"
 import { Badge } from "@/components/ui/badge"
+import { Card } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { useGovernanceStore } from "@/store/governance-store"
+import type { BackendGovernanceCycleV1 } from "@/lib/adapters/telemetry"
+
+function formatPct(value: number): string {
+  return `${(value * 100).toFixed(1)}%`
+}
+
+function AuthorityRedistributionBar({ cycle }: { cycle: BackendGovernanceCycleV1 }) {
+  const entries = Object.entries(cycle.authority_redistribution)
+    .map(([agentId, delta]) => ({ agentId, delta, weight: Math.abs(delta) }))
+    .sort((a, b) => b.weight - a.weight)
+    .slice(0, 3)
+
+  if (entries.length === 0) {
+    return <div className="text-xs text-muted-foreground">No authority movement</div>
+  }
+
+  const total = entries.reduce((sum, entry) => sum + entry.weight, 0) || 1
+  const colors = ["bg-sky-500/70", "bg-amber-500/70", "bg-fuchsia-500/70"]
+
+  return (
+    <div className="space-y-1">
+      <div className="h-2 w-full overflow-hidden rounded bg-muted">
+        <div className="flex h-full w-full">
+          {entries.map((entry, idx) => (
+            <div
+              key={entry.agentId}
+              className={`${colors[idx]} authority-segment`}
+              style={{ width: `${(entry.weight / total) * 100}%` }}
+              title={`${entry.agentId}: ${entry.delta >= 0 ? "+" : ""}${entry.delta.toFixed(3)}`}
+            />
+          ))}
+        </div>
+      </div>
+      <div className="flex flex-wrap gap-2 text-[11px] text-muted-foreground">
+        {entries.map((entry, idx) => (
+          <span key={entry.agentId} className="inline-flex items-center gap-1">
+            <span className={`inline-block h-2 w-2 rounded ${colors[idx]}`} />
+            {entry.agentId}: {entry.delta >= 0 ? "+" : ""}
+            {entry.delta.toFixed(3)}
+          </span>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 export default function ExecutionsPage() {
   const connected = useGovernanceStore((s) => s.connected)
-  const events = useGovernanceStore((s) => s.events)
-  const history = useGovernanceStore((s) => s.history)
+  const [cycles, setCycles] = useState<BackendGovernanceCycleV1[]>([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const mutationEvents = events.filter((e) => e.type === "mutation")
-  const trustUpdates = events.filter((e) => e.type === "trust_update")
-  const suppressions = events.filter((e) => e.type === "suppression")
+  useEffect(() => {
+    if (!connected) return
+    let cancelled = false
 
-  const latestSnapshot = history.length > 0 ? history[history.length - 1] : null
-  const agentCount = latestSnapshot?.agents.length ?? 0
+    const load = async () => {
+      setLoading(true)
+      setError(null)
+      try {
+        const res = await fetch("/api/control-plane/cycles?limit=50", { cache: "no-store" })
+        if (!res.ok) throw new Error(`Cycle adapter unavailable (${res.status})`)
+        const json = await res.json()
+        if (cancelled) return
+        setCycles(Array.isArray(json) ? json : [])
+      } catch (err) {
+        if (cancelled) return
+        setError(err instanceof Error ? err.message : "Failed to load cycles")
+      } finally {
+        if (!cancelled) setLoading(false)
+      }
+    }
+
+    void load()
+    const interval = setInterval(load, 5000)
+    return () => {
+      cancelled = true
+      clearInterval(interval)
+    }
+  }, [connected])
+
+  const summary = useMemo(() => {
+    const total = cycles.length
+    const successes = cycles.reduce((sum, cycle) => sum + cycle.successes, 0)
+    const failures = cycles.reduce((sum, cycle) => sum + cycle.failures, 0)
+    const trustDelta = cycles.reduce((sum, cycle) => sum + cycle.trust_delta_total, 0)
+    return { total, successes, failures, trustDelta }
+  }, [cycles])
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Executions</h1>
         <p className="text-sm text-muted-foreground">
-          Governance cycle summaries and task execution history.
+          Governance cycle summaries from the control-plane adapter.
         </p>
       </div>
 
@@ -32,96 +109,84 @@ export default function ExecutionsPage() {
         </Card>
       ) : (
         <>
-          {/* Summary stats */}
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
             <Card className="p-4">
-              <div className="text-xs uppercase tracking-wide text-muted-foreground">
-                Cycles Observed
-              </div>
-              <div className="mt-2 text-2xl font-semibold">{history.length}</div>
+              <div className="text-xs uppercase tracking-wide text-muted-foreground">Cycles</div>
+              <div className="mt-2 text-2xl font-semibold">{summary.total}</div>
             </Card>
             <Card className="p-4">
-              <div className="text-xs uppercase tracking-wide text-muted-foreground">
-                Trust Updates
-              </div>
-              <div className="mt-2 text-2xl font-semibold">{trustUpdates.length}</div>
+              <div className="text-xs uppercase tracking-wide text-muted-foreground">Successes</div>
+              <div className="mt-2 text-2xl font-semibold">{summary.successes}</div>
             </Card>
             <Card className="p-4">
-              <div className="text-xs uppercase tracking-wide text-muted-foreground">
-                Mutations
-              </div>
-              <div className="mt-2 text-2xl font-semibold">{mutationEvents.length}</div>
+              <div className="text-xs uppercase tracking-wide text-muted-foreground">Failures</div>
+              <div className="mt-2 text-2xl font-semibold">{summary.failures}</div>
             </Card>
             <Card className="p-4">
-              <div className="text-xs uppercase tracking-wide text-muted-foreground">
-                Suppressions
-              </div>
-              <div className="mt-2 text-2xl font-semibold">{suppressions.length}</div>
+              <div className="text-xs uppercase tracking-wide text-muted-foreground">Trust Delta</div>
+              <div className="mt-2 text-2xl font-semibold">{summary.trustDelta.toFixed(3)}</div>
             </Card>
           </div>
 
-          {/* Recent cycles from snapshot history */}
           <Card className="p-5">
             <h2 className="text-base font-semibold mb-1">Recent Governance Cycles</h2>
             <p className="text-xs text-muted-foreground mb-4">
-              Last {Math.min(history.length, 20)} observed snapshots
+              run_id, agent outcomes, redistribution, and cycle event lists
             </p>
             <Separator className="mb-4" />
 
-            {history.length === 0 ? (
-              <p className="text-sm text-muted-foreground">
-                No cycle data yet. Data will appear as governance snapshots arrive.
-              </p>
+            {loading && cycles.length === 0 ? (
+              <p className="text-sm text-muted-foreground">Loading cycles...</p>
+            ) : error ? (
+              <p className="text-sm text-red-500">{error}</p>
+            ) : cycles.length === 0 ? (
+              <p className="text-sm text-muted-foreground">No cycles available yet.</p>
             ) : (
-              <div className="space-y-2">
-                {history.slice(-20).reverse().map((snap, idx) => {
-                  const activeCount = snap.agents.filter((a) => a.status === "active").length
-                  const suppressedCount = snap.suppressedCount
-                  const avgTrust =
-                    snap.agents.length > 0
-                      ? snap.agents.reduce((s, a) => s + a.trustScore, 0) / snap.agents.length
-                      : 0
-
-                  return (
-                    <div
-                      key={`${snap.timestamp}-${idx}`}
-                      className="flex items-center justify-between rounded border px-3 py-2 text-sm"
-                    >
-                      <div className="flex items-center gap-3">
-                        <span className="font-mono text-xs text-muted-foreground w-6">
-                          {snap.sequence ?? idx + 1}
-                        </span>
-                        <span className="text-xs text-muted-foreground">
-                          {new Date(snap.timestamp).toLocaleTimeString()}
-                        </span>
-                        <Badge variant={snap.healthy !== false ? "default" : "destructive"}>
-                          {snap.healthy !== false ? "healthy" : "unhealthy"}
-                        </Badge>
+              <div className="space-y-3">
+                {cycles
+                  .slice()
+                  .reverse()
+                  .map((cycle) => {
+                    const total = Math.max(1, cycle.successes + cycle.failures)
+                    const successRate = cycle.successes / total
+                    return (
+                      <div key={cycle.cycle_id} className="rounded border p-3">
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                          <div className="flex items-center gap-2">
+                            <Badge variant="outline">{cycle.run_id}</Badge>
+                            <Badge variant="secondary">{cycle.cycle_id}</Badge>
+                            <span className="text-xs text-muted-foreground">
+                              {new Date(cycle.timestamp).toLocaleString()}
+                            </span>
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            {cycle.total_agents} agents | success {formatPct(successRate)}
+                          </div>
+                        </div>
+                        <div className="mt-2 flex flex-wrap gap-3 text-xs text-muted-foreground">
+                          <span>successes: {cycle.successes}</span>
+                          <span>failures: {cycle.failures}</span>
+                          <span>trust delta: {cycle.trust_delta_total.toFixed(3)}</span>
+                        </div>
+                        <div className="mt-2 text-xs text-muted-foreground">
+                          authority redistribution:{" "}
+                          {Object.keys(cycle.authority_redistribution).length > 0
+                            ? Object.entries(cycle.authority_redistribution)
+                                .map(([agentId, delta]) => `${agentId}:${delta >= 0 ? "+" : ""}${delta.toFixed(3)}`)
+                                .join(", ")
+                            : "none"}
+                        </div>
+                        <div className="mt-2">
+                          <AuthorityRedistributionBar cycle={cycle} />
+                        </div>
+                        <div className="mt-2 text-xs text-muted-foreground">
+                          events: {cycle.events.map((event) => event.type).join(", ") || "none"}
+                        </div>
                       </div>
-                      <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                        <span>{snap.agents.length} agents</span>
-                        <span>{activeCount} active</span>
-                        {suppressedCount > 0 && (
-                          <span className="text-red-500">{suppressedCount} suppressed</span>
-                        )}
-                        <span>avg trust: {avgTrust.toFixed(3)}</span>
-                        <span>{snap.eventCount} events</span>
-                      </div>
-                    </div>
-                  )
-                })}
+                    )
+                  })}
               </div>
             )}
-          </Card>
-
-          {/* Future: Task submission panel */}
-          <Card className="p-5 border-dashed">
-            <h2 className="text-base font-semibold mb-1 text-muted-foreground">
-              Task Submission
-            </h2>
-            <p className="text-xs text-muted-foreground">
-              Submit governance tasks via POST /api/v1/tasks/submit. This panel will be enabled when RBAC controls are in place.
-            </p>
           </Card>
         </>
       )}

@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import {
@@ -68,9 +69,26 @@ function StatusBadge({ status }: { status: string }) {
       : status === "probation"
         ? "secondary"
         : status === "active"
-          ? "default"
+          ? "outline"
           : "outline"
 
+  if (status === "suppressed") {
+    return (
+      <Badge variant={variant} className="suppressed-badge-pulse">
+        SUPPRESSED
+      </Badge>
+    )
+  }
+  if (status === "active") {
+    return (
+      <Badge
+        variant={variant}
+        className="border-emerald-500/40 bg-emerald-500/15 text-emerald-300"
+      >
+        active
+      </Badge>
+    )
+  }
   return <Badge variant={variant}>{status}</Badge>
 }
 
@@ -99,10 +117,20 @@ function formatThreshold(v: number): string {
   return v < 0 ? "\u2014" : v.toFixed(2)
 }
 
+function formatDelta(v: number): string {
+  if (Math.abs(v) < 0.0005) return "0.000"
+  return `${v > 0 ? "+" : ""}${v.toFixed(3)}`
+}
+
 export function AgentRegistryPanel() {
   const snapshot = useGovernanceStore((s) => s.snapshot)
+  const events = useGovernanceStore((s) => s.events)
   const agents = snapshot?.agents ?? []
   const trustThreshold = snapshot?.thresholds.trustThreshold ?? -1
+  const [trustFlash, setTrustFlash] = useState<Record<string, "up" | "down">>({})
+  const [statusFlash, setStatusFlash] = useState<Record<string, "suppressed" | "recovered">>({})
+  const previousTrust = useRef<Record<string, number>>({})
+  const previousStatus = useRef<Record<string, string>>({})
 
   const sorted = [...agents].sort((a, b) => {
     const aSupp = a.status === "suppressed" ? 0 : 1
@@ -110,6 +138,66 @@ export function AgentRegistryPanel() {
     if (aSupp !== bSupp) return aSupp - bSupp
     return a.trustScore - b.trustScore
   })
+
+  const trustDeltaByAgent = useMemo(() => {
+    const latest = new Map<string, { current: number; previous: number }>()
+    for (let i = events.length - 1; i >= 0; i -= 1) {
+      const event = events[i]
+      if (event.type !== "trust_update" || !event.agentId) continue
+      const metadata = event.metadata ?? {}
+      const trustAfter = metadata.trustAfter
+      const trustBefore = metadata.trustBefore
+      if (typeof trustAfter !== "number" || typeof trustBefore !== "number") continue
+      if (!latest.has(event.agentId)) {
+        latest.set(event.agentId, { current: trustAfter, previous: trustBefore })
+      }
+    }
+    return latest
+  }, [events])
+
+  useEffect(() => {
+    const trustTimeouts: ReturnType<typeof setTimeout>[] = []
+    const statusTimeouts: ReturnType<typeof setTimeout>[] = []
+
+    for (const agent of agents) {
+      const prevTrust = previousTrust.current[agent.id]
+      if (prevTrust !== undefined && Math.abs(agent.trustScore - prevTrust) > 0.0001) {
+        const direction = agent.trustScore > prevTrust ? "up" : "down"
+        setTrustFlash((state) => ({ ...state, [agent.id]: direction }))
+        trustTimeouts.push(
+          setTimeout(() => {
+            setTrustFlash((state) => {
+              const next = { ...state }
+              delete next[agent.id]
+              return next
+            })
+          }, 900),
+        )
+      }
+      previousTrust.current[agent.id] = agent.trustScore
+
+      const prevStatus = previousStatus.current[agent.id]
+      if (prevStatus && prevStatus !== agent.status) {
+        const tone = agent.status === "suppressed" ? "suppressed" : "recovered"
+        setStatusFlash((state) => ({ ...state, [agent.id]: tone }))
+        statusTimeouts.push(
+          setTimeout(() => {
+            setStatusFlash((state) => {
+              const next = { ...state }
+              delete next[agent.id]
+              return next
+            })
+          }, 1200),
+        )
+      }
+      previousStatus.current[agent.id] = agent.status
+    }
+
+    return () => {
+      for (const timeout of trustTimeouts) clearTimeout(timeout)
+      for (const timeout of statusTimeouts) clearTimeout(timeout)
+    }
+  }, [agents])
 
   return (
     <Card className="p-5">
@@ -131,6 +219,7 @@ export function AgentRegistryPanel() {
               <TableHead>Status</TableHead>
               <TableHead className="text-right">Trust</TableHead>
               <TableHead className="w-[80px] text-center">Trend</TableHead>
+              <TableHead className="text-right">Delta</TableHead>
               <TableHead className="text-right">Authority</TableHead>
               <TableHead className="w-[80px]">Sparkline</TableHead>
               <TableHead>Breach</TableHead>
@@ -138,8 +227,29 @@ export function AgentRegistryPanel() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {sorted.map((agent) => (
-              <TableRow key={agent.id} className="cursor-pointer">
+            {sorted.map((agent) => {
+              const trustDelta = trustDeltaByAgent.get(agent.id)
+              const deltaValue = trustDelta ? trustDelta.current - trustDelta.previous : 0
+              const deltaClass =
+                Math.abs(deltaValue) < 0.0005
+                  ? "text-muted-foreground"
+                  : deltaValue > 0
+                    ? "text-emerald-400"
+                    : "text-red-400"
+              const trustFlashClass =
+                trustFlash[agent.id] === "up"
+                  ? "trust-flash-up"
+                  : trustFlash[agent.id] === "down"
+                    ? "trust-flash-down"
+                    : ""
+              const statusClass =
+                statusFlash[agent.id] === "suppressed"
+                  ? "row-suppressed-flash"
+                  : statusFlash[agent.id] === "recovered"
+                    ? "row-recovered-flash"
+                    : ""
+              return (
+              <TableRow key={agent.id} className={`cursor-pointer transition-colors ${statusClass}`}>
                 <TableCell>
                   <Link
                     href={`/agents/${agent.id}`}
@@ -151,11 +261,20 @@ export function AgentRegistryPanel() {
                 <TableCell>
                   <StatusBadge status={agent.status} />
                 </TableCell>
-                <TableCell className="text-right font-mono text-sm">
+                <TableCell
+                  className={[
+                    "text-right font-mono text-sm transition-all duration-300",
+                    trustFlashClass,
+                    agent.status === "suppressed" ? "opacity-70" : "",
+                  ].join(" ")}
+                >
                   {formatScore(agent.trustScore)}
                 </TableCell>
                 <TableCell className="text-center">
                   <TrendArrow agentId={agent.id} />
+                </TableCell>
+                <TableCell className={`text-right font-mono text-xs ${deltaClass}`}>
+                  {formatDelta(deltaValue)}
                 </TableCell>
                 <TableCell className="text-right font-mono text-sm">
                   {formatScore(agent.authorityWeight)}
@@ -173,7 +292,7 @@ export function AgentRegistryPanel() {
                   {agent.capabilities?.join(", ") || "\u2014"}
                 </TableCell>
               </TableRow>
-            ))}
+            )})}
           </TableBody>
         </Table>
       )}

@@ -2,10 +2,12 @@ import type { DataSourceKey } from "@/lib/governance/schema"
 import type { GovernanceDataSource } from "@/lib/datasources/types"
 import {
   normalizeFinance,
+  normalizeFraudReplay,
   normalizeInfraChain,
   normalizeReadmission,
 } from "@/lib/datasources/normalize"
 import { runReplayStream } from "@/lib/datasources/replay"
+import { connectEventsSse } from "@/lib/datasources/sse"
 import { connectWebSocket } from "@/lib/datasources/websocket"
 
 const speedMs = 800
@@ -25,6 +27,7 @@ export const dataSources: Record<DataSourceKey, GovernanceDataSource> = {
         onStatus: opts.onStatus,
       }),
   },
+
   replay_readmission: {
     key: "replay_readmission",
     label: "Readmission Replay",
@@ -39,6 +42,7 @@ export const dataSources: Record<DataSourceKey, GovernanceDataSource> = {
         onStatus: opts.onStatus,
       }),
   },
+
   replay_finance: {
     key: "replay_finance",
     label: "Finance Replay",
@@ -53,6 +57,22 @@ export const dataSources: Record<DataSourceKey, GovernanceDataSource> = {
         onStatus: opts.onStatus,
       }),
   },
+
+  replay_fraud: {
+    key: "replay_fraud",
+    label: "Fraud Governance Replay",
+    mode: "replay",
+    connect: (opts) =>
+      runReplayStream({
+        source: "replay_fraud",
+        replayPath: "/replays/replay_fraud.json",
+        speedMs,
+        normalize: normalizeFraudReplay,
+        onMessage: opts.onMessage,
+        onStatus: opts.onStatus,
+      }),
+  },
+
   live_api: {
     key: "live_api",
     label: "Live API (Poll)",
@@ -105,12 +125,24 @@ export const dataSources: Record<DataSourceKey, GovernanceDataSource> = {
       }
     },
   },
+
   live_ws: {
     key: "live_ws",
     label: "Live WebSocket",
     mode: "stream",
     connect: (opts) =>
       connectWebSocket({
+        onMessage: opts.onMessage,
+        onStatus: opts.onStatus,
+      }),
+  },
+
+  live_events_stream: {
+    key: "live_events_stream",
+    label: "Live Governance Events (SSE)",
+    mode: "stream",
+    connect: (opts) =>
+      connectEventsSse({
         onMessage: opts.onMessage,
         onStatus: opts.onStatus,
       }),

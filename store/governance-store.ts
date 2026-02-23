@@ -26,8 +26,38 @@ interface GovernanceState {
 }
 
 const MAX_EVENTS = 1000
+const MAX_STABILITY_POINTS = 100
 let currentUnsubscribe: Unsubscribe | null = null
 let connectionEpoch = 0
+let seenStabilityCycleIds: string[] = []
+
+interface GovernanceEventFilters {
+  severity?: GovernanceEvent["severity"] | "all"
+  agentId?: string | "all"
+  type?: GovernanceEvent["type"] | "all"
+  windowMs?: number
+}
+
+function eventDedupKey(event: GovernanceEvent): string {
+  return `${event.id}|${event.timestamp}|${event.type}|${event.agentId ?? ""}`
+}
+
+function mergeEventsBounded(existing: GovernanceEvent[], incoming: GovernanceEvent[]): GovernanceEvent[] {
+  if (incoming.length === 0) return existing
+  const seen = new Set(existing.map(eventDedupKey))
+  const merged = [...existing]
+  for (const event of incoming) {
+    const key = eventDedupKey(event)
+    if (seen.has(key)) continue
+    seen.add(key)
+    merged.push(event)
+  }
+  return merged.length > MAX_EVENTS ? merged.slice(merged.length - MAX_EVENTS) : merged
+}
+
+function isStreamOnlySnapshot(snapshot: GovernanceSnapshot): boolean {
+  return snapshot.source === "live_events_stream"
+}
 
 function clearActiveSubscription() {
   if (currentUnsubscribe) {
@@ -38,6 +68,58 @@ function clearActiveSubscription() {
     }
     currentUnsubscribe = null
   }
+}
+
+function clearStabilityCycleCache() {
+  seenStabilityCycleIds = []
+}
+
+function rememberCycleId(cycleId: string): boolean {
+  if (!cycleId) return false
+  if (seenStabilityCycleIds.includes(cycleId)) return false
+  seenStabilityCycleIds.push(cycleId)
+  if (seenStabilityCycleIds.length > MAX_STABILITY_POINTS * 3) {
+    seenStabilityCycleIds = seenStabilityCycleIds.slice(
+      seenStabilityCycleIds.length - MAX_STABILITY_POINTS * 3,
+    )
+  }
+  return true
+}
+
+function appendStabilityPoint(
+  points: { ts: string; value: number }[],
+  point: { ts: string; value: number },
+): { ts: string; value: number }[] {
+  const next = [...points, point]
+  return next.length > MAX_STABILITY_POINTS
+    ? next.slice(next.length - MAX_STABILITY_POINTS)
+    : next
+}
+
+function getCycleIdFromEvent(event: GovernanceEvent): string | null {
+  const metadata = event.metadata ?? {}
+  const cycleId = metadata.cycleId
+  return typeof cycleId === "string" && cycleId.length > 0 ? cycleId : null
+}
+
+function computeStabilityFromTrustEvents(events: GovernanceEvent[]): { ts: string; value: number }[] {
+  const grouped = new Map<string, { ts: string; value: number }>()
+  for (const event of events) {
+    if (event.type !== "trust_update") continue
+    const cycleId = getCycleIdFromEvent(event)
+    if (!cycleId || !rememberCycleId(cycleId)) continue
+    const metadata = event.metadata ?? {}
+    const trustAfter = metadata.trustAfter
+    const authorityAfter = metadata.authorityAfter
+    if (typeof trustAfter !== "number" || typeof authorityAfter !== "number") continue
+    const prev = grouped.get(cycleId)
+    const nextValue = (prev?.value ?? 0) + trustAfter * authorityAfter
+    grouped.set(cycleId, {
+      ts: event.timestamp,
+      value: nextValue,
+    })
+  }
+  return Array.from(grouped.values()).sort((a, b) => Date.parse(a.ts) - Date.parse(b.ts))
 }
 
 export const useGovernanceStore = create<GovernanceState>((set) => ({
@@ -56,6 +138,7 @@ export const useGovernanceStore = create<GovernanceState>((set) => ({
     const requestEpoch = connectionEpoch
 
     clearActiveSubscription()
+    clearStabilityCycleCache()
     set({
       connected: false,
       connecting: true,
@@ -94,27 +177,37 @@ export const useGovernanceStore = create<GovernanceState>((set) => ({
         onMessage: (payload: GovernanceStreamPayload) => {
           if (requestEpoch !== connectionEpoch) return
           set((state) => {
-            const mergedEvents = [...state.events, ...payload.events]
-            const cappedEvents =
-              mergedEvents.length > MAX_EVENTS
-                ? mergedEvents.slice(mergedEvents.length - MAX_EVENTS)
-                : mergedEvents
-            const stability =
-              payload.snapshot.agents.length > 0
-                ? payload.snapshot.agents.reduce(
-                    (acc, a) => acc + a.trustScore * a.authorityWeight,
-                    0
-                  )
-                : 0
-            const newHistory = [
-              ...state.stabilityHistory,
-              { ts: payload.snapshot.timestamp, value: stability },
-            ].slice(-300)
+            const cappedEvents = mergeEventsBounded(state.events, payload.events)
+            const canUpdateSnapshot =
+              !isStreamOnlySnapshot(payload.snapshot) || state.snapshot === null
+
+            const nextSnapshot = canUpdateSnapshot ? payload.snapshot : state.snapshot
+
+            let newHistory = state.stabilityHistory
+            if (canUpdateSnapshot && nextSnapshot && nextSnapshot.agents.length > 0) {
+              const stability = nextSnapshot.agents.reduce(
+                (acc, a) => acc + a.trustScore * a.authorityWeight,
+                0,
+              )
+              newHistory = appendStabilityPoint(newHistory, {
+                ts: nextSnapshot.timestamp,
+                value: stability,
+              })
+            } else if (isStreamOnlySnapshot(payload.snapshot) && payload.events.length > 0) {
+              const derivedPoints = computeStabilityFromTrustEvents(payload.events)
+              for (const point of derivedPoints) {
+                newHistory = appendStabilityPoint(newHistory, point)
+              }
+            }
+
             return {
               ...state,
-              snapshot: payload.snapshot,
+              snapshot: nextSnapshot,
               events: cappedEvents,
-              history: [...state.history, payload.snapshot].slice(-300),
+              history:
+                canUpdateSnapshot && nextSnapshot
+                  ? [...state.history, nextSnapshot].slice(-MAX_STABILITY_POINTS)
+                  : state.history,
               stabilityHistory: newHistory,
               connected: true,
               connecting: false,
@@ -142,6 +235,7 @@ export const useGovernanceStore = create<GovernanceState>((set) => ({
   disconnect: () => {
     connectionEpoch += 1
     clearActiveSubscription()
+    clearStabilityCycleCache()
     set((state) => ({
       ...state,
       connecting: false,
@@ -154,6 +248,7 @@ export const useGovernanceStore = create<GovernanceState>((set) => ({
   reset: () => {
     connectionEpoch += 1
     clearActiveSubscription()
+    clearStabilityCycleCache()
     set({
       connected: false,
       source: null,
@@ -245,4 +340,25 @@ export function getRecentSuppressionTransitions(): string[] {
   }
 
   return transitions
+}
+
+export function selectFilteredEvents(filters: GovernanceEventFilters): GovernanceEvent[] {
+  const state = useGovernanceStore.getState()
+  const now = Date.now()
+  const severity = filters.severity ?? "all"
+  const agentId = filters.agentId ?? "all"
+  const type = filters.type ?? "all"
+  const windowMs = filters.windowMs ?? 0
+
+  return state.events.filter((event) => {
+    if (severity !== "all" && event.severity !== severity) return false
+    if (agentId !== "all" && event.agentId !== agentId) return false
+    if (type !== "all" && event.type !== type) return false
+    if (windowMs > 0) {
+      const ts = Date.parse(event.timestamp)
+      if (!Number.isFinite(ts)) return false
+      if (ts < now - windowMs) return false
+    }
+    return true
+  })
 }

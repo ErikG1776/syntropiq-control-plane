@@ -6,6 +6,7 @@ import { useGovernanceStore } from "@/store/governance-store"
 
 export default function EventsPage() {
   const connected = useGovernanceStore((s) => s.connected)
+  const source = useGovernanceStore((s) => s.source)
 
   return (
     <div className="space-y-6">
@@ -21,7 +22,14 @@ export default function EventsPage() {
           Connect a source to view the event stream.
         </Card>
       ) : (
-        <EventStreamPanel fullPage />
+        <div className="space-y-3">
+          {source !== "live_events_stream" && (
+            <Card className="p-3 text-xs text-muted-foreground">
+              Select <span className="font-medium text-foreground">Live Governance Events (SSE)</span> for real-time telemetry.
+            </Card>
+          )}
+          <EventStreamPanel fullPage />
+        </div>
       )}
     </div>
   )

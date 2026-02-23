@@ -54,6 +54,7 @@ function toType(value: unknown): GovernanceEventType {
     case "suppression":
     case "probation":
     case "mutation":
+    case "reflection":
     case "routing_freeze":
     case "system_alert":
     case "status_change":
@@ -184,6 +185,156 @@ function safeNormalize(json: unknown, source: DataSourceKey): GovernanceStreamPa
       events: [],
     }
   }
+}
+
+const FRAUD_REPLAY_BASE_MS = Date.UTC(2025, 0, 1, 0, 0, 0)
+
+let prevFraudCycle: number | undefined
+let prevFraudTrustThreshold: number | undefined
+let prevFraudSuppressionThreshold: number | undefined
+let prevFraudTrustByAgent: Record<string, number> = {}
+let prevFraudStatusByAgent: Record<string, AgentStatus> = {}
+
+export function normalizeFraudReplay(json: unknown): GovernanceStreamPayload {
+  const root = asRecord(json)
+  const frame = asRecord(root.frame)
+  const timelineEntry = asRecord(asArray(root.timeline)[0])
+  const cycleSrc =
+    Object.keys(frame).length > 0
+      ? frame
+      : Object.keys(timelineEntry).length > 0
+        ? timelineEntry
+        : root
+
+  const cycle = asNumber(cycleSrc.cycle, asNumber(root.sequence, 0))
+  const cycleId = String(cycle)
+  const timestamp = new Date(FRAUD_REPLAY_BASE_MS + cycle * 1000).toISOString()
+  const trustThreshold = asNumber(cycleSrc.trust_threshold, 0)
+  const suppressionThreshold = asNumber(cycleSrc.suppression_threshold, 0)
+  const suppressedAgents = asArray(cycleSrc.suppressed_agents)
+    .map((id) => asString(id))
+    .filter(Boolean)
+  const suppressedSet = new Set(suppressedAgents)
+  const trustScores = asRecord(cycleSrc.trust_scores)
+  const agents = Object.entries(trustScores).map(([id, rawTrustScore]) => {
+    const trustScore = asNumber(rawTrustScore, 0)
+    return {
+      id,
+      trustScore,
+      authorityWeight: trustScore,
+      status: suppressedSet.has(id) ? "suppressed" : "active",
+      capabilities: ["fraud_detection"],
+    } satisfies AgentState
+  })
+
+  const isSequential =
+    typeof prevFraudCycle === "number" ? cycle === prevFraudCycle + 1 : cycle === 0
+  if (!isSequential) {
+    prevFraudTrustThreshold = undefined
+    prevFraudSuppressionThreshold = undefined
+    prevFraudTrustByAgent = {}
+    prevFraudStatusByAgent = {}
+  }
+
+  const events: GovernanceEvent[] = []
+
+  for (const agent of agents) {
+    const trustBefore = prevFraudTrustByAgent[agent.id] ?? agent.trustScore
+    const authorityBefore = trustBefore
+    events.push({
+      id: `${cycle}-${agent.id}-trust`,
+      timestamp,
+      type: "trust_update",
+      severity: "info",
+      message: `Trust updated for ${agent.id}`,
+      agentId: agent.id,
+      metadata: {
+        trustBefore,
+        trustAfter: agent.trustScore,
+        authorityBefore,
+        authorityAfter: agent.authorityWeight,
+        cycleId,
+      },
+    })
+
+    const prevStatus = prevFraudStatusByAgent[agent.id]
+    if (prevStatus && prevStatus !== agent.status) {
+      events.push({
+        id: `${cycle}-${agent.id}-status-change`,
+        timestamp,
+        type: "status_change",
+        severity: agent.status === "suppressed" ? "warn" : "info",
+        message:
+          agent.status === "suppressed"
+            ? `Agent ${agent.id} status changed to suppressed`
+            : `Agent ${agent.id} status changed to active`,
+        agentId: agent.id,
+        metadata: {
+          statusBefore: prevStatus,
+          statusAfter: agent.status,
+          cycleId,
+        },
+      })
+    }
+  }
+
+  for (const agentId of suppressedAgents) {
+    events.push({
+      id: `${cycle}-${agentId}-suppressed`,
+      timestamp,
+      type: "suppression",
+      severity: "warn",
+      message: `Agent ${agentId} suppressed`,
+      agentId,
+      metadata: { cycleId },
+    })
+  }
+
+  if (
+    typeof prevFraudTrustThreshold === "number" &&
+    typeof prevFraudSuppressionThreshold === "number" &&
+    (trustThreshold !== prevFraudTrustThreshold ||
+      suppressionThreshold !== prevFraudSuppressionThreshold)
+  ) {
+    events.push({
+      id: `${cycle}-mutation`,
+      timestamp,
+      type: "mutation",
+      severity: "info",
+      message: "Governance thresholds mutated",
+      metadata: {
+        trust_threshold_before: prevFraudTrustThreshold,
+        trust_threshold_after: trustThreshold,
+        suppression_threshold_before: prevFraudSuppressionThreshold,
+        suppression_threshold_after: suppressionThreshold,
+        cycleId,
+      },
+    })
+  }
+
+  const snapshot: GovernanceSnapshot = {
+    timestamp,
+    source: "replay_fraud",
+    runId: "fraud_replay",
+    sequence: cycle,
+    healthy: true,
+    agents,
+    thresholds: {
+      trustThreshold,
+      suppressionThreshold,
+      driftDelta: 0.05,
+    },
+    eventCount: events.length,
+    suppressedCount: suppressedAgents.length,
+  }
+
+  prevFraudCycle = cycle
+  prevFraudTrustThreshold = trustThreshold
+  prevFraudSuppressionThreshold = suppressionThreshold
+  prevFraudTrustByAgent = Object.fromEntries(agents.map((agent) => [agent.id, agent.trustScore]))
+  prevFraudStatusByAgent = Object.fromEntries(agents.map((agent) => [agent.id, agent.status]))
+
+  return { snapshot, events }
 }
 
 export function normalizeInfraChain(json: unknown): GovernanceStreamPayload {

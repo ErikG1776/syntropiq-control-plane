@@ -19,6 +19,7 @@ function getHealthTone(latencyMs: number | null): "green" | "yellow" | "red" {
 const SOURCE_LABELS: Record<string, string> = {
   live_api: "Live API",
   live_ws: "WebSocket",
+  live_events_stream: "Events SSE",
   replay_infra_chain: "Replay: Infra",
   replay_readmission: "Replay: Readmission",
   replay_finance: "Replay: Finance",

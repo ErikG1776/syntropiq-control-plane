@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
@@ -15,6 +15,11 @@ const severityClass: Record<string, string> = {
   warn: "text-amber-600",
   error: "text-red-600",
   critical: "text-red-700 font-semibold",
+}
+const typeClass: Record<string, string> = {
+  trust_update: "border-blue-500/30 bg-blue-500/5",
+  mutation: "border-violet-500/35 bg-violet-500/8",
+  suppression: "border-red-500/40 bg-red-500/10",
 }
 
 const ALL = "__all__"
@@ -38,6 +43,10 @@ export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
   const [agentFilter, setAgentFilter] = useState(ALL)
   const [searchQuery, setSearchQuery] = useState("")
   const [timeWindow, setTimeWindow] = useState(0)
+  const [visibleCount, setVisibleCount] = useState(fullPage ? 120 : 60)
+  const loadMoreRef = useRef<HTMLDivElement | null>(null)
+  const knownEventIds = useRef<Set<string>>(new Set())
+  const [freshEventIds, setFreshEventIds] = useState<Set<string>>(new Set())
 
   const severities = useMemo(
     () => [...new Set(events.map((e) => e.severity))].sort(),
@@ -68,7 +77,46 @@ export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
     }).reverse()
   }, [events, severityFilter, typeFilter, agentFilter, searchQuery, timeWindow])
 
+  useEffect(() => {
+    setVisibleCount(fullPage ? 120 : 60)
+  }, [fullPage, severityFilter, typeFilter, agentFilter, searchQuery, timeWindow])
+
+  useEffect(() => {
+    if (!fullPage) return
+    const node = loadMoreRef.current
+    if (!node) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        if (!entry.isIntersecting) return
+        setVisibleCount((count) => Math.min(count + 120, filtered.length))
+      },
+      { root: null, rootMargin: "150px" },
+    )
+
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [filtered.length, fullPage])
+
+  useEffect(() => {
+    const nextFresh = new Set<string>()
+    for (const event of events.slice(-40)) {
+      if (!knownEventIds.current.has(event.id)) {
+        nextFresh.add(event.id)
+        knownEventIds.current.add(event.id)
+      }
+    }
+    if (nextFresh.size > 0) {
+      setFreshEventIds(nextFresh)
+      const timeout = setTimeout(() => setFreshEventIds(new Set()), 900)
+      return () => clearTimeout(timeout)
+    }
+    return
+  }, [events])
+
   const showFilters = fullPage
+  const visibleEvents = filtered.slice(0, fullPage ? visibleCount : Math.min(80, filtered.length))
 
   return (
     <Card className="p-5">
@@ -141,12 +189,19 @@ export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
       <Separator className="my-3" />
 
       <ScrollArea className={fullPage ? "h-[600px]" : "h-[320px]"}>
-        {filtered.length === 0 ? (
+        {visibleEvents.length === 0 ? (
           <p className="text-sm text-muted-foreground">No events match filters.</p>
         ) : (
           <div className="space-y-2">
-            {filtered.map((event) => (
-              <div key={event.id} className="rounded-md border px-3 py-2 text-sm">
+            {visibleEvents.map((event) => (
+              <div
+                key={event.id}
+                className={[
+                  "rounded-md border px-3 py-2 text-sm transition-colors",
+                  typeClass[event.type] ?? "border-border",
+                  freshEventIds.has(event.id) ? "event-fade-in" : "",
+                ].join(" ")}
+              >
                 <div className="flex items-center justify-between gap-3 text-xs">
                   <div className="flex items-center gap-2">
                     <span className={severityClass[event.severity] ?? severityClass.info}>
@@ -175,6 +230,11 @@ export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
                 )}
               </div>
             ))}
+            {fullPage && visibleCount < filtered.length && (
+              <div ref={loadMoreRef} className="py-2 text-center text-xs text-muted-foreground">
+                Loading more events...
+              </div>
+            )}
           </div>
         )}
       </ScrollArea>
