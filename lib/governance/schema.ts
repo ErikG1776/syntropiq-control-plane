@@ -64,6 +64,7 @@ export type DataSourceKey =
   | "replay_finance"
   | "replay_governance_demo"
   | "live_api"
+  | "live_grpc"
   | "live_ws"
   | "live_sse"
 

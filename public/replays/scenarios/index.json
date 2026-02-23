@@ -1,0 +1,8 @@
+[
+  {
+    "id": "governance_demo",
+    "label": "Governance Demo",
+    "description": "Full drift -> suppression -> mutation -> recovery narrative",
+    "file": "/replays/scenarios/governance_demo.json"
+  }
+]

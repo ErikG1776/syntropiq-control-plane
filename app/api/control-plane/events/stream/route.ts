@@ -8,7 +8,7 @@
  * GovernanceStreamPayload schema before forwarding.
  */
 
-import { normalizePayload } from "@/lib/datasources/normalize"
+import { resolveAdapter } from "@/lib/adapters"
 
 const BACKEND_BASE_URL = process.env.BACKEND_URL || "http://localhost:8000"
 
@@ -88,8 +88,10 @@ export async function GET(request: Request) {
 
             try {
               const raw = JSON.parse(jsonStr)
-              // Normalize through the unified pipeline
-              const payload = normalizePayload(raw, "live_sse")
+              // Normalize through adapter registry
+              const adapter = resolveAdapter(raw)
+              const payload = adapter.normalize(raw)
+              payload.snapshot.source = "live_sse"
               controller.enqueue(
                 encoder.encode(`data: ${JSON.stringify(payload)}\n\n`),
               )

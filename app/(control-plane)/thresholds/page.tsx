@@ -1,9 +1,13 @@
 "use client"
 
+import { useEffect, useMemo, useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { DataGuard } from "@/components/control-plane/DataGuard"
+import { IncidentTimeline } from "@/components/control-plane/IncidentTimeline"
 import { useGovernanceStore } from "@/store/governance-store"
 
 function formatThreshold(v: number | undefined): string {
@@ -25,7 +29,23 @@ function ThresholdAvailability({ v }: { v: number | undefined }) {
 
 export default function ThresholdsPage() {
   const thresholds = useGovernanceStore((s) => s.snapshot?.thresholds)
+  const sequence = useGovernanceStore((s) => s.snapshot?.sequence)
   const events = useGovernanceStore((s) => s.events)
+  const history = useGovernanceStore((s) => s.history)
+  const mutateThresholds = useGovernanceStore((s) => s.mutateThresholds)
+
+  const [draftTrust, setDraftTrust] = useState("")
+  const [draftSuppression, setDraftSuppression] = useState("")
+  const [draftDrift, setDraftDrift] = useState("")
+  const [editError, setEditError] = useState<string | null>(null)
+  const [editSuccess, setEditSuccess] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!thresholds) return
+    setDraftTrust(thresholds.trustThreshold.toFixed(3))
+    setDraftSuppression(thresholds.suppressionThreshold.toFixed(3))
+    setDraftDrift(thresholds.driftDelta.toFixed(3))
+  }, [thresholds?.trustThreshold, thresholds?.suppressionThreshold, thresholds?.driftDelta])
 
   const mutationEvents = events
     .filter((e) => e.type === "mutation")
@@ -42,6 +62,60 @@ export default function ThresholdsPage() {
     { label: "Suppression Threshold", value: thresholds?.suppressionThreshold, description: "Trust level below which agents are suppressed" },
     { label: "Drift Delta", value: thresholds?.driftDelta, description: "Maximum allowed trust drift between cycles" },
   ]
+
+  const parsedDraft = useMemo(() => {
+    return {
+      trustThreshold: Number.parseFloat(draftTrust),
+      suppressionThreshold: Number.parseFloat(draftSuppression),
+      driftDelta: Number.parseFloat(draftDrift),
+    }
+  }, [draftDrift, draftSuppression, draftTrust])
+
+  const canSubmit = useMemo(() => {
+    if (!thresholds) return false
+    if (
+      !Number.isFinite(parsedDraft.trustThreshold) ||
+      !Number.isFinite(parsedDraft.suppressionThreshold) ||
+      !Number.isFinite(parsedDraft.driftDelta)
+    ) return false
+    if (parsedDraft.trustThreshold < 0.5 || parsedDraft.trustThreshold > 0.95) return false
+
+    const trustDelta = Math.abs(parsedDraft.trustThreshold - thresholds.trustThreshold)
+    const suppressionDelta = Math.abs(parsedDraft.suppressionThreshold - thresholds.suppressionThreshold)
+    const driftDelta = Math.abs(parsedDraft.driftDelta - thresholds.driftDelta)
+    return Math.max(trustDelta, suppressionDelta, driftDelta) <= 0.05
+  }, [parsedDraft, thresholds])
+
+  function handleApplyThresholdMutation() {
+    setEditError(null)
+    setEditSuccess(null)
+    if (!thresholds) {
+      setEditError("No active thresholds available.")
+      return
+    }
+    if (
+      !Number.isFinite(parsedDraft.trustThreshold) ||
+      !Number.isFinite(parsedDraft.suppressionThreshold) ||
+      !Number.isFinite(parsedDraft.driftDelta)
+    ) {
+      setEditError("All threshold values must be valid numbers.")
+      return
+    }
+
+    const next = {
+      trustThreshold: parsedDraft.trustThreshold,
+      suppressionThreshold: parsedDraft.suppressionThreshold,
+      driftDelta: parsedDraft.driftDelta,
+    }
+
+    const result = mutateThresholds(next)
+    if (!result.ok) {
+      setEditError(result.error)
+      return
+    }
+    const nextCycle = (sequence ?? history.length - 1) + 1
+    setEditSuccess(`Mutation decision emitted for cycle ${nextCycle}.`)
+  }
 
   return (
     <div className="space-y-6">
@@ -75,6 +149,59 @@ export default function ThresholdsPage() {
           </Card>
 
           <Card className="p-5">
+            <h2 className="text-base font-semibold mb-1">Threshold Editor</h2>
+            <p className="text-xs text-muted-foreground mb-4">
+              Bounded editing with governance guardrails.
+            </p>
+            <Separator className="mb-4" />
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+              <div className="space-y-1">
+                <label className="text-xs text-muted-foreground">trustThreshold (0.50-0.95)</label>
+                <Input
+                  type="number"
+                  min={0.5}
+                  max={0.95}
+                  step={0.001}
+                  value={draftTrust}
+                  onChange={(e) => setDraftTrust(e.target.value)}
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs text-muted-foreground">suppressionThreshold</label>
+                <Input
+                  type="number"
+                  step={0.001}
+                  value={draftSuppression}
+                  onChange={(e) => setDraftSuppression(e.target.value)}
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs text-muted-foreground">driftDelta</label>
+                <Input
+                  type="number"
+                  step={0.001}
+                  value={draftDrift}
+                  onChange={(e) => setDraftDrift(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="mt-3 text-xs text-muted-foreground">
+              Constraint: per-edit absolute delta for each threshold must be ≤ 0.05 from the previous cycle.
+            </div>
+            {editError && (
+              <div className="mt-2 text-xs text-red-600">{editError}</div>
+            )}
+            {editSuccess && (
+              <div className="mt-2 text-xs text-emerald-600">{editSuccess}</div>
+            )}
+            <div className="mt-4 flex justify-end">
+              <Button onClick={handleApplyThresholdMutation} disabled={!canSubmit}>
+                Apply Threshold Mutation
+              </Button>
+            </div>
+          </Card>
+
+          <Card className="p-5">
             <h2 className="text-base font-semibold mb-1">Mutation History</h2>
             <p className="text-xs text-muted-foreground mb-4">
               Recent mutation events from the governance stream
@@ -103,6 +230,8 @@ export default function ThresholdsPage() {
               </div>
             )}
           </Card>
+
+          <IncidentTimeline events={events} history={history} />
 
           {thresholdBreaches.length > 0 && (
             <Card className="p-5">

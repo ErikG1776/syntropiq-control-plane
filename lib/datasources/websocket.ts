@@ -3,8 +3,9 @@ import type {
   GovernanceStreamPayload,
   Unsubscribe,
 } from "@/lib/governance/schema"
+import { resolveAdapter } from "@/lib/adapters"
 import type { DataSourceConfig, StatusHandler } from "@/lib/datasources/types"
-import { safeNormalize, validatePayload } from "@/lib/datasources/normalize"
+import { safeNormalize } from "@/lib/datasources/normalize"
 
 const DEFAULT_WS_URL = "ws://localhost:8000/ws/governance"
 const DEFAULT_INITIAL_RECONNECT_MS = 1000
@@ -110,8 +111,15 @@ export async function connectWebSocket(opts: {
       try {
         const data = JSON.parse(event.data)
         if (isPlausiblePayload(data)) {
-          // Normalize through the unified pipeline — no source-tagging hack
-          const payload: GovernanceStreamPayload = safeNormalize(data, "live_ws")
+          // Normalize through the adapter layer, fallback to safe normalizer
+          let payload: GovernanceStreamPayload
+          try {
+            const adapter = resolveAdapter(data)
+            payload = adapter.normalize(data)
+            payload.snapshot.source = "live_ws"
+          } catch {
+            payload = safeNormalize(data, "live_ws")
+          }
           messagesReceived += 1
 
           const warnings = validatePayload(payload)

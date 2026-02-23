@@ -40,6 +40,14 @@ export interface DataSourceConfig {
     /** Token value or env var name. */
     token?: string
   }
+  /** gRPC-web endpoint URL. */
+  grpcEndpointUrl?: string
+  /** Fully-qualified service identifier (placeholder). */
+  grpcService?: string
+  /** Method name (placeholder). */
+  grpcMethod?: string
+  /** Fallback mode when a stream descriptor is unavailable. */
+  grpcUseUnaryPolling?: boolean
 }
 
 // ---------------------------------------------------------------------------
@@ -49,7 +57,7 @@ export interface DataSourceConfig {
 export interface GovernanceDataSource {
   key: string
   label: string
-  mode: "replay" | "poll" | "stream"
+  mode: "replay" | "poll" | "stream" | "grpc"
   /** Optional default config for this source.  Overridable at connect time. */
   config?: DataSourceConfig
   connect: (opts: {

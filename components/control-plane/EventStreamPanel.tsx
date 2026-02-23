@@ -152,6 +152,11 @@ export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
                         {event.agentId}
                       </button>
                     )}
+                    {typeof event.metadata?.sourceKey === "string" && (
+                      <Badge variant="secondary" className="text-[9px] px-1 py-0">
+                        {event.metadata.sourceKey}
+                      </Badge>
+                    )}
                   </div>
                   <span className="text-muted-foreground whitespace-nowrap">
                     {new Date(event.timestamp).toLocaleTimeString()}

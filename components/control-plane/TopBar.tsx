@@ -1,8 +1,8 @@
 "use client"
 
 import { useEffect, useMemo, useState } from "react"
+import dynamic from "next/dynamic"
 import { Badge } from "@/components/ui/badge"
-import { ConnectSourceDialog } from "@/components/control-plane/ConnectSourceDialog"
 import { TimeRangePicker } from "@/components/control-plane/TimeRangePicker"
 import { ThemeToggle } from "@/components/control-plane/ThemeToggle"
 import { activeFilterCount, useFilters } from "@/store/filter-store"
@@ -13,6 +13,15 @@ import {
   getStreamLatencyMs,
   useGovernanceStore,
 } from "@/store/governance-store"
+import {
+  parseCustomSourceKey,
+  useCustomDataSourceStore,
+} from "@/store/custom-datasource-store"
+
+const ConnectSourceDialog = dynamic(
+  () => import("@/components/control-plane/ConnectSourceDialog").then((m) => m.ConnectSourceDialog),
+  { ssr: false },
+)
 
 function getHealthTone(latencyMs: number | null): "green" | "yellow" | "red" {
   if (latencyMs === null) return "red"
@@ -23,6 +32,7 @@ function getHealthTone(latencyMs: number | null): "green" | "yellow" | "red" {
 
 const SOURCE_LABELS: Record<string, string> = {
   live_api: "Live API",
+  live_grpc: "gRPC-web",
   live_ws: "WebSocket",
   live_sse: "SSE",
   replay_infra_chain: "Replay: Infra",
@@ -34,9 +44,15 @@ const SOURCE_LABELS: Record<string, string> = {
 export function TopBar() {
   const connected = useGovernanceStore((s) => s.connected)
   const source = useGovernanceStore((s) => s.source)
+  const activeSources = useGovernanceStore((s) => s.activeSources)
+  const multiSourceMode = useGovernanceStore((s) => s.multiSourceMode)
+  const customDataSources = useCustomDataSourceStore((s) => s.customDataSources)
+  const [mounted, setMounted] = useState(false)
   const [nowMs, setNowMs] = useState(() => Date.now())
   const filters = useFilters()
   const filterCount = activeFilterCount(filters)
+
+  useEffect(() => setMounted(true), [])
 
   useEffect(() => {
     const tick = setInterval(() => setNowMs(Date.now()), 1_000)
@@ -53,7 +69,27 @@ export function TopBar() {
         ? "bg-amber-500 text-black"
         : "bg-red-600 text-white"
 
-  const sourceLabel = source ? (SOURCE_LABELS[source] ?? source) : "no source"
+  const sourceLabel = useMemo(() => {
+    if (multiSourceMode) return `Multi: ${activeSources.length} sources`
+    if (!source) return "no source"
+    const customId = parseCustomSourceKey(source)
+    if (customId) {
+      const custom = customDataSources.find((ds) => ds.id === customId)
+      return custom ? `Custom: ${custom.label}` : source
+    }
+    return SOURCE_LABELS[source] ?? source
+  }, [activeSources.length, customDataSources, multiSourceMode, source])
+
+  const activeSourceLabels = useMemo(() => {
+    return activeSources.map((key) => {
+      const customId = parseCustomSourceKey(key)
+      if (customId) {
+        const custom = customDataSources.find((ds) => ds.id === customId)
+        return custom ? custom.label : key
+      }
+      return SOURCE_LABELS[key] ?? key
+    })
+  }, [activeSources, customDataSources])
 
   return (
     <div className="space-y-3">
@@ -70,7 +106,7 @@ export function TopBar() {
           <Badge variant={connected ? "default" : "secondary"}>
             {connected ? "connected" : "disconnected"}
           </Badge>
-          <Badge variant="outline">{sourceLabel}</Badge>
+          <Badge variant="outline">{mounted ? sourceLabel : "no source"}</Badge>
           <Badge className={healthClass}>
             heartbeat{" "}
             {streamLatencyMs === null ? "n/a" : `${Math.floor(streamLatencyMs / 1000)}s`}
@@ -80,6 +116,12 @@ export function TopBar() {
           <ThemeToggle />
         </div>
       </div>
+
+      {mounted && activeSourceLabels.length > 0 && (
+        <div className="text-xs text-muted-foreground">
+          Active: {activeSourceLabels.join(", ")}
+        </div>
+      )}
 
       {/* Global time range + active filter chips */}
       <div className="flex flex-wrap items-center gap-2">

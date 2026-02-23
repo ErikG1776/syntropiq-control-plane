@@ -100,45 +100,37 @@ function normalizeThresholds(input: unknown): GovernanceThresholds {
       src.suppressionThreshold ?? src.suppression_threshold,
       -1,
     ),
-    driftDelta: asNumber(src.driftDelta ?? src.drift_delta, -1),
+    driftDelta: asNumber(
+      src.driftDelta ?? src.drift_delta,
+      -1,
+    ),
   }
 }
 
 export function normalizeAgent(raw: unknown, idx: number): AgentState {
   const src = asRecord(raw)
-  const capabilities = asArray(src.capabilities)
-    .map((c) => asString(c))
-    .filter(Boolean)
-  const labelsSrc = asRecord(src.labels)
-  const labels = Object.fromEntries(
-    Object.entries(labelsSrc)
-      .map(([k, v]) => [k, asString(v)])
-      .filter(([, v]) => v.length > 0),
-  )
 
   const trustScore = asNumber(
     src.trustScore ?? src.trust_score ?? src.trust,
     0,
   )
+
   const rawAuthority = asNumber(
     src.authorityWeight ?? src.authority_weight ?? src.authority,
     -1,
   )
-  // If backend doesn't provide authorityWeight, proxy from trustScore.
-  // An agent with no declared authority is "self-governing" — its weight
-  // should be proportional to its trustworthiness.
-  const authorityWeight = rawAuthority >= 0 ? rawAuthority : trustScore
+
+  const authorityWeight =
+    rawAuthority >= 0 ? rawAuthority : trustScore
 
   return {
     id: asString(src.id ?? src.agent_id, `agent_${idx + 1}`),
     trustScore,
     authorityWeight,
     status: toStatus(src.status ?? src.state),
-    capabilities: capabilities.length > 0 ? capabilities : undefined,
-    labels: Object.keys(labels).length > 0 ? labels : undefined,
-    lastDecisionAt: asOptionalString(
-      src.lastDecisionAt ?? src.last_decision_at ?? src.ts,
-    ),
+    capabilities: undefined,
+    labels: undefined,
+    lastDecisionAt: undefined,
   }
 }
 
@@ -148,7 +140,7 @@ export function normalizeEvent(
   tsFallback: string,
 ): GovernanceEvent {
   const src = asRecord(raw)
-  const tags = asArray(src.tags).map((t) => asString(t)).filter(Boolean)
+
   return {
     id: asString(src.id, `evt_${Date.now()}_${idx}`),
     timestamp: asString(src.timestamp ?? src.ts, tsFallback),
@@ -156,135 +148,104 @@ export function normalizeEvent(
     severity: toSeverity(src.severity ?? src.level),
     message: asString(src.message, "Event emitted"),
     agentId: asOptionalString(src.agentId ?? src.agent_id),
-    tags: tags.length > 0 ? tags : undefined,
     metadata: asRecord(src.metadata),
   }
 }
 
 // ---------------------------------------------------------------------------
-// Validation
+// Unified normalizer
 // ---------------------------------------------------------------------------
 
-export interface ValidationWarning {
-  field: string
-  message: string
-  agentId?: string
-}
-
-/**
- * Lightweight runtime validation.  Returns warnings but never rejects —
- * the payload is still usable after validation.
- */
-export function validatePayload(
-  payload: GovernanceStreamPayload,
-): ValidationWarning[] {
-  const warnings: ValidationWarning[] = []
-
-  for (const agent of payload.snapshot.agents) {
-    if (agent.trustScore < 0 || agent.trustScore > 1) {
-      warnings.push({
-        field: "trustScore",
-        message: `trustScore ${agent.trustScore} outside [0,1]`,
-        agentId: agent.id,
-      })
-    }
-    if (agent.authorityWeight < 0 || agent.authorityWeight > 1) {
-      warnings.push({
-        field: "authorityWeight",
-        message: `authorityWeight ${agent.authorityWeight} outside [0,1]`,
-        agentId: agent.id,
-      })
-    }
-    if (!agent.id) {
-      warnings.push({ field: "id", message: "Agent missing id" })
-    }
-  }
-
-  for (const evt of payload.events) {
-    if (!evt.timestamp || Number.isNaN(Date.parse(evt.timestamp))) {
-      warnings.push({
-        field: "timestamp",
-        message: `Unparseable event timestamp: ${evt.timestamp}`,
-      })
-    }
-  }
-
-  return warnings
-}
-
-// ---------------------------------------------------------------------------
-// Unified normalizer — single entry point for ALL sources
-// ---------------------------------------------------------------------------
-
-/**
- * Normalize any raw JSON payload into the canonical GovernanceStreamPayload.
- *
- * Handles multiple schema shapes:
- * - `{ snapshot: { agents, thresholds, ... }, events }` (canonical)
- * - `{ frame: { agents, events }, thresholds }` (replay timeline frames)
- * - `{ summary: { agents, events, thresholds } }` (legacy summaries)
- * - `{ agents: [...], statistics: {...}, recent_events: [...] }` (REST split)
- *
- * Also handles snake_case ↔ camelCase for all fields.
- */
 export function normalizePayload(
   json: unknown,
   source: DataSourceKey,
 ): GovernanceStreamPayload {
   const now = new Date().toISOString()
+
   const root = asRecord(json)
   const summary = asRecord(root.summary)
   const frame = asRecord(root.frame)
   const snapshotSrc = asRecord(root.snapshot)
   const statistics = asRecord(root.statistics)
+  const frameInputs = asRecord(frame.inputs)
+  const frameOutputs = asRecord(frame.outputs)
 
-  // --- Agents: try multiple locations ---
+  // --- Agents ---
   const agentsRaw =
     asArray(snapshotSrc.agents).length > 0
       ? asArray(snapshotSrc.agents)
+      : asArray(frameOutputs.agentStates).length > 0
+        ? asArray(frameOutputs.agentStates)
       : asArray(frame.agents).length > 0
         ? asArray(frame.agents)
         : asArray(root.agents).length > 0
           ? asArray(root.agents)
           : asArray(summary.agents)
 
-  // --- Events: try multiple locations ---
+  // --- Events ---
   const eventsRaw =
     asArray(root.events).length > 0
       ? asArray(root.events)
       : asArray(frame.events).length > 0
         ? asArray(frame.events)
+        : asArray(frame.decisions).length > 0
+          ? asArray(frame.decisions)
         : asArray(statistics.recent_events ?? statistics.events).length > 0
           ? asArray(statistics.recent_events ?? statistics.events)
           : asArray(summary.events)
 
   const agents = agentsRaw.map(normalizeAgent)
-  const events = eventsRaw.map((evt, idx) => normalizeEvent(evt, idx, now))
-
-  // --- Thresholds: try multiple locations ---
-  const thresholds = normalizeThresholds(
-    snapshotSrc.thresholds ?? frame.thresholds ?? statistics ?? summary.thresholds,
+  const events = eventsRaw.map((evt, idx) =>
+    normalizeEvent(evt, idx, now),
   )
 
-  const suppressedCount = agents.filter((a) => a.status === "suppressed").length
+  // *** FIXED THRESHOLD RESOLUTION ***
+  const thresholds = normalizeThresholds(
+    snapshotSrc.thresholds ??
+      frame.thresholds ??
+      frameOutputs.thresholds ??
+      frameInputs.thresholds ??
+      statistics.thresholds ??   // <-- critical fix
+      statistics ??
+      summary.thresholds,
+  )
+
+  const suppressedCount = agents.filter(
+    (a) => a.status === "suppressed",
+  ).length
+
   const eventCount =
     asNumber(
-      snapshotSrc.eventCount ?? statistics.eventCount ?? statistics.event_count ?? summary.eventCount,
+      snapshotSrc.eventCount ??
+        statistics.eventCount ??
+        statistics.event_count ??
+        summary.eventCount,
       0,
     ) || events.length
 
   const snapshot: GovernanceSnapshot = {
     timestamp: asString(
-      snapshotSrc.timestamp ?? frame.timestamp ?? root.timestamp,
+      snapshotSrc.timestamp ??
+        frame.timestamp ??
+        root.timestamp,
       now,
     ),
     source,
-    runId: asOptionalString(snapshotSrc.runId ?? summary.runId ?? root.runId),
+    runId: asOptionalString(
+      snapshotSrc.runId ??
+        summary.runId ??
+        root.runId,
+    ),
     sequence: asOptionalNumber(
-      snapshotSrc.sequence ?? frame.sequence ?? root.sequence,
+      snapshotSrc.sequence ??
+        frame.sequence ??
+        frame.cycleId ??
+        root.sequence,
     ),
     healthy: asBoolean(
-      snapshotSrc.healthy ?? frame.healthy ?? summary.healthy,
+      snapshotSrc.healthy ??
+        frame.healthy ??
+        summary.healthy,
       true,
     ),
     agents,
@@ -297,7 +258,7 @@ export function normalizePayload(
 }
 
 // ---------------------------------------------------------------------------
-// Safe wrapper — never throws
+// Safe wrapper
 // ---------------------------------------------------------------------------
 
 function emptyPayload(source: DataSourceKey): GovernanceStreamPayload {
@@ -306,7 +267,11 @@ function emptyPayload(source: DataSourceKey): GovernanceStreamPayload {
       timestamp: new Date().toISOString(),
       source,
       agents: [],
-      thresholds: { trustThreshold: 0, suppressionThreshold: 0, driftDelta: 0 },
+      thresholds: {
+        trustThreshold: 0,
+        suppressionThreshold: 0,
+        driftDelta: 0,
+      },
       eventCount: 0,
       suppressedCount: 0,
       healthy: false,
@@ -324,32 +289,4 @@ export function safeNormalize(
   } catch {
     return emptyPayload(source)
   }
-}
-
-// ---------------------------------------------------------------------------
-// Source-specific convenience wrappers (for backward compat with registry)
-// ---------------------------------------------------------------------------
-
-export function normalizeInfraChain(json: unknown): GovernanceStreamPayload {
-  return safeNormalize(json, "replay_infra_chain")
-}
-
-export function normalizeReadmission(json: unknown): GovernanceStreamPayload {
-  return safeNormalize(json, "replay_readmission")
-}
-
-export function normalizeFinance(json: unknown): GovernanceStreamPayload {
-  return safeNormalize(json, "replay_finance")
-}
-
-export function normalizeGovernanceDemo(json: unknown): GovernanceStreamPayload {
-  return safeNormalize(json, "replay_governance_demo")
-}
-
-export function normalizeLiveApi(json: unknown): GovernanceStreamPayload {
-  return safeNormalize(json, "live_api")
-}
-
-export function normalizeLiveWs(json: unknown): GovernanceStreamPayload {
-  return safeNormalize(json, "live_ws")
 }

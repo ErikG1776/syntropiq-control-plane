@@ -7,7 +7,6 @@ import { useGovernanceStore } from "@/store/governance-store"
 import { useAgentFilter } from "@/store/filter-store"
 import { useTheme } from "next-themes"
 import { dataSources } from "@/lib/datasources"
-import type { DataSourceKey } from "@/lib/governance/schema"
 
 export function CommandPalette() {
   const [open, setOpen] = useState(false)
@@ -151,7 +150,7 @@ export function CommandPalette() {
                 key={ds.key}
                 value={`connect ${ds.label} ${ds.key}`}
                 onSelect={() =>
-                  runAndClose(() => connect(ds.key as DataSourceKey))
+                  runAndClose(() => connect(ds.key))
                 }
                 className="px-3 py-2 rounded text-sm cursor-pointer aria-selected:bg-muted"
               >

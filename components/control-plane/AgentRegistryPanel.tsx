@@ -161,9 +161,14 @@ export function AgentRegistryPanel() {
                   <TableCell>
                     <button
                       onClick={() => handleAgentClick(agent.id)}
-                      className="font-medium text-foreground hover:underline text-left"
+                      className="font-medium text-foreground hover:underline text-left flex items-center gap-2"
                     >
-                      {agent.id}
+                      <span>{agent.id}</span>
+                      {(agent.labels?.sourceKey || (agent as any).source) && (
+                        <Badge variant="outline" className="text-[10px] px-1.5 py-0">
+                          {(agent.labels?.sourceKey || (agent as any).source) as string}
+                        </Badge>
+                      )}
                     </button>
                   </TableCell>
                   <TableCell>

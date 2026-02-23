@@ -1,75 +1,54 @@
 import type { DataSourceKey } from "@/lib/governance/schema"
 import type { GovernanceDataSource } from "@/lib/datasources/types"
-import {
-  normalizeFinance,
-  normalizeGovernanceDemo,
-  normalizeInfraChain,
-  normalizeReadmission,
-  safeNormalize,
-} from "@/lib/datasources/normalize"
+import { resolveAdapter } from "@/lib/adapters"
+import { safeNormalize } from "@/lib/datasources/normalize"
 import { runReplayStream } from "@/lib/datasources/replay"
+import { connectGrpc } from "@/lib/datasources/grpc"
 import { connectWebSocket } from "@/lib/datasources/websocket"
+import replayScenarios from "@/public/replays/scenarios/index.json"
 
 const REPLAY_SPEED_MS = 800
 const POLL_INTERVAL_MS = 2000
 
-export const dataSources: Record<DataSourceKey, GovernanceDataSource> = {
-  replay_infra_chain: {
-    key: "replay_infra_chain",
-    label: "Infra Chain Replay",
-    mode: "replay",
-    connect: (opts) =>
-      runReplayStream({
-        source: "replay_infra_chain",
-        replayPath: "/replays/replay_infra_chain.json",
-        speedMs: REPLAY_SPEED_MS,
-        normalize: normalizeInfraChain,
-        onMessage: opts.onMessage,
-        onStatus: opts.onStatus,
-      }),
-  },
-  replay_readmission: {
-    key: "replay_readmission",
-    label: "Readmission Replay",
-    mode: "replay",
-    connect: (opts) =>
-      runReplayStream({
-        source: "replay_readmission",
-        replayPath: "/replays/replay_readmission.json",
-        speedMs: REPLAY_SPEED_MS,
-        normalize: normalizeReadmission,
-        onMessage: opts.onMessage,
-        onStatus: opts.onStatus,
-      }),
-  },
-  replay_finance: {
-    key: "replay_finance",
-    label: "Finance Replay",
-    mode: "replay",
-    connect: (opts) =>
-      runReplayStream({
-        source: "replay_finance",
-        replayPath: "/replays/replay_finance.json",
-        speedMs: REPLAY_SPEED_MS,
-        normalize: normalizeFinance,
-        onMessage: opts.onMessage,
-        onStatus: opts.onStatus,
-      }),
-  },
-  replay_governance_demo: {
-    key: "replay_governance_demo",
-    label: "Governance Demo",
-    mode: "replay",
-    connect: (opts) =>
-      runReplayStream({
-        source: "replay_governance_demo",
-        replayPath: "/replays/replay_governance_demo.json",
-        speedMs: REPLAY_SPEED_MS,
-        normalize: normalizeGovernanceDemo,
-        onMessage: opts.onMessage,
-        onStatus: opts.onStatus,
-      }),
-  },
+interface ReplayScenarioIndexEntry {
+  id: string
+  label: string
+  description: string
+  file: string
+}
+
+const replayScenarioEntries =
+  replayScenarios as ReplayScenarioIndexEntry[]
+
+const replayDataSources: Record<string, GovernanceDataSource> =
+  Object.fromEntries(
+    replayScenarioEntries.map((scenario) => {
+      const key = `replay_${scenario.id}`
+      const sourceKey = key as DataSourceKey
+
+      return [
+        key,
+        {
+          key,
+          label: scenario.label,
+          mode: "replay" as const,
+          connect: (opts) =>
+            runReplayStream({
+              source: sourceKey,
+              replayPath: scenario.file,
+              speedMs: REPLAY_SPEED_MS,
+              normalize: safeNormalize,
+              onMessage: opts.onMessage,
+              onStatus: opts.onStatus,
+            }),
+        } satisfies GovernanceDataSource,
+      ]
+    }),
+  )
+
+export const dataSources: Record<string, GovernanceDataSource> = {
+  ...replayDataSources,
+
   live_api: {
     key: "live_api",
     label: "Live API (Poll)",
@@ -78,49 +57,33 @@ export const dataSources: Record<DataSourceKey, GovernanceDataSource> = {
     connect: async ({ onMessage, onStatus, config }) => {
       let stopped = false
       const pollMs = config?.pollIntervalMs ?? POLL_INTERVAL_MS
-      const url = config?.url ?? "/api/control-plane/snapshot"
+      const snapshotUrl = "/api/control-plane/snapshot"
 
       async function poll() {
         if (stopped) return
 
         try {
-          const headers: Record<string, string> = {}
-          if (config?.auth?.type === "bearer" && config.auth.token) {
-            headers["Authorization"] = `Bearer ${config.auth.token}`
-          } else if (config?.auth?.type === "apikey" && config.auth.token) {
-            headers["X-Api-Key"] = config.auth.token
-          }
-
-          const res = await fetch(url, {
-            cache: "no-store",
-            headers,
-          })
+          const res = await fetch(snapshotUrl, { cache: "no-store" })
 
           if (!res.ok) {
             onStatus?.({
               connected: false,
-              message: `Backend unavailable (${res.status})`,
+              message: `Control-plane unavailable (${res.status})`,
             })
             return
           }
 
-          const json = await res.json()
-
-          // If polling a direct backend (not our proxy route), normalize
-          const payload =
-            json?.snapshot && typeof json.snapshot === "object"
-              ? json
-              : safeNormalize(json, "live_api")
+          const payload = await res.json()
 
           onMessage(payload)
           onStatus?.({
             connected: true,
-            message: "Connected to Syntropiq backend",
+            message: "Connected via control-plane proxy",
           })
         } catch {
           onStatus?.({
             connected: false,
-            message: "Backend connection failed",
+            message: "Control-plane connection failed",
           })
         }
       }
@@ -135,87 +98,28 @@ export const dataSources: Record<DataSourceKey, GovernanceDataSource> = {
       }
     },
   },
+
+  live_grpc: {
+    key: "live_grpc",
+    label: "gRPC-web",
+    mode: "grpc",
+    connect: (opts) =>
+      connectGrpc({
+        onMessage: opts.onMessage,
+        onStatus: opts.onStatus,
+        config: opts.config,
+      }),
+  },
+
   live_ws: {
     key: "live_ws",
     label: "Live WebSocket",
     mode: "stream",
-    config: {
-      heartbeatTimeoutMs: 15000,
-      reconnect: { initialMs: 1000, maxMs: 30000, multiplier: 2 },
-    },
     connect: (opts) =>
       connectWebSocket({
         onMessage: opts.onMessage,
         onStatus: opts.onStatus,
         config: opts.config,
       }),
-  },
-  live_sse: {
-    key: "live_sse",
-    label: "Live SSE",
-    mode: "stream",
-    config: { url: "/api/control-plane/events/stream" },
-    connect: async ({ onMessage, onStatus, config }) => {
-      let stopped = false
-      let eventSource: EventSource | null = null
-      let reconnectTimer: ReturnType<typeof setTimeout> | null = null
-      let reconnectMs = 1000
-
-      function clearTimer() {
-        if (reconnectTimer) {
-          clearTimeout(reconnectTimer)
-          reconnectTimer = null
-        }
-      }
-
-      function connect() {
-        if (stopped) return
-        const url = config?.url ?? "/api/control-plane/events/stream"
-        onStatus?.({ connected: false, message: `Connecting SSE to ${url}...` })
-
-        eventSource = new EventSource(url)
-
-        eventSource.onopen = () => {
-          if (stopped) { eventSource?.close(); return }
-          reconnectMs = 1000
-          onStatus?.({ connected: true, message: "SSE connected" })
-        }
-
-        eventSource.onmessage = (event) => {
-          if (stopped) return
-          try {
-            const data = JSON.parse(event.data)
-            const payload = safeNormalize(data, "live_sse")
-            onMessage(payload)
-          } catch {
-            // skip unparseable frames
-          }
-        }
-
-        eventSource.onerror = () => {
-          if (stopped) return
-          eventSource?.close()
-          onStatus?.({
-            connected: false,
-            message: `SSE error — reconnecting in ${Math.round(reconnectMs / 1000)}s`,
-          })
-          clearTimer()
-          reconnectTimer = setTimeout(() => {
-            reconnectMs = Math.min(reconnectMs * 2, 30000)
-            connect()
-          }, reconnectMs)
-        }
-      }
-
-      connect()
-
-      return () => {
-        stopped = true
-        clearTimer()
-        eventSource?.close()
-        eventSource = null
-        onStatus?.({ connected: false, message: "SSE disconnected" })
-      }
-    },
   },
 }

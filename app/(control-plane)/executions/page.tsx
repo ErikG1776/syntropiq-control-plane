@@ -1,9 +1,8 @@
 "use client"
 
 import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
 import { DataGuard } from "@/components/control-plane/DataGuard"
+import { CycleInspector } from "@/components/control-plane/CycleInspector"
 import { useGovernanceStore } from "@/store/governance-store"
 
 export default function ExecutionsPage() {
@@ -53,59 +52,7 @@ export default function ExecutionsPage() {
             </Card>
           </div>
 
-          {/* Recent cycles from snapshot history */}
-          <Card className="p-5">
-            <h2 className="text-base font-semibold mb-1">Recent Governance Cycles</h2>
-            <p className="text-xs text-muted-foreground mb-4">
-              Last {Math.min(history.length, 20)} observed snapshots
-            </p>
-            <Separator className="mb-4" />
-
-            {history.length === 0 ? (
-              <p className="text-sm text-muted-foreground">
-                No cycle data yet. Data will appear as governance snapshots arrive.
-              </p>
-            ) : (
-              <div className="space-y-2">
-                {history.slice(-20).reverse().map((snap, idx) => {
-                  const activeCount = snap.agents.filter((a) => a.status === "active").length
-                  const suppressedCount = snap.suppressedCount
-                  const avgTrust =
-                    snap.agents.length > 0
-                      ? snap.agents.reduce((s, a) => s + a.trustScore, 0) / snap.agents.length
-                      : 0
-
-                  return (
-                    <div
-                      key={`${snap.timestamp}-${idx}`}
-                      className="flex items-center justify-between rounded border px-3 py-2 text-sm"
-                    >
-                      <div className="flex items-center gap-3">
-                        <span className="font-mono text-xs text-muted-foreground w-6">
-                          {snap.sequence ?? idx + 1}
-                        </span>
-                        <span className="text-xs text-muted-foreground">
-                          {new Date(snap.timestamp).toLocaleTimeString()}
-                        </span>
-                        <Badge variant={snap.healthy !== false ? "default" : "destructive"}>
-                          {snap.healthy !== false ? "healthy" : "unhealthy"}
-                        </Badge>
-                      </div>
-                      <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                        <span>{snap.agents.length} agents</span>
-                        <span>{activeCount} active</span>
-                        {suppressedCount > 0 && (
-                          <span className="text-red-500">{suppressedCount} suppressed</span>
-                        )}
-                        <span>avg trust: {avgTrust.toFixed(3)}</span>
-                        <span>{snap.eventCount} events</span>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-            )}
-          </Card>
+          <CycleInspector />
 
           {/* Future: Task submission panel */}
           <Card className="p-5 border-dashed">
