@@ -10,6 +10,57 @@ import type {
 } from "@/lib/governance/schema"
 import { dataSources } from "@/lib/datasources"
 
+// ---------------------------------------------------------------------------
+// Session persistence helpers
+// ---------------------------------------------------------------------------
+
+const STORAGE_KEY_SOURCE = "syntropiq_last_source"
+
+function persistSource(key: DataSourceKey | null) {
+  try {
+    if (key) localStorage.setItem(STORAGE_KEY_SOURCE, key)
+    else localStorage.removeItem(STORAGE_KEY_SOURCE)
+  } catch { /* SSR or private browsing — ignore */ }
+}
+
+function loadPersistedSource(): DataSourceKey | null {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY_SOURCE)
+    if (stored && stored in dataSources) return stored as DataSourceKey
+  } catch { /* SSR */ }
+  return null
+}
+
+// ---------------------------------------------------------------------------
+// Event deduplication
+// ---------------------------------------------------------------------------
+
+const MAX_SEEN_IDS = 2000
+let seenEventIds = new Set<string>()
+
+function deduplicateEvents(
+  existing: GovernanceEvent[],
+  incoming: GovernanceEvent[],
+): GovernanceEvent[] {
+  const newEvents: GovernanceEvent[] = []
+  for (const evt of incoming) {
+    if (!seenEventIds.has(evt.id)) {
+      seenEventIds.add(evt.id)
+      newEvents.push(evt)
+    }
+  }
+  // Prune the set if it gets too large (keep most recent half)
+  if (seenEventIds.size > MAX_SEEN_IDS) {
+    const arr = Array.from(seenEventIds)
+    seenEventIds = new Set(arr.slice(arr.length - MAX_SEEN_IDS / 2))
+  }
+  return [...existing, ...newEvents]
+}
+
+// ---------------------------------------------------------------------------
+// Store
+// ---------------------------------------------------------------------------
+
 interface GovernanceState {
   connected: boolean
   source: DataSourceKey | null
@@ -56,6 +107,8 @@ export const useGovernanceStore = create<GovernanceState>((set) => ({
     const requestEpoch = connectionEpoch
 
     clearActiveSubscription()
+    seenEventIds.clear()
+    persistSource(sourceKey)
     set({
       connected: false,
       connecting: true,
@@ -94,17 +147,23 @@ export const useGovernanceStore = create<GovernanceState>((set) => ({
         onMessage: (payload: GovernanceStreamPayload) => {
           if (requestEpoch !== connectionEpoch) return
           set((state) => {
-            const mergedEvents = [...state.events, ...payload.events]
+            const mergedEvents = deduplicateEvents(state.events, payload.events)
             const cappedEvents =
               mergedEvents.length > MAX_EVENTS
                 ? mergedEvents.slice(mergedEvents.length - MAX_EVENTS)
                 : mergedEvents
+
+            // Stability: normalized weighted mean bounded 0-1
+            // Σ(trustScore × authorityWeight) / Σ(authorityWeight)
+            const totalWeight = payload.snapshot.agents.reduce(
+              (acc, a) => acc + a.authorityWeight, 0
+            )
             const stability =
-              payload.snapshot.agents.length > 0
+              totalWeight > 0
                 ? payload.snapshot.agents.reduce(
                     (acc, a) => acc + a.trustScore * a.authorityWeight,
                     0
-                  )
+                  ) / totalWeight
                 : 0
             const newHistory = [
               ...state.stabilityHistory,
@@ -142,6 +201,7 @@ export const useGovernanceStore = create<GovernanceState>((set) => ({
   disconnect: () => {
     connectionEpoch += 1
     clearActiveSubscription()
+    persistSource(null)
     set((state) => ({
       ...state,
       connecting: false,
@@ -154,6 +214,8 @@ export const useGovernanceStore = create<GovernanceState>((set) => ({
   reset: () => {
     connectionEpoch += 1
     clearActiveSubscription()
+    seenEventIds.clear()
+    persistSource(null)
     set({
       connected: false,
       source: null,
@@ -167,6 +229,27 @@ export const useGovernanceStore = create<GovernanceState>((set) => ({
     })
   },
 }))
+
+// ---------------------------------------------------------------------------
+// Auto-reconnect on mount: if a previous source was persisted, reconnect
+// ---------------------------------------------------------------------------
+
+if (typeof window !== "undefined") {
+  const stored = loadPersistedSource()
+  if (stored) {
+    // Defer to next tick so the store is fully initialized
+    setTimeout(() => {
+      const state = useGovernanceStore.getState()
+      if (!state.connected && !state.connecting) {
+        state.connect(stored)
+      }
+    }, 0)
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Derived selectors (static helpers — call outside React render)
+// ---------------------------------------------------------------------------
 
 export function getAgentCount() {
   return useGovernanceStore.getState().snapshot?.agents.length ?? 0

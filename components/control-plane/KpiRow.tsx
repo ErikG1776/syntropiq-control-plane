@@ -10,11 +10,15 @@ export function KpiRow() {
 
   const mutationCount = events.filter((e) => e.type === "mutation").length
 
-  // Stability: trust-weighted authority proxy
-  const stabilityScore =
+  // Stability: normalized weighted mean Σ(trust×authority) / Σ(authority), bounded 0-1
+  const totalWeight =
     snapshot && snapshot.agents.length > 0
-      ? snapshot.agents.reduce((acc, a) => acc + a.trustScore * a.authorityWeight, 0) /
-        snapshot.agents.length
+      ? snapshot.agents.reduce((acc, a) => acc + a.authorityWeight, 0)
+      : 0
+  const stabilityScore =
+    totalWeight > 0
+      ? snapshot!.agents.reduce((acc, a) => acc + a.trustScore * a.authorityWeight, 0) /
+        totalWeight
       : null
 
   const stabilityTone =
@@ -38,8 +42,8 @@ export function KpiRow() {
   const metrics = [
     {
       label: "Stability",
-      value: stabilityScore !== null ? stabilityScore.toFixed(3) : "\u2014",
-      sublabel: "proxy",
+      value: stabilityScore !== null ? `${(stabilityScore * 100).toFixed(1)}%` : "\u2014",
+      sublabel: "weighted mean",
     },
     { label: "Agents", value: snapshot?.agents.length ?? 0 },
     { label: "Suppressed", value: snapshot?.suppressedCount ?? 0 },

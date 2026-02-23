@@ -2,6 +2,7 @@ import type { DataSourceKey } from "@/lib/governance/schema"
 import type { GovernanceDataSource } from "@/lib/datasources/types"
 import {
   normalizeFinance,
+  normalizeGovernanceDemo,
   normalizeInfraChain,
   normalizeReadmission,
 } from "@/lib/datasources/normalize"
@@ -49,6 +50,20 @@ export const dataSources: Record<DataSourceKey, GovernanceDataSource> = {
         replayPath: "/replays/replay_finance.json",
         speedMs,
         normalize: normalizeFinance,
+        onMessage: opts.onMessage,
+        onStatus: opts.onStatus,
+      }),
+  },
+  replay_governance_demo: {
+    key: "replay_governance_demo",
+    label: "Governance Demo",
+    mode: "replay",
+    connect: (opts) =>
+      runReplayStream({
+        source: "replay_governance_demo",
+        replayPath: "/replays/replay_governance_demo.json",
+        speedMs,
+        normalize: normalizeGovernanceDemo,
         onMessage: opts.onMessage,
         onStatus: opts.onStatus,
       }),

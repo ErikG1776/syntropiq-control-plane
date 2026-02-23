@@ -27,7 +27,7 @@ export function StabilityChart() {
         Stability Over Time
       </h2>
       <p className="text-xs text-muted-foreground mb-4">
-        Weighted trust-authority composite {trustThreshold < 0 && "(thresholds unavailable)"}
+        Normalized weighted mean: &Sigma;(trust &times; authority) / &Sigma;(authority){trustThreshold < 0 && " — thresholds unavailable"}
       </p>
 
       {history.length === 0 ? (

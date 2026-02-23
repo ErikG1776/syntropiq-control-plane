@@ -1,6 +1,6 @@
 import type { AgentState, GovernanceEvent, GovernanceEventType } from "@/lib/governance/schema"
 
-const BACKEND_BASE_URL = "http://localhost:8000"
+const BACKEND_BASE_URL = process.env.BACKEND_URL || "http://localhost:8000"
 
 type JsonRecord = Record<string, unknown>
 
@@ -203,13 +203,13 @@ export async function GET() {
     ])
 
     if (!agentsRes.ok || !statsRes.ok) {
-      return Response.json(unhealthyPayload(now), { status: 200 })
+      return Response.json(unhealthyPayload(now), { status: 502 })
     }
 
     const [agentsJson, statsJson] = await Promise.all([agentsRes.json(), statsRes.json()])
     const payload = toCanonicalPayload(agentsJson, statsJson, now)
     return Response.json(payload, { status: 200 })
   } catch {
-    return Response.json(unhealthyPayload(now), { status: 200 })
+    return Response.json(unhealthyPayload(now), { status: 502 })
   }
 }

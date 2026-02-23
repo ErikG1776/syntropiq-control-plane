@@ -98,10 +98,17 @@ function normalizeAgent(raw: unknown, idx: number): AgentState {
       .filter(([, v]) => v.length > 0),
   )
 
+  const trustScore = asNumber(src.trustScore, asNumber(src.trust, 0))
+  const rawAuthority = asNumber(src.authorityWeight, asNumber(src.authority, -1))
+  // If backend doesn't provide authorityWeight, proxy from trustScore.
+  // An agent with no declared authority is "self-governing" — its weight
+  // should be proportional to its trustworthiness.
+  const authorityWeight = rawAuthority >= 0 ? rawAuthority : trustScore
+
   return {
     id: asString(src.id, `agent_${idx + 1}`),
-    trustScore: asNumber(src.trustScore, asNumber(src.trust, 0)),
-    authorityWeight: asNumber(src.authorityWeight, asNumber(src.authority, 0)),
+    trustScore,
+    authorityWeight,
     status: toStatus(src.status),
     capabilities: capabilities.length > 0 ? capabilities : undefined,
     labels: Object.keys(labels).length > 0 ? labels : undefined,
@@ -204,4 +211,8 @@ export function normalizeLiveApi(json: unknown): GovernanceStreamPayload {
 
 export function normalizeLiveWs(json: unknown): GovernanceStreamPayload {
   return safeNormalize(json, "live_ws")
+}
+
+export function normalizeGovernanceDemo(json: unknown): GovernanceStreamPayload {
+  return safeNormalize(json, "replay_governance_demo")
 }
