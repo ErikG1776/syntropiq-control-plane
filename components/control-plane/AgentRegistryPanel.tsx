@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import {
@@ -12,6 +13,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { useGovernanceStore, getTrustTrend } from "@/store/governance-store"
+import { useFilters } from "@/store/filter-store"
 
 /* ---- Miniature trust sparkline (pure SVG, no deps) ---- */
 function TrustSparkline({ agentId }: { agentId: string }) {
@@ -37,7 +39,7 @@ function TrustSparkline({ agentId }: { agentId: string }) {
     })
     .join(" ")
 
-  const color = points[points.length - 1] >= points[0] ? "#10b981" : "#ef4444"
+  const color = points[points.length - 1] >= points[0] ? "var(--color-emerald-500, #10b981)" : "var(--color-red-500, #ef4444)"
 
   return (
     <svg width={w} height={h} className="inline-block align-middle">
@@ -103,20 +105,35 @@ export function AgentRegistryPanel() {
   const snapshot = useGovernanceStore((s) => s.snapshot)
   const agents = snapshot?.agents ?? []
   const trustThreshold = snapshot?.thresholds.trustThreshold ?? -1
+  const filters = useFilters()
+  const router = useRouter()
 
-  const sorted = [...agents].sort((a, b) => {
+  // Apply global filters
+  const filteredAgents = agents.filter((agent) => {
+    if (filters.agentId && agent.id !== filters.agentId) return false
+    if (filters.status && agent.status !== filters.status) return false
+    return true
+  })
+
+  const sorted = [...filteredAgents].sort((a, b) => {
     const aSupp = a.status === "suppressed" ? 0 : 1
     const bSupp = b.status === "suppressed" ? 0 : 1
     if (aSupp !== bSupp) return aSupp - bSupp
     return a.trustScore - b.trustScore
   })
 
+  const handleAgentClick = (agentId: string) => {
+    // Set global agent filter then navigate
+    filters.setAgentId(agentId)
+    router.push(`/agents/${agentId}`)
+  }
+
   return (
     <Card className="p-5">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-base font-semibold">Agent Registry</h2>
         <div className="flex items-center gap-3 text-xs text-muted-foreground">
-          <span>{agents.length} agents</span>
+          <span>{filteredAgents.length} / {agents.length} agents</span>
           <span>Trust threshold: {formatThreshold(trustThreshold)}</span>
         </div>
       </div>
@@ -124,58 +141,62 @@ export function AgentRegistryPanel() {
       {agents.length === 0 ? (
         <p className="text-sm text-muted-foreground">No agent data yet.</p>
       ) : (
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[200px]">Agent</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="text-right">Trust</TableHead>
-              <TableHead className="w-[80px] text-center">Trend</TableHead>
-              <TableHead className="text-right">Authority</TableHead>
-              <TableHead className="w-[80px]">Sparkline</TableHead>
-              <TableHead>Breach</TableHead>
-              <TableHead className="text-right">Capabilities</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {sorted.map((agent) => (
-              <TableRow key={agent.id} className="cursor-pointer">
-                <TableCell>
-                  <Link
-                    href={`/agents/${agent.id}`}
-                    className="font-medium text-foreground hover:underline"
-                  >
-                    {agent.id}
-                  </Link>
-                </TableCell>
-                <TableCell>
-                  <StatusBadge status={agent.status} />
-                </TableCell>
-                <TableCell className="text-right font-mono text-sm">
-                  {formatScore(agent.trustScore)}
-                </TableCell>
-                <TableCell className="text-center">
-                  <TrendArrow agentId={agent.id} />
-                </TableCell>
-                <TableCell className="text-right font-mono text-sm">
-                  {formatScore(agent.authorityWeight)}
-                </TableCell>
-                <TableCell>
-                  <TrustSparkline agentId={agent.id} />
-                </TableCell>
-                <TableCell>
-                  <BreachIndicator
-                    trustScore={agent.trustScore}
-                    threshold={trustThreshold}
-                  />
-                </TableCell>
-                <TableCell className="text-right text-xs text-muted-foreground">
-                  {agent.capabilities?.join(", ") || "\u2014"}
-                </TableCell>
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[200px]">Agent</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead className="text-right">Trust</TableHead>
+                <TableHead className="w-[80px] text-center">Trend</TableHead>
+                <TableHead className="text-right">Authority</TableHead>
+                <TableHead className="w-[80px]">Sparkline</TableHead>
+                <TableHead>Breach</TableHead>
+                <TableHead className="text-right">Capabilities</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {sorted.map((agent) => (
+                <TableRow key={agent.id} className="cursor-pointer">
+                  <TableCell>
+                    <button
+                      onClick={() => handleAgentClick(agent.id)}
+                      className="font-medium text-foreground hover:underline text-left"
+                    >
+                      {agent.id}
+                    </button>
+                  </TableCell>
+                  <TableCell>
+                    <button onClick={() => filters.setStatus(agent.status)}>
+                      <StatusBadge status={agent.status} />
+                    </button>
+                  </TableCell>
+                  <TableCell className="text-right font-mono text-sm">
+                    {formatScore(agent.trustScore)}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    <TrendArrow agentId={agent.id} />
+                  </TableCell>
+                  <TableCell className="text-right font-mono text-sm">
+                    {formatScore(agent.authorityWeight)}
+                  </TableCell>
+                  <TableCell>
+                    <TrustSparkline agentId={agent.id} />
+                  </TableCell>
+                  <TableCell>
+                    <BreachIndicator
+                      trustScore={agent.trustScore}
+                      threshold={trustThreshold}
+                    />
+                  </TableCell>
+                  <TableCell className="text-right text-xs text-muted-foreground">
+                    {agent.capabilities?.join(", ") || "\u2014"}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       )}
     </Card>
   )

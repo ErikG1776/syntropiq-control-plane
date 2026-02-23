@@ -38,14 +38,21 @@ export function StabilityChart() {
         <div className="h-[260px]">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={history}>
-              <CartesianGrid strokeDasharray="3 3" />
+              <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
               <XAxis dataKey="ts" tick={false} />
               <YAxis domain={[0, 1]} />
-              <Tooltip />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "hsl(var(--popover))",
+                  border: "1px solid hsl(var(--border))",
+                  color: "hsl(var(--popover-foreground))",
+                  borderRadius: "0.375rem",
+                }}
+              />
               <Line
                 type="monotone"
                 dataKey="value"
-                stroke="#2563eb"
+                stroke="hsl(var(--primary))"
                 dot={false}
                 strokeWidth={2}
               />
@@ -53,14 +60,14 @@ export function StabilityChart() {
               {trustThreshold >= 0 && (
                 <ReferenceLine
                   y={trustThreshold}
-                  stroke="#f59e0b"
+                  stroke="hsl(var(--chart-2, 38 92% 50%))"
                   strokeDasharray="4 4"
                 />
               )}
               {suppressionThreshold >= 0 && (
                 <ReferenceLine
                   y={suppressionThreshold}
-                  stroke="#ef4444"
+                  stroke="hsl(var(--destructive))"
                   strokeDasharray="4 4"
                 />
               )}

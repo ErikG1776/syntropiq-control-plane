@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useMemo } from "react"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
@@ -8,6 +8,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { Select } from "@/components/ui/select"
 import { useGovernanceStore } from "@/store/governance-store"
+import { useFilters, TIME_RANGES } from "@/store/filter-store"
 import type { GovernanceEvent } from "@/lib/governance/schema"
 
 const severityClass: Record<string, string> = {
@@ -17,14 +18,7 @@ const severityClass: Record<string, string> = {
   critical: "text-red-700 font-semibold",
 }
 
-const ALL = "__all__"
-
-const TIME_WINDOWS = [
-  { label: "All", ms: 0 },
-  { label: "Last 5m", ms: 5 * 60_000 },
-  { label: "Last 15m", ms: 15 * 60_000 },
-  { label: "Last 1h", ms: 60 * 60_000 },
-]
+const ALL = ""
 
 interface EventStreamPanelProps {
   fullPage?: boolean
@@ -32,12 +26,7 @@ interface EventStreamPanelProps {
 
 export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
   const events = useGovernanceStore((s) => s.events)
-
-  const [severityFilter, setSeverityFilter] = useState(ALL)
-  const [typeFilter, setTypeFilter] = useState(ALL)
-  const [agentFilter, setAgentFilter] = useState(ALL)
-  const [searchQuery, setSearchQuery] = useState("")
-  const [timeWindow, setTimeWindow] = useState(0)
+  const filters = useFilters()
 
   const severities = useMemo(
     () => [...new Set(events.map((e) => e.severity))].sort(),
@@ -54,19 +43,19 @@ export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
 
   const filtered = useMemo(() => {
     const now = Date.now()
-    const lowerQuery = searchQuery.toLowerCase()
+    const lowerQuery = filters.q.toLowerCase()
     return events.filter((e: GovernanceEvent) => {
-      if (severityFilter !== ALL && e.severity !== severityFilter) return false
-      if (typeFilter !== ALL && e.type !== typeFilter) return false
-      if (agentFilter !== ALL && e.agentId !== agentFilter) return false
+      if (filters.severity && e.severity !== filters.severity) return false
+      if (filters.eventType && e.type !== filters.eventType) return false
+      if (filters.agentId && e.agentId !== filters.agentId) return false
       if (lowerQuery && !e.message.toLowerCase().includes(lowerQuery)) return false
-      if (timeWindow > 0) {
+      if (filters.timeRange > 0) {
         const ts = Date.parse(e.timestamp)
-        if (Number.isFinite(ts) && ts < now - timeWindow) return false
+        if (Number.isFinite(ts) && ts < now - filters.timeRange) return false
       }
       return true
     }).reverse()
-  }, [events, severityFilter, typeFilter, agentFilter, searchQuery, timeWindow])
+  }, [events, filters.severity, filters.eventType, filters.agentId, filters.q, filters.timeRange])
 
   const showFilters = fullPage
 
@@ -85,13 +74,13 @@ export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
           <div className="flex flex-wrap items-center gap-2 mb-3">
             <Input
               placeholder="Search messages..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              value={filters.q}
+              onChange={(e) => filters.setSearch(e.target.value)}
               className="w-48 h-8 text-xs"
             />
             <Select
-              value={severityFilter}
-              onChange={(e) => setSeverityFilter(e.target.value)}
+              value={filters.severity}
+              onChange={(e) => filters.setSeverity(e.target.value)}
               className="w-28 h-8 text-xs"
             >
               <option value={ALL}>All severity</option>
@@ -100,8 +89,8 @@ export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
               ))}
             </Select>
             <Select
-              value={typeFilter}
-              onChange={(e) => setTypeFilter(e.target.value)}
+              value={filters.eventType}
+              onChange={(e) => filters.setEventType(e.target.value)}
               className="w-36 h-8 text-xs"
             >
               <option value={ALL}>All types</option>
@@ -110,8 +99,8 @@ export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
               ))}
             </Select>
             <Select
-              value={agentFilter}
-              onChange={(e) => setAgentFilter(e.target.value)}
+              value={filters.agentId}
+              onChange={(e) => filters.setAgentId(e.target.value)}
               className="w-40 h-8 text-xs"
             >
               <option value={ALL}>All agents</option>
@@ -120,12 +109,12 @@ export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
               ))}
             </Select>
             <div className="flex gap-1">
-              {TIME_WINDOWS.map((tw) => (
+              {TIME_RANGES.map((tw) => (
                 <button
                   key={tw.ms}
-                  onClick={() => setTimeWindow(tw.ms)}
+                  onClick={() => filters.setTimeRange(tw.ms)}
                   className={`px-2 py-1 rounded text-xs border transition-colors ${
-                    timeWindow === tw.ms
+                    filters.timeRange === tw.ms
                       ? "bg-primary text-primary-foreground"
                       : "bg-transparent text-muted-foreground hover:bg-muted"
                   }`}
@@ -156,7 +145,12 @@ export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
                       {event.type}
                     </Badge>
                     {event.agentId && (
-                      <span className="text-muted-foreground">{event.agentId}</span>
+                      <button
+                        className="text-muted-foreground hover:text-foreground hover:underline"
+                        onClick={() => filters.setAgentId(event.agentId!)}
+                      >
+                        {event.agentId}
+                      </button>
                     )}
                   </div>
                   <span className="text-muted-foreground whitespace-nowrap">

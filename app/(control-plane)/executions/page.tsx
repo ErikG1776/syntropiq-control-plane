@@ -3,19 +3,16 @@
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
+import { DataGuard } from "@/components/control-plane/DataGuard"
 import { useGovernanceStore } from "@/store/governance-store"
 
 export default function ExecutionsPage() {
-  const connected = useGovernanceStore((s) => s.connected)
   const events = useGovernanceStore((s) => s.events)
   const history = useGovernanceStore((s) => s.history)
 
   const mutationEvents = events.filter((e) => e.type === "mutation")
   const trustUpdates = events.filter((e) => e.type === "trust_update")
   const suppressions = events.filter((e) => e.type === "suppression")
-
-  const latestSnapshot = history.length > 0 ? history[history.length - 1] : null
-  const agentCount = latestSnapshot?.agents.length ?? 0
 
   return (
     <div className="space-y-6">
@@ -26,11 +23,7 @@ export default function ExecutionsPage() {
         </p>
       </div>
 
-      {!connected ? (
-        <Card className="p-5 text-sm text-muted-foreground">
-          Connect a source to view execution history.
-        </Card>
-      ) : (
+      <DataGuard emptyMessage="Connect a source to view execution history.">
         <>
           {/* Summary stats */}
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
@@ -124,7 +117,7 @@ export default function ExecutionsPage() {
             </p>
           </Card>
         </>
-      )}
+      </DataGuard>
     </div>
   )
 }

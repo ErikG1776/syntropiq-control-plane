@@ -52,7 +52,7 @@ export function KpiRow() {
   ]
 
   return (
-    <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
       {metrics.map((metric) => (
         <Card key={metric.label} className="p-4">
           <div className="text-xs uppercase tracking-wide text-muted-foreground">

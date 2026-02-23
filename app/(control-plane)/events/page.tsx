@@ -1,12 +1,9 @@
 "use client"
 
 import { EventStreamPanel } from "@/components/control-plane/EventStreamPanel"
-import { Card } from "@/components/ui/card"
-import { useGovernanceStore } from "@/store/governance-store"
+import { DataGuard } from "@/components/control-plane/DataGuard"
 
 export default function EventsPage() {
-  const connected = useGovernanceStore((s) => s.connected)
-
   return (
     <div className="space-y-6">
       <div>
@@ -16,13 +13,9 @@ export default function EventsPage() {
         </p>
       </div>
 
-      {!connected ? (
-        <Card className="p-5 text-sm text-muted-foreground">
-          Connect a source to view the event stream.
-        </Card>
-      ) : (
+      <DataGuard emptyMessage="Connect a source to view the event stream.">
         <EventStreamPanel fullPage />
-      )}
+      </DataGuard>
     </div>
   )
 }

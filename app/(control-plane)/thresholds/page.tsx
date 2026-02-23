@@ -3,6 +3,7 @@
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
+import { DataGuard } from "@/components/control-plane/DataGuard"
 import { useGovernanceStore } from "@/store/governance-store"
 
 function formatThreshold(v: number | undefined): string {
@@ -23,7 +24,6 @@ function ThresholdAvailability({ v }: { v: number | undefined }) {
 }
 
 export default function ThresholdsPage() {
-  const connected = useGovernanceStore((s) => s.connected)
   const thresholds = useGovernanceStore((s) => s.snapshot?.thresholds)
   const events = useGovernanceStore((s) => s.events)
 
@@ -52,11 +52,7 @@ export default function ThresholdsPage() {
         </p>
       </div>
 
-      {!connected ? (
-        <Card className="p-5 text-sm text-muted-foreground">
-          Connect a source to view threshold policies.
-        </Card>
-      ) : (
+      <DataGuard emptyMessage="Connect a source to view threshold policies.">
         <>
           <Card className="p-5">
             <h2 className="text-base font-semibold mb-4">Active Thresholds</h2>
@@ -127,7 +123,7 @@ export default function ThresholdsPage() {
             </Card>
           )}
         </>
-      )}
+      </DataGuard>
     </div>
   )
 }
