@@ -74,6 +74,8 @@ export function CommandPalette() {
               { label: "Overview", href: "/control-plane" },
               { label: "Agents", href: "/agents" },
               { label: "Events", href: "/events" },
+              { label: "Topology", href: "/topology" },
+              { label: "Incidents", href: "/incidents" },
               { label: "Thresholds", href: "/thresholds" },
               { label: "Executions", href: "/executions" },
             ].map((item) => (

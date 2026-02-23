@@ -18,6 +18,8 @@ const navLinks = [
   { href: "/control-plane", label: "Overview" },
   { href: "/agents", label: "Agents" },
   { href: "/events", label: "Events" },
+  { href: "/topology", label: "Topology" },
+  { href: "/incidents", label: "Incidents" },
   { href: "/thresholds", label: "Thresholds" },
   { href: "/executions", label: "Executions" },
 ]

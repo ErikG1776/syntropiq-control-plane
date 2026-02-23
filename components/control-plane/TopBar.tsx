@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { ConnectSourceDialog } from "@/components/control-plane/ConnectSourceDialog"
 import { TimeRangePicker } from "@/components/control-plane/TimeRangePicker"
 import { ThemeToggle } from "@/components/control-plane/ThemeToggle"
+import { ExportMenu } from "@/components/control-plane/ExportMenu"
 import { activeFilterCount, useFilters } from "@/store/filter-store"
 import { Button } from "@/components/ui/button"
 import { X } from "lucide-react"
@@ -76,6 +77,7 @@ export function TopBar() {
             {streamLatencyMs === null ? "n/a" : `${Math.floor(streamLatencyMs / 1000)}s`}
           </Badge>
           <Badge variant="outline">epm {eventsPerMinute}</Badge>
+          <ExportMenu />
           <ConnectSourceDialog />
           <ThemeToggle />
         </div>
