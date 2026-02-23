@@ -9,6 +9,8 @@ import type {
   Unsubscribe,
 } from "@/lib/governance/schema"
 import { dataSources } from "@/lib/datasources"
+import { validatePayload } from "@/lib/datasources/normalize"
+import type { ValidationWarning } from "@/lib/datasources/normalize"
 
 // ---------------------------------------------------------------------------
 // Session persistence helpers
@@ -49,12 +51,98 @@ function deduplicateEvents(
       newEvents.push(evt)
     }
   }
-  // Prune the set if it gets too large (keep most recent half)
   if (seenEventIds.size > MAX_SEEN_IDS) {
     const arr = Array.from(seenEventIds)
     seenEventIds = new Set(arr.slice(arr.length - MAX_SEEN_IDS / 2))
   }
   return [...existing, ...newEvents]
+}
+
+// ---------------------------------------------------------------------------
+// Backpressure: RAF-gated store updates
+// ---------------------------------------------------------------------------
+
+let pendingPayload: GovernanceStreamPayload | null = null
+let rafScheduled = false
+let flushToStore: ((payload: GovernanceStreamPayload) => void) | null = null
+
+let _messagesReceived = 0
+let _messagesDropped = 0
+
+function scheduleStoreUpdate(payload: GovernanceStreamPayload) {
+  _messagesReceived += 1
+  // If a frame is already pending, drop the older one (keep latest)
+  if (pendingPayload) _messagesDropped += 1
+  pendingPayload = payload
+
+  if (!rafScheduled && typeof requestAnimationFrame !== "undefined") {
+    rafScheduled = true
+    requestAnimationFrame(() => {
+      rafScheduled = false
+      if (pendingPayload && flushToStore) {
+        const p = pendingPayload
+        pendingPayload = null
+        flushToStore(p)
+      }
+    })
+  } else if (!rafScheduled) {
+    // SSR / test fallback — flush immediately
+    if (pendingPayload && flushToStore) {
+      const p = pendingPayload
+      pendingPayload = null
+      flushToStore(p)
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Connection health metrics
+// ---------------------------------------------------------------------------
+
+export interface ConnectionHealth {
+  messagesReceived: number
+  messagesDropped: number
+  validationWarnings: number
+  lastMessageAt: string | null
+  latencyMs: number | null
+  connectedSince: string | null
+  uptimeMs: number
+}
+
+let _connectedSince: string | null = null
+let _totalValidationWarnings = 0
+
+export function getConnectionHealth(): ConnectionHealth {
+  const state = useGovernanceStore.getState()
+  const now = Date.now()
+  const lastMsg = state.lastMessageAt
+  const latencyMs =
+    lastMsg && !Number.isNaN(Date.parse(lastMsg))
+      ? Math.max(0, now - Date.parse(lastMsg))
+      : null
+  const uptimeMs =
+    _connectedSince && !Number.isNaN(Date.parse(_connectedSince))
+      ? Math.max(0, now - Date.parse(_connectedSince))
+      : 0
+
+  return {
+    messagesReceived: _messagesReceived,
+    messagesDropped: _messagesDropped,
+    validationWarnings: _totalValidationWarnings,
+    lastMessageAt: lastMsg,
+    latencyMs,
+    connectedSince: _connectedSince,
+    uptimeMs,
+  }
+}
+
+function resetHealthMetrics() {
+  _messagesReceived = 0
+  _messagesDropped = 0
+  _totalValidationWarnings = 0
+  _connectedSince = null
+  pendingPayload = null
+  rafScheduled = false
 }
 
 // ---------------------------------------------------------------------------
@@ -71,6 +159,7 @@ interface GovernanceState {
   events: GovernanceEvent[]
   error: string | null
   connecting: boolean
+  lastValidationWarnings: ValidationWarning[]
   connect: (sourceKey: DataSourceKey) => Promise<void>
   disconnect: () => void
   reset: () => void
@@ -82,162 +171,182 @@ let connectionEpoch = 0
 
 function clearActiveSubscription() {
   if (currentUnsubscribe) {
-    try {
-      currentUnsubscribe()
-    } catch {
-      // no-op: datasource unsubscriber must never crash app teardown.
-    }
+    try { currentUnsubscribe() } catch { /* no-op */ }
     currentUnsubscribe = null
   }
 }
 
-export const useGovernanceStore = create<GovernanceState>((set) => ({
-  connected: false,
-  source: null,
-  lastMessageAt: null,
-  snapshot: null,
-  history: [],
-  stabilityHistory: [],
-  events: [],
-  error: null,
-  connecting: false,
+function applyPayload(
+  state: GovernanceState,
+  payload: GovernanceStreamPayload,
+): Partial<GovernanceState> {
+  const mergedEvents = deduplicateEvents(state.events, payload.events)
+  const cappedEvents =
+    mergedEvents.length > MAX_EVENTS
+      ? mergedEvents.slice(mergedEvents.length - MAX_EVENTS)
+      : mergedEvents
 
-  connect: async (sourceKey) => {
-    connectionEpoch += 1
-    const requestEpoch = connectionEpoch
+  // Stability: normalized weighted mean bounded 0-1
+  const totalWeight = payload.snapshot.agents.reduce(
+    (acc, a) => acc + a.authorityWeight, 0,
+  )
+  const stability =
+    totalWeight > 0
+      ? payload.snapshot.agents.reduce(
+          (acc, a) => acc + a.trustScore * a.authorityWeight, 0,
+        ) / totalWeight
+      : 0
 
-    clearActiveSubscription()
-    seenEventIds.clear()
-    persistSource(sourceKey)
-    set({
-      connected: false,
-      connecting: true,
-      source: sourceKey,
-      error: null,
-      lastMessageAt: null,
-      snapshot: null,
-      stabilityHistory: [],
-      events: [],
-    })
+  const newStabilityHistory = [
+    ...state.stabilityHistory,
+    { ts: payload.snapshot.timestamp, value: stability },
+  ].slice(-300)
 
-    const source = dataSources[sourceKey]
-    if (!source) {
+  const warnings = validatePayload(payload)
+  if (warnings.length > 0) _totalValidationWarnings += warnings.length
+
+  return {
+    snapshot: payload.snapshot,
+    events: cappedEvents,
+    history: [...state.history, payload.snapshot].slice(-300),
+    stabilityHistory: newStabilityHistory,
+    connected: true,
+    connecting: false,
+    error: null,
+    lastMessageAt: new Date().toISOString(),
+    lastValidationWarnings: warnings,
+  }
+}
+
+export const useGovernanceStore = create<GovernanceState>((set) => {
+  // Wire up the RAF flush callback
+  flushToStore = (payload: GovernanceStreamPayload) => {
+    set((state) => ({ ...state, ...applyPayload(state, payload) }))
+  }
+
+  return {
+    connected: false,
+    source: null,
+    lastMessageAt: null,
+    snapshot: null,
+    history: [],
+    stabilityHistory: [],
+    events: [],
+    error: null,
+    connecting: false,
+    lastValidationWarnings: [],
+
+    connect: async (sourceKey) => {
+      connectionEpoch += 1
+      const requestEpoch = connectionEpoch
+
+      clearActiveSubscription()
+      seenEventIds.clear()
+      resetHealthMetrics()
+      persistSource(sourceKey)
       set({
-        connecting: false,
         connected: false,
-        error: `Datasource "${sourceKey}" is not configured.`,
-      })
-      return
-    }
-
-    try {
-      const unsubscribe = await source.connect({
-        onStatus: (status) => {
-          if (requestEpoch !== connectionEpoch) return
-          set((state) => ({
-            ...state,
-            connected: status.connected,
-            connecting: false,
-            error:
-              !status.connected && status.message
-                ? status.message
-                : state.error,
-          }))
-        },
-        onMessage: (payload: GovernanceStreamPayload) => {
-          if (requestEpoch !== connectionEpoch) return
-          set((state) => {
-            const mergedEvents = deduplicateEvents(state.events, payload.events)
-            const cappedEvents =
-              mergedEvents.length > MAX_EVENTS
-                ? mergedEvents.slice(mergedEvents.length - MAX_EVENTS)
-                : mergedEvents
-
-            // Stability: normalized weighted mean bounded 0-1
-            // Σ(trustScore × authorityWeight) / Σ(authorityWeight)
-            const totalWeight = payload.snapshot.agents.reduce(
-              (acc, a) => acc + a.authorityWeight, 0
-            )
-            const stability =
-              totalWeight > 0
-                ? payload.snapshot.agents.reduce(
-                    (acc, a) => acc + a.trustScore * a.authorityWeight,
-                    0
-                  ) / totalWeight
-                : 0
-            const newHistory = [
-              ...state.stabilityHistory,
-              { ts: payload.snapshot.timestamp, value: stability },
-            ].slice(-300)
-            return {
-              ...state,
-              snapshot: payload.snapshot,
-              events: cappedEvents,
-              history: [...state.history, payload.snapshot].slice(-300),
-              stabilityHistory: newHistory,
-              connected: true,
-              connecting: false,
-              error: null,
-              lastMessageAt: new Date().toISOString(),
-            }
-          })
-        },
+        connecting: true,
+        source: sourceKey,
+        error: null,
+        lastMessageAt: null,
+        snapshot: null,
+        stabilityHistory: [],
+        events: [],
+        lastValidationWarnings: [],
       })
 
-      if (requestEpoch !== connectionEpoch) {
-        unsubscribe()
+      const source = dataSources[sourceKey]
+      if (!source) {
+        set({
+          connecting: false,
+          connected: false,
+          error: `Datasource "${sourceKey}" is not configured.`,
+        })
         return
       }
-      currentUnsubscribe = unsubscribe
-    } catch (err) {
-      set({
+
+      try {
+        const unsubscribe = await source.connect({
+          onStatus: (status) => {
+            if (requestEpoch !== connectionEpoch) return
+            if (status.connected && !_connectedSince) {
+              _connectedSince = new Date().toISOString()
+            }
+            set((state) => ({
+              ...state,
+              connected: status.connected,
+              connecting: false,
+              error:
+                !status.connected && status.message
+                  ? status.message
+                  : state.error,
+            }))
+          },
+          onMessage: (payload: GovernanceStreamPayload) => {
+            if (requestEpoch !== connectionEpoch) return
+            scheduleStoreUpdate(payload)
+          },
+          config: source.config,
+        })
+
+        if (requestEpoch !== connectionEpoch) {
+          unsubscribe()
+          return
+        }
+        currentUnsubscribe = unsubscribe
+      } catch (err) {
+        set({
+          connecting: false,
+          connected: false,
+          error: err instanceof Error ? err.message : "Failed to connect datasource.",
+        })
+      }
+    },
+
+    disconnect: () => {
+      connectionEpoch += 1
+      clearActiveSubscription()
+      resetHealthMetrics()
+      persistSource(null)
+      set((state) => ({
+        ...state,
         connecting: false,
         connected: false,
-        error: err instanceof Error ? err.message : "Failed to connect datasource.",
+        source: null,
+        lastMessageAt: null,
+      }))
+    },
+
+    reset: () => {
+      connectionEpoch += 1
+      clearActiveSubscription()
+      seenEventIds.clear()
+      resetHealthMetrics()
+      persistSource(null)
+      set({
+        connected: false,
+        source: null,
+        lastMessageAt: null,
+        snapshot: null,
+        history: [],
+        stabilityHistory: [],
+        events: [],
+        error: null,
+        connecting: false,
+        lastValidationWarnings: [],
       })
-    }
-  },
-
-  disconnect: () => {
-    connectionEpoch += 1
-    clearActiveSubscription()
-    persistSource(null)
-    set((state) => ({
-      ...state,
-      connecting: false,
-      connected: false,
-      source: null,
-      lastMessageAt: null,
-    }))
-  },
-
-  reset: () => {
-    connectionEpoch += 1
-    clearActiveSubscription()
-    seenEventIds.clear()
-    persistSource(null)
-    set({
-      connected: false,
-      source: null,
-      lastMessageAt: null,
-      snapshot: null,
-      history: [],
-      stabilityHistory: [],
-      events: [],
-      error: null,
-      connecting: false,
-    })
-  },
-}))
+    },
+  }
+})
 
 // ---------------------------------------------------------------------------
-// Auto-reconnect on mount: if a previous source was persisted, reconnect
+// Auto-reconnect on mount
 // ---------------------------------------------------------------------------
 
 if (typeof window !== "undefined") {
   const stored = loadPersistedSource()
   if (stored) {
-    // Defer to next tick so the store is fully initialized
     setTimeout(() => {
       const state = useGovernanceStore.getState()
       if (!state.connected && !state.connecting) {
@@ -291,20 +400,15 @@ export function getEventsPerMinute(nowMs = Date.now()) {
 
 export function getTrustTrend(agentId: string): "up" | "down" | "flat" | "unknown" {
   const { history } = useGovernanceStore.getState()
-
   if (history.length < 3) return "unknown"
 
   const lastThree = history.slice(-3)
   const values = lastThree
-    .map((snap) =>
-      snap.agents.find((a) => a.id === agentId)?.trustScore ?? null
-    )
+    .map((snap) => snap.agents.find((a) => a.id === agentId)?.trustScore ?? null)
     .filter((v): v is number => typeof v === "number")
 
   if (values.length < 3) return "unknown"
-
   const delta = values[2] - values[0]
-
   if (delta > 0.01) return "up"
   if (delta < -0.01) return "down"
   return "flat"
@@ -312,12 +416,10 @@ export function getTrustTrend(agentId: string): "up" | "down" | "flat" | "unknow
 
 export function getRecentSuppressionTransitions(): string[] {
   const { history } = useGovernanceStore.getState()
-
   if (history.length < 2) return []
 
   const prev = history[history.length - 2]
   const curr = history[history.length - 1]
-
   const transitions: string[] = []
 
   for (const agent of curr.agents) {
@@ -326,6 +428,5 @@ export function getRecentSuppressionTransitions(): string[] {
       transitions.push(agent.id)
     }
   }
-
   return transitions
 }

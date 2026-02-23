@@ -3,14 +3,17 @@ import type {
   GovernanceStreamPayload,
   Unsubscribe,
 } from "@/lib/governance/schema"
+import type { DataSourceConfig, StatusHandler } from "@/lib/datasources/types"
+import { safeNormalize, validatePayload } from "@/lib/datasources/normalize"
 
 const DEFAULT_WS_URL = "ws://localhost:8000/ws/governance"
-const INITIAL_RECONNECT_MS = 1000
-const MAX_RECONNECT_MS = 30000
-const RECONNECT_MULTIPLIER = 2
-const HEARTBEAT_TIMEOUT_MS = 15000
+const DEFAULT_INITIAL_RECONNECT_MS = 1000
+const DEFAULT_MAX_RECONNECT_MS = 30000
+const DEFAULT_RECONNECT_MULTIPLIER = 2
+const DEFAULT_HEARTBEAT_TIMEOUT_MS = 15000
 
-function getWsUrl(): string {
+function resolveWsUrl(config?: DataSourceConfig): string {
+  if (config?.url) return config.url
   if (typeof window !== "undefined") {
     const stored = localStorage.getItem("syntropiq_ws_url")
     if (stored) return stored
@@ -18,26 +21,39 @@ function getWsUrl(): string {
   return process.env.NEXT_PUBLIC_WS_URL || DEFAULT_WS_URL
 }
 
-function isValidPayload(data: unknown): data is GovernanceStreamPayload {
+function isPlausiblePayload(data: unknown): boolean {
   if (!data || typeof data !== "object") return false
   const obj = data as Record<string, unknown>
+  // Accept either canonical { snapshot, events } or raw backend shapes
   return (
-    obj.snapshot !== undefined &&
-    typeof obj.snapshot === "object" &&
-    obj.snapshot !== null &&
-    Array.isArray((obj as { events?: unknown }).events)
+    (obj.snapshot !== undefined && typeof obj.snapshot === "object") ||
+    (Array.isArray(obj.agents)) ||
+    (obj.frame !== undefined && typeof obj.frame === "object")
   )
 }
 
 export async function connectWebSocket(opts: {
   onMessage: GovernanceMessageHandler
-  onStatus?: (s: { connected: boolean; message?: string }) => void
+  onStatus?: StatusHandler
+  config?: DataSourceConfig
 }): Promise<Unsubscribe> {
+  const reconnectCfg = opts.config?.reconnect ?? {
+    initialMs: DEFAULT_INITIAL_RECONNECT_MS,
+    maxMs: DEFAULT_MAX_RECONNECT_MS,
+    multiplier: DEFAULT_RECONNECT_MULTIPLIER,
+  }
+  const heartbeatMs = opts.config?.heartbeatTimeoutMs ?? DEFAULT_HEARTBEAT_TIMEOUT_MS
+
   let stopped = false
   let ws: WebSocket | null = null
-  let reconnectMs = INITIAL_RECONNECT_MS
+  let reconnectMs = reconnectCfg.initialMs
   let reconnectTimer: ReturnType<typeof setTimeout> | null = null
   let heartbeatTimer: ReturnType<typeof setTimeout> | null = null
+
+  // --- Health metrics ---
+  let messagesReceived = 0
+  let validationWarnings = 0
+  let droppedFrames = 0
 
   function clearTimers() {
     if (reconnectTimer) {
@@ -57,17 +73,16 @@ export async function connectWebSocket(opts: {
         connected: false,
         message: "Heartbeat timeout — no message received",
       })
-      // Force reconnect
       if (ws) {
         try { ws.close() } catch { /* noop */ }
       }
-    }, HEARTBEAT_TIMEOUT_MS)
+    }, heartbeatMs)
   }
 
   function connect() {
     if (stopped) return
 
-    const url = getWsUrl()
+    const url = resolveWsUrl(opts.config)
     opts.onStatus?.({ connected: false, message: `Connecting to ${url}...` })
 
     try {
@@ -83,7 +98,7 @@ export async function connectWebSocket(opts: {
 
     ws.onopen = () => {
       if (stopped) { ws?.close(); return }
-      reconnectMs = INITIAL_RECONNECT_MS
+      reconnectMs = reconnectCfg.initialMs
       opts.onStatus?.({ connected: true, message: "WebSocket connected" })
       resetHeartbeat()
     }
@@ -94,15 +109,22 @@ export async function connectWebSocket(opts: {
 
       try {
         const data = JSON.parse(event.data)
-        if (isValidPayload(data)) {
-          // Ensure source is tagged
-          if (data.snapshot && typeof data.snapshot === "object") {
-            (data.snapshot as unknown as Record<string, unknown>).source = "live_ws"
+        if (isPlausiblePayload(data)) {
+          // Normalize through the unified pipeline — no source-tagging hack
+          const payload: GovernanceStreamPayload = safeNormalize(data, "live_ws")
+          messagesReceived += 1
+
+          const warnings = validatePayload(payload)
+          if (warnings.length > 0) {
+            validationWarnings += warnings.length
           }
-          opts.onMessage(data)
+
+          opts.onMessage(payload)
+        } else {
+          droppedFrames += 1
         }
       } catch {
-        // Silently ignore unparseable frames
+        droppedFrames += 1
       }
     }
 
@@ -127,7 +149,10 @@ export async function connectWebSocket(opts: {
     if (stopped) return
     clearTimers()
     reconnectTimer = setTimeout(() => {
-      reconnectMs = Math.min(reconnectMs * RECONNECT_MULTIPLIER, MAX_RECONNECT_MS)
+      reconnectMs = Math.min(
+        reconnectMs * reconnectCfg.multiplier,
+        reconnectCfg.maxMs,
+      )
       connect()
     }, reconnectMs)
   }
@@ -143,4 +168,10 @@ export async function connectWebSocket(opts: {
     }
     opts.onStatus?.({ connected: false, message: "WebSocket disconnected" })
   }
+}
+
+// Export for health metrics panel (Phase 1.3)
+export function getWebSocketMetrics() {
+  // Placeholder — will be wired to a metrics store in Phase 1.3
+  return null
 }

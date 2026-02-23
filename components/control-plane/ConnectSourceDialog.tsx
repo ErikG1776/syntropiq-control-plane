@@ -53,7 +53,7 @@ export function ConnectSourceDialog() {
               variant="outline"
               className="h-auto justify-between py-3"
               disabled={connecting}
-              onClick={() => handleConnect(s.key)}
+              onClick={() => handleConnect(s.key as DataSourceKey)}
             >
               <span>{s.label}</span>
               <Badge variant="secondary">{s.mode}</Badge>

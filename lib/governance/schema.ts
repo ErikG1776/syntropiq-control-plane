@@ -65,6 +65,7 @@ export type DataSourceKey =
   | "replay_governance_demo"
   | "live_api"
   | "live_ws"
+  | "live_sse"
 
 /**
  * Canonical snapshot of the governed system at a point in time.
