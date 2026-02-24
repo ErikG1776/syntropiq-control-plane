@@ -5,6 +5,7 @@ import { EventStreamPanel } from "@/components/control-plane/EventStreamPanel"
 import { KpiRow } from "@/components/control-plane/KpiRow"
 import { StabilityChart } from "@/components/control-plane/StabilityChart"
 import { TopBar } from "@/components/control-plane/TopBar"
+import { ConnectionHealthPanel } from "@/components/control-plane/ConnectionHealthPanel"
 import { DataGuard } from "@/components/control-plane/DataGuard"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Card } from "@/components/ui/card"
@@ -35,6 +36,7 @@ export default function ControlPlanePage() {
       <DataGuard skeleton={<DashboardSkeleton />}>
         <div className="space-y-6">
           <KpiRow />
+          <ConnectionHealthPanel />
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
             <StabilityChart />
             <EventStreamPanel />

@@ -129,15 +129,23 @@ export default function AgentDetailPage() {
             ) : (
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={chartData}>
-                  <CartesianGrid strokeDasharray="3 3" />
+                  <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
                   <XAxis dataKey="idx" tick={false} />
                   <YAxis domain={[0, 1]} />
-                  <Tooltip labelFormatter={(v) => `Tick ${v}`} />
+                  <Tooltip
+                    labelFormatter={(v) => `Tick ${v}`}
+                    contentStyle={{
+                      backgroundColor: "hsl(var(--popover))",
+                      border: "1px solid hsl(var(--border))",
+                      color: "hsl(var(--popover-foreground))",
+                      borderRadius: "0.375rem",
+                    }}
+                  />
                   <Line
                     type="monotone"
                     dataKey="trust"
                     name="Trust"
-                    stroke="#2563eb"
+                    stroke="hsl(var(--chart-1))"
                     dot={false}
                     strokeWidth={2}
                     connectNulls
@@ -145,7 +153,7 @@ export default function AgentDetailPage() {
                   {trustThreshold >= 0 && (
                     <ReferenceLine
                       y={trustThreshold}
-                      stroke="#f59e0b"
+                      stroke="hsl(var(--chart-3, 38 92% 50%))"
                       strokeDasharray="4 4"
                     />
                   )}
@@ -163,15 +171,23 @@ export default function AgentDetailPage() {
             ) : (
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={chartData}>
-                  <CartesianGrid strokeDasharray="3 3" />
+                  <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
                   <XAxis dataKey="idx" tick={false} />
                   <YAxis domain={[0, 1]} />
-                  <Tooltip labelFormatter={(v) => `Tick ${v}`} />
+                  <Tooltip
+                    labelFormatter={(v) => `Tick ${v}`}
+                    contentStyle={{
+                      backgroundColor: "hsl(var(--popover))",
+                      border: "1px solid hsl(var(--border))",
+                      color: "hsl(var(--popover-foreground))",
+                      borderRadius: "0.375rem",
+                    }}
+                  />
                   <Line
                     type="monotone"
                     dataKey="authority"
                     name="Authority"
-                    stroke="#8b5cf6"
+                    stroke="hsl(var(--chart-4))"
                     dot={false}
                     strokeWidth={2}
                     connectNulls

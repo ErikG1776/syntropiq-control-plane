@@ -1,1 +1,5410 @@
-{ "summary": {}, "timeline": [] }
+{
+  "summary": {
+    "description": "Infrastructure chain monitoring"
+  },
+  "runId": "infra-chain-001",
+  "timeline": [
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.92,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:00.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.91,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:00.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.88,
+          "authorityWeight": 0.78,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:00.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.89,
+          "authorityWeight": 0.82,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:00.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.87,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:00.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_001",
+          "timestamp": "2026-02-23T10:00:00.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "System heartbeat — all agents nominal",
+          "agentId": "health-monitor",
+          "tags": [
+            "infra",
+            "heartbeat"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:00.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.9259,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:02.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.9158,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:02.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.8869,
+          "authorityWeight": 0.78,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:02.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.8949,
+          "authorityWeight": 0.82,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:02.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.8744,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:02.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_002",
+          "timestamp": "2026-02-23T10:00:02.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Routine trust evaluation for health-monitor: 0.9158",
+          "agentId": "health-monitor",
+          "tags": [
+            "infra",
+            "trust",
+            "routine"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:02.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.9313,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:04.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.9208,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:04.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.8929,
+          "authorityWeight": 0.78,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:04.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.8996,
+          "authorityWeight": 0.82,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:04.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.8785,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:04.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_003",
+          "timestamp": "2026-02-23T10:00:04.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Routine trust evaluation for load-balancer: 0.8929",
+          "agentId": "load-balancer",
+          "tags": [
+            "infra",
+            "trust",
+            "routine"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:04.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.9357,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:06.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.924,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:06.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.8973,
+          "authorityWeight": 0.78,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:06.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.9036,
+          "authorityWeight": 0.82,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:06.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.8817,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:06.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_004",
+          "timestamp": "2026-02-23T10:00:06.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Periodic trust recalculation for config-manager: 0.9036",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "trust"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:06.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.9386,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:08.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.925,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:08.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.8997,
+          "authorityWeight": 0.78,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:08.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.9068,
+          "authorityWeight": 0.82,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:08.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.884,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:08.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_005",
+          "timestamp": "2026-02-23T10:00:08.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "System heartbeat — all agents nominal",
+          "agentId": "health-monitor",
+          "tags": [
+            "infra",
+            "heartbeat"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:08.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.9399,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:10.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.9236,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:10.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.8997,
+          "authorityWeight": 0.78,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:10.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.909,
+          "authorityWeight": 0.82,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:10.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.885,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:10.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_006",
+          "timestamp": "2026-02-23T10:00:10.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Routine trust evaluation for deploy-controller: 0.9399",
+          "agentId": "deploy-controller",
+          "tags": [
+            "infra",
+            "trust",
+            "routine"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:10.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.9395,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:12.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.9201,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:12.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.8973,
+          "authorityWeight": 0.78,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:12.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.9099,
+          "authorityWeight": 0.82,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:12.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.8846,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:12.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_007",
+          "timestamp": "2026-02-23T10:00:12.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Periodic trust recalculation for health-monitor: 0.9201",
+          "agentId": "health-monitor",
+          "tags": [
+            "infra",
+            "trust"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:12.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.9373,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:14.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.915,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:14.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.8928,
+          "authorityWeight": 0.78,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:14.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.9097,
+          "authorityWeight": 0.82,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:14.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.8829,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:14.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_008",
+          "timestamp": "2026-02-23T10:00:14.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Routine trust evaluation for load-balancer: 0.8928",
+          "agentId": "load-balancer",
+          "tags": [
+            "infra",
+            "trust",
+            "routine"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:14.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.9335,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:16.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.9091,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:16.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.8867,
+          "authorityWeight": 0.78,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:16.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.9082,
+          "authorityWeight": 0.82,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:16.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.8801,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:16.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_009",
+          "timestamp": "2026-02-23T10:00:16.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "System heartbeat — all agents nominal",
+          "agentId": "health-monitor",
+          "tags": [
+            "infra",
+            "heartbeat"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:16.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.9285,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:18.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.9034,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:18.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.8798,
+          "authorityWeight": 0.78,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:18.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.9056,
+          "authorityWeight": 0.82,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:18.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.8764,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:18.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_010",
+          "timestamp": "2026-02-23T10:00:18.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Periodic trust recalculation for incident-responder: 0.8764",
+          "agentId": "incident-responder",
+          "tags": [
+            "infra",
+            "trust"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:18.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.9228,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:20.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.8986,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:20.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.873,
+          "authorityWeight": 0.78,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:20.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.902,
+          "authorityWeight": 0.82,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:20.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.8721,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:20.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_011",
+          "timestamp": "2026-02-23T10:00:20.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Routine trust evaluation for deploy-controller: 0.9228",
+          "agentId": "deploy-controller",
+          "tags": [
+            "infra",
+            "trust",
+            "routine"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:20.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.9168,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:22.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.8957,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:22.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.867,
+          "authorityWeight": 0.78,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:22.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.8976,
+          "authorityWeight": 0.82,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:22.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.8676,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:22.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_012",
+          "timestamp": "2026-02-23T10:00:22.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Routine trust evaluation for health-monitor: 0.8957",
+          "agentId": "health-monitor",
+          "tags": [
+            "infra",
+            "trust",
+            "routine"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:22.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.9111,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:24.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.8951,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:24.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.8626,
+          "authorityWeight": 0.78,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:24.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.8928,
+          "authorityWeight": 0.82,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:24.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.8634,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:24.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_013",
+          "timestamp": "2026-02-23T10:00:24.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "System heartbeat — all agents nominal",
+          "agentId": "health-monitor",
+          "tags": [
+            "infra",
+            "heartbeat"
+          ]
+        },
+        {
+          "id": "evt_infra_014",
+          "timestamp": "2026-02-23T10:00:24.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Periodic trust recalculation for load-balancer: 0.8626",
+          "agentId": "load-balancer",
+          "tags": [
+            "infra",
+            "trust"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:24.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.905,
+          "authorityWeight": 0.83,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:26.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.892,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:26.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.87,
+          "authorityWeight": 0.77,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:26.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.85,
+          "authorityWeight": 0.78,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:26.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.873,
+          "authorityWeight": 0.76,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:26.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_015",
+          "timestamp": "2026-02-23T10:00:26.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "Configuration drift detected in prod-1 namespace; config-manager trust declining",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "drift",
+            "trust"
+          ]
+        },
+        {
+          "id": "evt_infra_016",
+          "timestamp": "2026-02-23T10:00:26.000Z",
+          "type": "system_alert",
+          "severity": "warning",
+          "message": "Drift delta exceeded for config-manager: observed 0.12, threshold 0.10",
+          "agentId": "health-monitor",
+          "tags": [
+            "infra",
+            "drift",
+            "alert"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:26.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.89,
+          "authorityWeight": 0.81,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:28.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.884,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:28.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.86,
+          "authorityWeight": 0.76,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:28.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.79,
+          "authorityWeight": 0.74,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:28.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.876,
+          "authorityWeight": 0.77,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:28.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_017",
+          "timestamp": "2026-02-23T10:00:28.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "config-manager trust dropping: 0.79 (was 0.85)",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "drift",
+            "trust"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:28.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.875,
+          "authorityWeight": 0.79,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:30.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.876,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:30.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.85,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:30.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.73,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:30.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.879,
+          "authorityWeight": 0.78,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:30.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_018",
+          "timestamp": "2026-02-23T10:00:30.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "config-manager trust at 0.73; drift propagation risk assessed",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "drift",
+            "trust"
+          ]
+        },
+        {
+          "id": "evt_infra_019",
+          "timestamp": "2026-02-23T10:00:30.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "deploy-controller trust recalculated: 0.875 due to upstream config dependency",
+          "agentId": "deploy-controller",
+          "tags": [
+            "infra",
+            "trust",
+            "dependency"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:30.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.83,
+          "authorityWeight": 0.77,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:32.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.868,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:32.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.815,
+          "authorityWeight": 0.74,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:32.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.665,
+          "authorityWeight": 0.66,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:32.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.882,
+          "authorityWeight": 0.79,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:32.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_020",
+          "timestamp": "2026-02-23T10:00:32.000Z",
+          "type": "threshold_breach",
+          "severity": "critical",
+          "message": "config-manager trust below driftDelta recovery window; escalating to governance layer",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "threshold",
+            "governance"
+          ]
+        },
+        {
+          "id": "evt_infra_021",
+          "timestamp": "2026-02-23T10:00:32.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "deploy-controller trust declining: 0.83 — stale config references detected",
+          "agentId": "deploy-controller",
+          "tags": [
+            "infra",
+            "trust",
+            "drift"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:32.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.785,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:34.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.86,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:34.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.78,
+          "authorityWeight": 0.73,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:34.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.61,
+          "authorityWeight": 0.62,
+          "status": "probation",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:34.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.885,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:34.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_022",
+          "timestamp": "2026-02-23T10:00:34.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "load-balancer routing confidence degraded to 0.78; upstream config unreliable",
+          "agentId": "load-balancer",
+          "tags": [
+            "infra",
+            "trust",
+            "routing"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:34.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.74,
+          "authorityWeight": 0.73,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:36.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.852,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:36.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.745,
+          "authorityWeight": 0.72,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:36.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.555,
+          "authorityWeight": 0.58,
+          "status": "probation",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:36.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.888,
+          "authorityWeight": 0.81,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:36.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_023",
+          "timestamp": "2026-02-23T10:00:36.000Z",
+          "type": "system_alert",
+          "severity": "critical",
+          "message": "Multi-agent trust degradation detected: deploy-controller, config-manager, load-balancer all declining",
+          "agentId": "health-monitor",
+          "tags": [
+            "infra",
+            "alert",
+            "cascade"
+          ]
+        },
+        {
+          "id": "evt_infra_024",
+          "timestamp": "2026-02-23T10:00:36.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "config-manager trust at 0.555 — approaching probation threshold (0.65)",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "trust",
+            "drift"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:36.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.695,
+          "authorityWeight": 0.71,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:38.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.844,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:38.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.71,
+          "authorityWeight": 0.71,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:38.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.5,
+          "authorityWeight": 0.54,
+          "status": "probation",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:38.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.891,
+          "authorityWeight": 0.82,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:38.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_025",
+          "timestamp": "2026-02-23T10:00:38.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "deploy-controller trust at 0.695; deployment pipeline frozen pending review",
+          "agentId": "deploy-controller",
+          "tags": [
+            "infra",
+            "trust",
+            "deployment"
+          ]
+        },
+        {
+          "id": "evt_infra_026",
+          "timestamp": "2026-02-23T10:00:38.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "incident-responder trust elevated to 0.891 — preparing remediation protocols",
+          "agentId": "incident-responder",
+          "tags": [
+            "infra",
+            "trust",
+            "remediation"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:38.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.65,
+          "authorityWeight": 0.69,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:40.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.836,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:40.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.675,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:40.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.445,
+          "authorityWeight": 0.5,
+          "status": "probation",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:40.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.894,
+          "authorityWeight": 0.83,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:40.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_027",
+          "timestamp": "2026-02-23T10:00:40.000Z",
+          "type": "threshold_breach",
+          "severity": "critical",
+          "message": "config-manager trust 0.445 breached probation threshold 0.65",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "threshold",
+            "probation"
+          ]
+        },
+        {
+          "id": "evt_infra_028",
+          "timestamp": "2026-02-23T10:00:40.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "load-balancer trust at 0.675; routing tables partially stale",
+          "agentId": "load-balancer",
+          "tags": [
+            "infra",
+            "trust",
+            "routing"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:40.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.63,
+          "authorityWeight": 0.68,
+          "status": "probation",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:42.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.833,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:42.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.665,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:42.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.42,
+          "authorityWeight": 0.48,
+          "status": "probation",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:42.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.902,
+          "authorityWeight": 0.845,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:42.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_029",
+          "timestamp": "2026-02-23T10:00:42.000Z",
+          "type": "probation",
+          "severity": "critical",
+          "message": "config-manager placed on PROBATION — configuration authority revoked, read-only mode enabled",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "probation",
+            "governance"
+          ]
+        },
+        {
+          "id": "evt_infra_030",
+          "timestamp": "2026-02-23T10:00:42.000Z",
+          "type": "status_change",
+          "severity": "warning",
+          "message": "config-manager status changed: active → probation",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "status"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:42.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.61,
+          "authorityWeight": 0.67,
+          "status": "probation",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:44.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.83,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:44.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.655,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:44.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.395,
+          "authorityWeight": 0.46,
+          "status": "suppressed",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:44.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.91,
+          "authorityWeight": 0.86,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:44.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_031",
+          "timestamp": "2026-02-23T10:00:44.000Z",
+          "type": "probation",
+          "severity": "critical",
+          "message": "deploy-controller placed on PROBATION — deployment authority suspended due to config dependency failure",
+          "agentId": "deploy-controller",
+          "tags": [
+            "infra",
+            "probation",
+            "governance"
+          ]
+        },
+        {
+          "id": "evt_infra_032",
+          "timestamp": "2026-02-23T10:00:44.000Z",
+          "type": "status_change",
+          "severity": "warning",
+          "message": "deploy-controller status changed: active → probation",
+          "agentId": "deploy-controller",
+          "tags": [
+            "infra",
+            "status"
+          ]
+        },
+        {
+          "id": "evt_infra_033",
+          "timestamp": "2026-02-23T10:00:44.000Z",
+          "type": "routing_freeze",
+          "severity": "warning",
+          "message": "load-balancer routing table frozen — no new route updates until config-manager recovers",
+          "agentId": "load-balancer",
+          "tags": [
+            "infra",
+            "routing",
+            "freeze"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:44.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.59,
+          "authorityWeight": 0.66,
+          "status": "probation",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:46.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.827,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:46.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.645,
+          "authorityWeight": 0.7,
+          "status": "probation",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:46.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.37,
+          "authorityWeight": 0.44,
+          "status": "suppressed",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:46.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.918,
+          "authorityWeight": 0.875,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:46.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_034",
+          "timestamp": "2026-02-23T10:00:46.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "config-manager trust continues declining: 0.37",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "trust",
+            "drift"
+          ]
+        },
+        {
+          "id": "evt_infra_035",
+          "timestamp": "2026-02-23T10:00:46.000Z",
+          "type": "system_alert",
+          "severity": "critical",
+          "message": "Governance alert: 2 agents in probation, 0 suppressed — incident-responder assuming coordination role",
+          "agentId": "health-monitor",
+          "tags": [
+            "infra",
+            "alert",
+            "governance"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:46.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.57,
+          "authorityWeight": 0.65,
+          "status": "probation",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:48.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.824,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:48.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.635,
+          "authorityWeight": 0.7,
+          "status": "probation",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:48.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.345,
+          "authorityWeight": 0.42,
+          "status": "suppressed",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:48.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.926,
+          "authorityWeight": 0.89,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:48.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_036",
+          "timestamp": "2026-02-23T10:00:48.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "incident-responder trust at 0.926 — remediation authority expanded",
+          "agentId": "incident-responder",
+          "tags": [
+            "infra",
+            "trust",
+            "remediation"
+          ]
+        },
+        {
+          "id": "evt_infra_037",
+          "timestamp": "2026-02-23T10:00:48.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "config-manager trust at 0.345 — approaching suppression threshold (0.40)",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "trust"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:48.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.575,
+          "authorityWeight": 0.64,
+          "status": "probation",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:50.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.821,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:50.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.645,
+          "authorityWeight": 0.7,
+          "status": "probation",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:50.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.335,
+          "authorityWeight": 0.4,
+          "status": "suppressed",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:50.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.934,
+          "authorityWeight": 0.905,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:50.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_038",
+          "timestamp": "2026-02-23T10:00:50.000Z",
+          "type": "mutation",
+          "severity": "critical",
+          "message": "Governance mutation: driftDelta tightened from 0.10 to 0.06 — stricter drift tolerance enforced",
+          "agentId": "incident-responder",
+          "tags": [
+            "infra",
+            "mutation",
+            "governance"
+          ]
+        },
+        {
+          "id": "evt_infra_039",
+          "timestamp": "2026-02-23T10:00:50.000Z",
+          "type": "system_alert",
+          "severity": "critical",
+          "message": "incident-responder initiated governance parameter mutation; awaiting convergence",
+          "agentId": "incident-responder",
+          "tags": [
+            "infra",
+            "alert",
+            "mutation"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:50.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.58,
+          "authorityWeight": 0.63,
+          "status": "probation",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:52.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.818,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:52.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.655,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:52.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.325,
+          "authorityWeight": 0.38,
+          "status": "suppressed",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:52.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.942,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:52.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_040",
+          "timestamp": "2026-02-23T10:00:52.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "incident-responder trust at 0.942 — remediation in progress",
+          "agentId": "incident-responder",
+          "tags": [
+            "infra",
+            "trust",
+            "remediation"
+          ]
+        },
+        {
+          "id": "evt_infra_041",
+          "timestamp": "2026-02-23T10:00:52.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "config-manager trust at 0.325 — still declining",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "trust"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:52.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.585,
+          "authorityWeight": 0.62,
+          "status": "probation",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:54.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.815,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:54.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.665,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:54.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.315,
+          "authorityWeight": 0.36,
+          "status": "suppressed",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:54.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.95,
+          "authorityWeight": 0.935,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:54.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_042",
+          "timestamp": "2026-02-23T10:00:54.000Z",
+          "type": "system_alert",
+          "severity": "warning",
+          "message": "Remediation checkpoint: config drift root cause identified as stale etcd lease in prod-1",
+          "agentId": "incident-responder",
+          "tags": [
+            "infra",
+            "alert",
+            "remediation"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:54.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.59,
+          "authorityWeight": 0.61,
+          "status": "probation",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:56.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.812,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:56.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.675,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:56.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.305,
+          "authorityWeight": 0.34,
+          "status": "suppressed",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:56.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.958,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:56.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_043",
+          "timestamp": "2026-02-23T10:00:56.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "config-manager trust at 0.305 — nearing suppression threshold",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "trust"
+          ]
+        },
+        {
+          "id": "evt_infra_044",
+          "timestamp": "2026-02-23T10:00:56.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "deploy-controller holding at 0.59 — awaiting config-manager recovery",
+          "agentId": "deploy-controller",
+          "tags": [
+            "infra",
+            "trust"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:56.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.593,
+          "authorityWeight": 0.61,
+          "status": "probation",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:58.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.817,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:58.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.685,
+          "authorityWeight": 0.71,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:58.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.307,
+          "authorityWeight": 0.34,
+          "status": "suppressed",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:58.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.956,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:00:58.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_045",
+          "timestamp": "2026-02-23T10:00:58.000Z",
+          "type": "suppression",
+          "severity": "critical",
+          "message": "config-manager SUPPRESSED — trust below 0.40; all outputs quarantined",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "suppression",
+            "governance"
+          ]
+        },
+        {
+          "id": "evt_infra_046",
+          "timestamp": "2026-02-23T10:00:58.000Z",
+          "type": "status_change",
+          "severity": "critical",
+          "message": "config-manager status changed: probation → suppressed",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "status"
+          ]
+        },
+        {
+          "id": "evt_infra_047",
+          "timestamp": "2026-02-23T10:00:58.000Z",
+          "type": "system_alert",
+          "severity": "critical",
+          "message": "Governance alert: 1 agent suppressed, 1 in probation — cluster prod-1 operating in degraded mode",
+          "agentId": "health-monitor",
+          "tags": [
+            "infra",
+            "alert",
+            "governance"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:00:58.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.596,
+          "authorityWeight": 0.61,
+          "status": "probation",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:00.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.822,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:00.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.695,
+          "authorityWeight": 0.72,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:00.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.309,
+          "authorityWeight": 0.34,
+          "status": "suppressed",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:00.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.954,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:00.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_048",
+          "timestamp": "2026-02-23T10:01:00.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "incident-responder trust peak at 0.954 — applying etcd lease renewal patch",
+          "agentId": "incident-responder",
+          "tags": [
+            "infra",
+            "trust",
+            "remediation"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:01:00.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.599,
+          "authorityWeight": 0.61,
+          "status": "probation",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:02.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.827,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:02.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.705,
+          "authorityWeight": 0.73,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:02.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.311,
+          "authorityWeight": 0.34,
+          "status": "suppressed",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:02.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.952,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:02.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_049",
+          "timestamp": "2026-02-23T10:01:02.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "config-manager trust stabilizing at 0.311 — patch propagating",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "trust"
+          ]
+        },
+        {
+          "id": "evt_infra_050",
+          "timestamp": "2026-02-23T10:01:02.000Z",
+          "type": "system_alert",
+          "severity": "info",
+          "message": "Remediation patch applied: etcd lease renewed, config sync initiated",
+          "agentId": "incident-responder",
+          "tags": [
+            "infra",
+            "remediation",
+            "patch"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:01:02.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.602,
+          "authorityWeight": 0.61,
+          "status": "probation",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:04.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.832,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:04.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.715,
+          "authorityWeight": 0.74,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:04.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.313,
+          "authorityWeight": 0.34,
+          "status": "suppressed",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:04.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.95,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:04.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_051",
+          "timestamp": "2026-02-23T10:01:04.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "config-manager trust at 0.313 — slow recovery beginning",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "trust",
+            "recovery"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:01:04.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.605,
+          "authorityWeight": 0.61,
+          "status": "probation",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:06.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.837,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:06.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.725,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:06.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.315,
+          "authorityWeight": 0.34,
+          "status": "suppressed",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:06.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.948,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:06.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_052",
+          "timestamp": "2026-02-23T10:01:06.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "deploy-controller trust at 0.605 — still in probation, monitoring config recovery",
+          "agentId": "deploy-controller",
+          "tags": [
+            "infra",
+            "trust"
+          ]
+        },
+        {
+          "id": "evt_infra_053",
+          "timestamp": "2026-02-23T10:01:06.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "load-balancer trust recovering: 0.725",
+          "agentId": "load-balancer",
+          "tags": [
+            "infra",
+            "trust",
+            "recovery"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:01:06.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.62,
+          "authorityWeight": 0.63,
+          "status": "probation",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:08.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.845,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:08.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.745,
+          "authorityWeight": 0.755,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:08.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.355,
+          "authorityWeight": 0.39,
+          "status": "suppressed",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:08.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.943,
+          "authorityWeight": 0.94,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:08.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_054",
+          "timestamp": "2026-02-23T10:01:08.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "config-manager trust rising: 0.355 — config sync completing",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "trust",
+            "recovery"
+          ]
+        },
+        {
+          "id": "evt_infra_055",
+          "timestamp": "2026-02-23T10:01:08.000Z",
+          "type": "system_alert",
+          "severity": "info",
+          "message": "Remediation progress: 60% of config entries re-validated",
+          "agentId": "incident-responder",
+          "tags": [
+            "infra",
+            "remediation",
+            "progress"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:01:08.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.635,
+          "authorityWeight": 0.65,
+          "status": "probation",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:10.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.853,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:10.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.765,
+          "authorityWeight": 0.76,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:10.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.395,
+          "authorityWeight": 0.44,
+          "status": "suppressed",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:10.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.938,
+          "authorityWeight": 0.93,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:10.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_056",
+          "timestamp": "2026-02-23T10:01:10.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "config-manager trust at 0.395 — recovery trajectory confirmed",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "trust",
+            "recovery"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:01:10.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.65,
+          "authorityWeight": 0.67,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:12.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.861,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:12.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.785,
+          "authorityWeight": 0.765,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:12.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.435,
+          "authorityWeight": 0.49,
+          "status": "probation",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:12.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.933,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:12.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_057",
+          "timestamp": "2026-02-23T10:01:12.000Z",
+          "type": "status_change",
+          "severity": "info",
+          "message": "config-manager status changed: suppressed → probation (trust recovering above 0.40)",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "status",
+            "recovery"
+          ]
+        },
+        {
+          "id": "evt_infra_058",
+          "timestamp": "2026-02-23T10:01:12.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "config-manager trust at 0.435 — re-entering probation, limited authority restored",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "trust",
+            "recovery"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:01:12.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.665,
+          "authorityWeight": 0.69,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:14.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.869,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:14.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.805,
+          "authorityWeight": 0.77,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:14.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.475,
+          "authorityWeight": 0.54,
+          "status": "probation",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:14.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.928,
+          "authorityWeight": 0.91,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:14.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_059",
+          "timestamp": "2026-02-23T10:01:14.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "deploy-controller trust rising: 0.665 — config dependency stabilizing",
+          "agentId": "deploy-controller",
+          "tags": [
+            "infra",
+            "trust",
+            "recovery"
+          ]
+        },
+        {
+          "id": "evt_infra_060",
+          "timestamp": "2026-02-23T10:01:14.000Z",
+          "type": "system_alert",
+          "severity": "info",
+          "message": "Remediation progress: 85% of config entries re-validated, drift within acceptable bounds",
+          "agentId": "incident-responder",
+          "tags": [
+            "infra",
+            "remediation",
+            "progress"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:01:14.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.68,
+          "authorityWeight": 0.71,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:16.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.877,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:16.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.825,
+          "authorityWeight": 0.775,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:16.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.515,
+          "authorityWeight": 0.59,
+          "status": "probation",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:16.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.923,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:16.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_061",
+          "timestamp": "2026-02-23T10:01:16.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "config-manager trust at 0.515 — approaching active threshold",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "trust",
+            "recovery"
+          ]
+        },
+        {
+          "id": "evt_infra_062",
+          "timestamp": "2026-02-23T10:01:16.000Z",
+          "type": "system_alert",
+          "severity": "info",
+          "message": "Remediation complete: all config entries validated, etcd lease stable",
+          "agentId": "incident-responder",
+          "tags": [
+            "infra",
+            "remediation",
+            "complete"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:01:16.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.06
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.715,
+          "authorityWeight": 0.73,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:18.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.885,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:18.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.837,
+          "authorityWeight": 0.778,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:18.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.57,
+          "authorityWeight": 0.625,
+          "status": "probation",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:18.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.918,
+          "authorityWeight": 0.89,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:18.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_063",
+          "timestamp": "2026-02-23T10:01:18.000Z",
+          "type": "mutation",
+          "severity": "info",
+          "message": "Governance mutation: driftDelta restored from 0.06 to 0.10 — normal tolerance resumed",
+          "agentId": "incident-responder",
+          "tags": [
+            "infra",
+            "mutation",
+            "governance"
+          ]
+        },
+        {
+          "id": "evt_infra_064",
+          "timestamp": "2026-02-23T10:01:18.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "config-manager trust at 0.57 — continuing recovery",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "trust",
+            "recovery"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:01:18.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.75,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:20.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.893,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:20.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.849,
+          "authorityWeight": 0.781,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:20.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.625,
+          "authorityWeight": 0.66,
+          "status": "probation",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:20.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.913,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:20.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_065",
+          "timestamp": "2026-02-23T10:01:20.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "System heartbeat — cluster prod-1 stable",
+          "agentId": "health-monitor",
+          "tags": [
+            "infra",
+            "heartbeat"
+          ]
+        },
+        {
+          "id": "evt_infra_066",
+          "timestamp": "2026-02-23T10:01:20.000Z",
+          "type": "status_change",
+          "severity": "info",
+          "message": "config-manager status changed: probation → active (trust recovered above 0.65)",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "status",
+            "recovery"
+          ]
+        },
+        {
+          "id": "evt_infra_067",
+          "timestamp": "2026-02-23T10:01:20.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "config-manager trust restored to 0.625 — full authority reinstated",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "trust",
+            "recovery"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:01:20.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.785,
+          "authorityWeight": 0.77,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:22.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.901,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:22.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.861,
+          "authorityWeight": 0.784,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:22.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.68,
+          "authorityWeight": 0.695,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:22.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.908,
+          "authorityWeight": 0.87,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:22.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_068",
+          "timestamp": "2026-02-23T10:01:22.000Z",
+          "type": "status_change",
+          "severity": "info",
+          "message": "deploy-controller status changed: probation → active (trust recovered above 0.65)",
+          "agentId": "deploy-controller",
+          "tags": [
+            "infra",
+            "status",
+            "recovery"
+          ]
+        },
+        {
+          "id": "evt_infra_069",
+          "timestamp": "2026-02-23T10:01:22.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "deploy-controller trust at 0.785 — deployment pipeline resumed",
+          "agentId": "deploy-controller",
+          "tags": [
+            "infra",
+            "trust",
+            "recovery"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:01:22.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.82,
+          "authorityWeight": 0.79,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:24.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.909,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:24.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.873,
+          "authorityWeight": 0.787,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:24.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.735,
+          "authorityWeight": 0.73,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:24.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.903,
+          "authorityWeight": 0.86,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:24.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_070",
+          "timestamp": "2026-02-23T10:01:24.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "load-balancer trust at 0.873 — routing tables refreshed",
+          "agentId": "load-balancer",
+          "tags": [
+            "infra",
+            "trust",
+            "recovery"
+          ]
+        },
+        {
+          "id": "evt_infra_071",
+          "timestamp": "2026-02-23T10:01:24.000Z",
+          "type": "status_change",
+          "severity": "info",
+          "message": "load-balancer routing freeze lifted — dynamic routing resumed",
+          "agentId": "load-balancer",
+          "tags": [
+            "infra",
+            "routing",
+            "recovery"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:01:24.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.855,
+          "authorityWeight": 0.81,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:26.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.917,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:26.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.885,
+          "authorityWeight": 0.79,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:26.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.79,
+          "authorityWeight": 0.765,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:26.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.898,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:26.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_072",
+          "timestamp": "2026-02-23T10:01:26.000Z",
+          "type": "system_alert",
+          "severity": "info",
+          "message": "Post-incident review: all agents recovering, cluster prod-1 returning to normal operations",
+          "agentId": "health-monitor",
+          "tags": [
+            "infra",
+            "alert",
+            "recovery"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:01:26.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.89,
+          "authorityWeight": 0.83,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:28.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.925,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:28.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.897,
+          "authorityWeight": 0.793,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:28.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.845,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:28.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.893,
+          "authorityWeight": 0.84,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:28.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_073",
+          "timestamp": "2026-02-23T10:01:28.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "incident-responder trust normalizing: 0.893 — transitioning from incident mode",
+          "agentId": "incident-responder",
+          "tags": [
+            "infra",
+            "trust"
+          ]
+        },
+        {
+          "id": "evt_infra_074",
+          "timestamp": "2026-02-23T10:01:28.000Z",
+          "type": "system_alert",
+          "severity": "info",
+          "message": "Cluster prod-1 incident resolved — all governance parameters nominal",
+          "agentId": "health-monitor",
+          "tags": [
+            "infra",
+            "alert",
+            "resolved"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:01:28.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.898,
+          "authorityWeight": 0.835,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:30.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.93,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:30.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.903,
+          "authorityWeight": 0.793,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:30.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.855,
+          "authorityWeight": 0.805,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:30.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.896,
+          "authorityWeight": 0.84,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:30.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_075",
+          "timestamp": "2026-02-23T10:01:30.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "System heartbeat — cluster prod-1 stable",
+          "agentId": "health-monitor",
+          "tags": [
+            "infra",
+            "heartbeat"
+          ]
+        },
+        {
+          "id": "evt_infra_076",
+          "timestamp": "2026-02-23T10:01:30.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "System heartbeat — all agents active, cluster prod-1 stable",
+          "agentId": "health-monitor",
+          "tags": [
+            "infra",
+            "heartbeat"
+          ]
+        },
+        {
+          "id": "evt_infra_077",
+          "timestamp": "2026-02-23T10:01:30.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "deploy-controller trust at 0.898 — nominal",
+          "agentId": "deploy-controller",
+          "tags": [
+            "infra",
+            "trust"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:01:30.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.906,
+          "authorityWeight": 0.84,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:32.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.935,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:32.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.909,
+          "authorityWeight": 0.793,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:32.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.865,
+          "authorityWeight": 0.81,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:32.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.899,
+          "authorityWeight": 0.84,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:32.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_078",
+          "timestamp": "2026-02-23T10:01:32.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "config-manager trust at 0.865 — fully recovered",
+          "agentId": "config-manager",
+          "tags": [
+            "infra",
+            "trust"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:01:32.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.914,
+          "authorityWeight": 0.845,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:34.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.94,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:34.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.915,
+          "authorityWeight": 0.793,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:34.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.875,
+          "authorityWeight": 0.815,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:34.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.902,
+          "authorityWeight": 0.84,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:34.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_079",
+          "timestamp": "2026-02-23T10:01:34.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "health-monitor trust stable at 0.94",
+          "agentId": "health-monitor",
+          "tags": [
+            "infra",
+            "trust"
+          ]
+        },
+        {
+          "id": "evt_infra_080",
+          "timestamp": "2026-02-23T10:01:34.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "load-balancer trust at 0.915 — routing nominal",
+          "agentId": "load-balancer",
+          "tags": [
+            "infra",
+            "trust"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:01:34.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.922,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:36.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.945,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:36.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.921,
+          "authorityWeight": 0.793,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:36.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.885,
+          "authorityWeight": 0.82,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:36.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.905,
+          "authorityWeight": 0.84,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:36.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_081",
+          "timestamp": "2026-02-23T10:01:36.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "System heartbeat — governance parameters within normal bounds",
+          "agentId": "health-monitor",
+          "tags": [
+            "infra",
+            "heartbeat"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:01:36.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "deploy-controller",
+          "trustScore": 0.93,
+          "authorityWeight": 0.855,
+          "status": "active",
+          "capabilities": [
+            "deployment",
+            "rollback"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:38.000Z"
+        },
+        {
+          "id": "health-monitor",
+          "trustScore": 0.95,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "monitoring",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "observability",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:38.000Z"
+        },
+        {
+          "id": "load-balancer",
+          "trustScore": 0.927,
+          "authorityWeight": 0.793,
+          "status": "active",
+          "capabilities": [
+            "routing",
+            "scaling"
+          ],
+          "labels": {
+            "tier": "network",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:38.000Z"
+        },
+        {
+          "id": "config-manager",
+          "trustScore": 0.895,
+          "authorityWeight": 0.825,
+          "status": "active",
+          "capabilities": [
+            "configuration",
+            "compliance"
+          ],
+          "labels": {
+            "tier": "control",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:38.000Z"
+        },
+        {
+          "id": "incident-responder",
+          "trustScore": 0.908,
+          "authorityWeight": 0.84,
+          "status": "active",
+          "capabilities": [
+            "remediation",
+            "alerting"
+          ],
+          "labels": {
+            "tier": "operations",
+            "cluster": "prod-1"
+          },
+          "lastDecisionAt": "2026-02-23T10:01:38.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_infra_082",
+          "timestamp": "2026-02-23T10:01:38.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "System heartbeat — end of monitoring window, all agents nominal",
+          "agentId": "health-monitor",
+          "tags": [
+            "infra",
+            "heartbeat"
+          ]
+        },
+        {
+          "id": "evt_infra_083",
+          "timestamp": "2026-02-23T10:01:38.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Final trust snapshot: deploy-controller=0.93, health-monitor=0.95, load-balancer=0.927, config-manager=0.895, incident-responder=0.908",
+          "agentId": "health-monitor",
+          "tags": [
+            "infra",
+            "trust",
+            "summary"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T10:01:38.000Z",
+      "thresholds": {
+        "trustThreshold": 0.65,
+        "suppressionThreshold": 0.4,
+        "driftDelta": 0.1
+      }
+    }
+  ]
+}
