@@ -51,9 +51,9 @@ export async function connectWebSocket(opts: {
   let heartbeatTimer: ReturnType<typeof setTimeout> | null = null
 
   // --- Health metrics ---
-  let messagesReceived = 0
-  let validationWarnings = 0
-  let droppedFrames = 0
+  let _messagesReceived = 0
+  let _validationWarnings = 0
+  let _droppedFrames = 0
 
   function clearTimers() {
     if (reconnectTimer) {
@@ -112,19 +112,19 @@ export async function connectWebSocket(opts: {
         if (isPlausiblePayload(data)) {
           // Normalize through the unified pipeline — no source-tagging hack
           const payload: GovernanceStreamPayload = safeNormalize(data, "live_ws")
-          messagesReceived += 1
+          _messagesReceived += 1
 
           const warnings = validatePayload(payload)
           if (warnings.length > 0) {
-            validationWarnings += warnings.length
+            _validationWarnings += warnings.length
           }
 
           opts.onMessage(payload)
         } else {
-          droppedFrames += 1
+          _droppedFrames += 1
         }
       } catch {
-        droppedFrames += 1
+        _droppedFrames += 1
       }
     }
 

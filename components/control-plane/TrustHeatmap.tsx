@@ -68,7 +68,7 @@ export function TrustHeatmap() {
     // Take last N snapshots (downsample if needed)
     let snaps = history
     if (filters.timeRange > 0) {
-      const cutoff = Date.now() - filters.timeRange
+      const cutoff = Date.now() - filters.timeRange // eslint-disable-line react-hooks/purity -- time cutoff
       snaps = snaps.filter((s) => Date.parse(s.timestamp) >= cutoff)
     }
 

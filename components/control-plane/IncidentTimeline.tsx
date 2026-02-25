@@ -98,13 +98,14 @@ export function IncidentTimeline() {
 
   // Apply filters
   const filtered = useMemo(() => {
+    const now = Date.now() // eslint-disable-line react-hooks/purity -- time cutoff needs current timestamp
     return incidents.filter((inc) => {
       if (filters.agentId && inc.agentId !== filters.agentId) return false
       if (filters.severity && inc.severity !== filters.severity) return false
       if (filters.eventType && inc.type !== filters.eventType) return false
       if (filters.timeRange > 0) {
         const ts = Date.parse(inc.startTs)
-        if (Number.isFinite(ts) && ts < Date.now() - filters.timeRange) return false
+        if (Number.isFinite(ts) && ts < now - filters.timeRange) return false
       }
       return true
     })

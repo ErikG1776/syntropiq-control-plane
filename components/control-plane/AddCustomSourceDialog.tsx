@@ -65,7 +65,7 @@ export function AddCustomSourceDialog({ onAdded }: { onAdded?: () => void }) {
       return
     }
 
-    const key = `custom_${label.toLowerCase().replace(/[^a-z0-9]+/g, "_")}_${Date.now()}`
+    const key = `custom_${label.toLowerCase().replace(/[^a-z0-9]+/g, "_")}_${crypto.randomUUID().slice(0, 8)}`
 
     const source: CustomSource = {
       key,

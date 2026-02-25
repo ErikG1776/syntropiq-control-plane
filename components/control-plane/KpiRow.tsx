@@ -6,8 +6,6 @@ import { useGovernanceStore } from "@/store/governance-store"
 export function KpiRow() {
   const snapshot = useGovernanceStore((s) => s.snapshot)
   const events = useGovernanceStore((s) => s.events)
-  const connected = useGovernanceStore((s) => s.connected)
-
   const mutationCount = events.filter((e) => e.type === "mutation").length
 
   // Stability: normalized weighted mean Σ(trust×authority) / Σ(authority), bounded 0-1

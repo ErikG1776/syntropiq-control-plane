@@ -39,6 +39,7 @@ export interface AgentState {
 export type GovernanceEventType =
   | "trust_update"
   | "suppression"
+  | "restoration"
   | "probation"
   | "mutation"
   | "routing_freeze"
@@ -46,6 +47,8 @@ export type GovernanceEventType =
   | "status_change"
   | "threshold_breach"
   | "heartbeat"
+  | "mediation_decision"
+  | "circuit_breaker"
 
 export interface GovernanceEvent {
   id: string

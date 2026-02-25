@@ -14,11 +14,10 @@ vi.mock("next/server", () => {
     }
 
     get headers() {
-      const self = this
       return {
-        get: (key: string) => self._headers.get(key) ?? null,
-        set: (key: string, val: string) => self._headers.set(key, val),
-        entries: () => self._headers.entries(),
+        get: (key: string) => this._headers.get(key) ?? null,
+        set: (key: string, val: string) => { this._headers.set(key, val) },
+        entries: () => this._headers.entries(),
       }
     }
 

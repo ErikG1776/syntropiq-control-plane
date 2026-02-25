@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 import { useGovernanceStore } from "@/store/governance-store"
 import { dataSources } from "@/lib/datasources"
 import type { DataSourceKey } from "@/lib/governance/schema"
@@ -18,7 +18,6 @@ import {
   AddCustomSourceDialog,
   CustomSourceList,
   loadCustomSources,
-  type CustomSource,
 } from "@/components/control-plane/AddCustomSourceDialog"
 
 export function ConnectSourceDialog() {
@@ -31,11 +30,7 @@ export function ConnectSourceDialog() {
     [],
   )
 
-  const [customSources, setCustomSources] = useState<CustomSource[]>([])
-
-  useEffect(() => {
-    setCustomSources(loadCustomSources())
-  }, [refreshKey])
+  const customSources = useMemo(() => loadCustomSources(), [refreshKey])
 
   const handleRefresh = useCallback(() => {
     setRefreshKey((k) => k + 1)
