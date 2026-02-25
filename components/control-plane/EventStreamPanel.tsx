@@ -1,10 +1,10 @@
 "use client"
 
-import { useMemo } from "react"
+import { useMemo, useRef } from "react"
+import { useVirtualizer } from "@tanstack/react-virtual"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { Select } from "@/components/ui/select"
 import { useGovernanceStore } from "@/store/governance-store"
@@ -33,6 +33,7 @@ interface EventStreamPanelProps {
 export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
   const events = useGovernanceStore((s) => s.events)
   const filters = useFilters()
+  const scrollRef = useRef<HTMLDivElement>(null)
 
   const severities = useMemo(
     () => [...new Set(events.map((e) => e.severity))].sort(),
@@ -78,6 +79,13 @@ export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
       return true
     }).reverse()
   }, [events, filters.severity, filters.eventType, filters.agentId, filters.q, filters.timeRange])
+
+  const virtualizer = useVirtualizer({
+    count: filtered.length,
+    getScrollElement: () => scrollRef.current,
+    estimateSize: () => 72,
+    overscan: 10,
+  })
 
   const showFilters = fullPage
 
@@ -151,57 +159,79 @@ export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
 
       <Separator className="my-3" />
 
-      <ScrollArea className={fullPage ? "h-[600px]" : "h-[320px]"}>
+      <div
+        ref={scrollRef}
+        className={`overflow-y-auto ${fullPage ? "h-[600px]" : "h-[320px]"}`}
+      >
         {filtered.length === 0 ? (
           <p className="text-sm text-muted-foreground">No events match filters.</p>
         ) : (
-          <div className="space-y-2">
-            {filtered.map((event) => (
-              <div key={event.id} className="rounded-md border px-3 py-2 text-sm">
-                <div className="flex items-center justify-between gap-3 text-xs">
-                  <div className="flex items-center gap-2">
-                    <span className={severityClass[event.severity] ?? severityClass.info}>
-                      {event.severity.toUpperCase()}
-                    </span>
-                    <Badge
-                      variant="outline"
-                      className={`text-[10px] px-1.5 py-0 ${eventTypeBadgeClass[event.type] ?? ""}`}
-                    >
-                      {event.type}
-                    </Badge>
-                    {event.agentId && (
-                      <button
-                        className="text-muted-foreground hover:text-foreground hover:underline"
-                        onClick={() => filters.setAgentId(event.agentId!)}
-                      >
-                        {event.agentId}
-                      </button>
+          <div
+            style={{ height: `${virtualizer.getTotalSize()}px`, position: "relative" }}
+          >
+            {virtualizer.getVirtualItems().map((virtualRow) => {
+              const event = filtered[virtualRow.index]
+              return (
+                <div
+                  key={event.id}
+                  data-index={virtualRow.index}
+                  ref={virtualizer.measureElement}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    transform: `translateY(${virtualRow.start}px)`,
+                  }}
+                  className="pb-2"
+                >
+                  <div className="rounded-md border px-3 py-2 text-sm">
+                    <div className="flex items-center justify-between gap-3 text-xs">
+                      <div className="flex items-center gap-2">
+                        <span className={severityClass[event.severity] ?? severityClass.info}>
+                          {event.severity.toUpperCase()}
+                        </span>
+                        <Badge
+                          variant="outline"
+                          className={`text-[10px] px-1.5 py-0 ${eventTypeBadgeClass[event.type] ?? ""}`}
+                        >
+                          {event.type}
+                        </Badge>
+                        {event.agentId && (
+                          <button
+                            className="text-muted-foreground hover:text-foreground hover:underline"
+                            onClick={() => filters.setAgentId(event.agentId!)}
+                          >
+                            {event.agentId}
+                          </button>
+                        )}
+                      </div>
+                      <span className="text-muted-foreground whitespace-nowrap">
+                        {new Date(event.timestamp).toLocaleTimeString()}
+                      </span>
+                    </div>
+                    <div className="mt-1">{event.message}</div>
+                    {typeof event.metadata?.selected_agent === "string" && typeof event.metadata?.selection_strategy === "string" && (
+                      <div className="mt-1 text-xs text-muted-foreground">
+                        selected: {event.metadata.selected_agent} · strategy: {event.metadata.selection_strategy}
+                      </div>
+                    )}
+                    {event.tags && event.tags.length > 0 && (
+                      <div className="mt-1 flex gap-1">
+                        {event.tags.map((tag) => (
+                          <Badge key={tag} variant="secondary" className="text-[9px] px-1 py-0">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
                     )}
                   </div>
-                  <span className="text-muted-foreground whitespace-nowrap">
-                    {new Date(event.timestamp).toLocaleTimeString()}
-                  </span>
                 </div>
-                <div className="mt-1">{event.message}</div>
-                {typeof event.metadata?.selected_agent === "string" && typeof event.metadata?.selection_strategy === "string" && (
-                  <div className="mt-1 text-xs text-muted-foreground">
-                    selected: {event.metadata.selected_agent} · strategy: {event.metadata.selection_strategy}
-                  </div>
-                )}
-                {event.tags && event.tags.length > 0 && (
-                  <div className="mt-1 flex gap-1">
-                    {event.tags.map((tag) => (
-                      <Badge key={tag} variant="secondary" className="text-[9px] px-1 py-0">
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+              )
+            })}
           </div>
         )}
-      </ScrollArea>
+      </div>
     </Card>
   )
 }
