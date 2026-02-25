@@ -28,10 +28,15 @@ const severityClass: Record<string, string> = {
 }
 
 async function setAgentStatus(agentId: string, status: "suppressed" | "active") {
-  const res = await fetch(`http://127.0.0.1:8000/api/v1/agents/${agentId}/status?status=${status}`, {
+  const res = await fetch("/api/control-plane/agents/status", {
     method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ agentId, status }),
   })
-  if (!res.ok) throw new Error(await res.text())
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({ error: "Status update failed" }))
+    throw new Error(data.error ?? "Status update failed")
+  }
 }
 
 export default function AgentDetailPage() {
