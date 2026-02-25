@@ -6,6 +6,7 @@ import { KpiRow } from "@/components/control-plane/KpiRow"
 import { StabilityChart } from "@/components/control-plane/StabilityChart"
 import { TopBar } from "@/components/control-plane/TopBar"
 import { ConnectionHealthPanel } from "@/components/control-plane/ConnectionHealthPanel"
+import { GovernanceStatusPanel } from "@/components/control-plane/GovernanceStatusPanel"
 import { DataGuard } from "@/components/control-plane/DataGuard"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Card } from "@/components/ui/card"
@@ -37,6 +38,7 @@ export default function ControlPlanePage() {
         <div className="space-y-6">
           <KpiRow />
           <ConnectionHealthPanel />
+          <GovernanceStatusPanel />
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
             <StabilityChart />
             <EventStreamPanel />

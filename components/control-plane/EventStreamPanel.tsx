@@ -18,6 +18,12 @@ const severityClass: Record<string, string> = {
   critical: "text-red-700 font-semibold",
 }
 
+const eventTypeBadgeClass: Record<string, string> = {
+  suppression: "border-red-300 bg-red-50 text-red-700",
+  restoration: "border-green-300 bg-green-50 text-green-700",
+  mediation_decision: "border-blue-300 bg-blue-50 text-blue-700",
+}
+
 const ALL = ""
 
 interface EventStreamPanelProps {
@@ -43,12 +49,28 @@ export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
 
   const filtered = useMemo(() => {
     const now = Date.now()
-    const lowerQuery = filters.q.toLowerCase()
+    const searchQuery = filters.q
+    const q = searchQuery.trim().toLowerCase()
+
+    const matchesQuery = (evt: GovernanceEvent) => {
+      if (!q) return true
+      const haystack = [
+        evt.message ?? "",
+        evt.type ?? "",
+        evt.agentId ?? "",
+        ...(evt.tags ?? []),
+        JSON.stringify(evt.metadata ?? {}),
+      ]
+        .join(" ")
+        .toLowerCase()
+      return haystack.includes(q)
+    }
+
     return events.filter((e: GovernanceEvent) => {
       if (filters.severity && e.severity !== filters.severity) return false
       if (filters.eventType && e.type !== filters.eventType) return false
       if (filters.agentId && e.agentId !== filters.agentId) return false
-      if (lowerQuery && !e.message.toLowerCase().includes(lowerQuery)) return false
+      if (!matchesQuery(e)) return false
       if (filters.timeRange > 0) {
         const ts = Date.parse(e.timestamp)
         if (Number.isFinite(ts) && ts < now - filters.timeRange) return false
@@ -141,7 +163,10 @@ export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
                     <span className={severityClass[event.severity] ?? severityClass.info}>
                       {event.severity.toUpperCase()}
                     </span>
-                    <Badge variant="outline" className="text-[10px] px-1.5 py-0">
+                    <Badge
+                      variant="outline"
+                      className={`text-[10px] px-1.5 py-0 ${eventTypeBadgeClass[event.type] ?? ""}`}
+                    >
                       {event.type}
                     </Badge>
                     {event.agentId && (
@@ -158,6 +183,11 @@ export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
                   </span>
                 </div>
                 <div className="mt-1">{event.message}</div>
+                {typeof event.metadata?.selected_agent === "string" && typeof event.metadata?.selection_strategy === "string" && (
+                  <div className="mt-1 text-xs text-muted-foreground">
+                    selected: {event.metadata.selected_agent} · strategy: {event.metadata.selection_strategy}
+                  </div>
+                )}
                 {event.tags && event.tags.length > 0 && (
                   <div className="mt-1 flex gap-1">
                     {event.tags.map((tag) => (

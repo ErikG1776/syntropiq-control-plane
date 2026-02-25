@@ -1,12 +1,14 @@
 "use client"
 
 import { useParams } from "next/navigation"
+import { useState } from "react"
 import Link from "next/link"
 import { useGovernanceStore } from "@/store/governance-store"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { toast } from "sonner"
 import {
   LineChart,
   Line,
@@ -25,13 +27,22 @@ const severityClass: Record<string, string> = {
   critical: "text-red-700 font-semibold",
 }
 
+async function setAgentStatus(agentId: string, status: "suppressed" | "active") {
+  const res = await fetch(`http://127.0.0.1:8000/api/v1/agents/${agentId}/status?status=${status}`, {
+    method: "PUT",
+  })
+  if (!res.ok) throw new Error(await res.text())
+}
+
 export default function AgentDetailPage() {
   const params = useParams()
   const agentId = params.id as string
+  const [statusRequest, setStatusRequest] = useState<"suppressed" | "active" | null>(null)
 
   const snapshot = useGovernanceStore((s) => s.snapshot)
   const history = useGovernanceStore((s) => s.history)
   const events = useGovernanceStore((s) => s.events)
+  const connect = useGovernanceStore((s) => s.connect)
 
   const agent = snapshot?.agents.find((a) => a.id === agentId)
   const thresholds = snapshot?.thresholds
@@ -89,6 +100,21 @@ export default function AgentDetailPage() {
 
   const trustThreshold = thresholds?.trustThreshold ?? -1
   const isBreach = trustThreshold >= 0 && agent.trustScore < trustThreshold
+  const requestInFlight = statusRequest !== null
+
+  async function handleStatusChange(status: "suppressed" | "active") {
+    setStatusRequest(status)
+    try {
+      await setAgentStatus(agentId, status)
+      toast.success(status === "suppressed" ? "Agent suppressed" : "Agent restored")
+      await connect("live_api")
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Status update failed"
+      toast.error(message)
+    } finally {
+      setStatusRequest(null)
+    }
+  }
 
   return (
     <div className="space-y-6">
@@ -113,6 +139,20 @@ export default function AgentDetailPage() {
           </div>
         </div>
         <div className="flex items-center gap-2">
+          <button
+            onClick={() => handleStatusChange("suppressed")}
+            disabled={requestInFlight}
+            className="rounded border px-2 py-1 text-xs hover:bg-muted disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {statusRequest === "suppressed" ? "Suppressing..." : "Suppress"}
+          </button>
+          <button
+            onClick={() => handleStatusChange("active")}
+            disabled={requestInFlight}
+            className="rounded border px-2 py-1 text-xs hover:bg-muted disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {statusRequest === "active" ? "Restoring..." : "Restore"}
+          </button>
           <Badge variant={statusVariant}>{agent.status}</Badge>
           {isBreach && (
             <Badge variant="destructive" className="text-[10px]">BREACH</Badge>
