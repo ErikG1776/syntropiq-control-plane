@@ -79,6 +79,7 @@ export type DataSourceKey =
   | "live_api"
   | "live_ws"
   | "live_sse"
+  | "live_grpc"
 
 /**
  * Canonical snapshot of the governed system at a point in time.

@@ -61,6 +61,9 @@ describe("middleware", () => {
     // Clear env vars
     delete process.env.API_KEY
     delete process.env.ALLOWED_ORIGINS
+    delete process.env.RATE_LIMIT_MAX
+    delete process.env.RATE_LIMIT_WINDOW_MS
+    delete process.env.LOG_LEVEL
   })
 
   it("adds security headers to all responses", async () => {
@@ -79,7 +82,7 @@ describe("middleware", () => {
     const req = createMockRequest("/api/governance/snapshot")
     const res = middleware(req as never)
 
-    expect(res.headers.get("Access-Control-Allow-Methods")).toBe("GET, POST, OPTIONS")
+    expect(res.headers.get("Access-Control-Allow-Methods")).toBe("GET, POST, PUT, PATCH, OPTIONS")
     expect(res.headers.get("Access-Control-Allow-Headers")).toContain("Content-Type")
   })
 

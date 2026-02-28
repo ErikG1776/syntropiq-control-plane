@@ -9,6 +9,7 @@ import {
 } from "@/lib/datasources/normalize"
 import { runReplayStream } from "@/lib/datasources/replay"
 import { connectWebSocket } from "@/lib/datasources/websocket"
+import { connectGrpcWeb } from "@/lib/datasources/grpc-web/client"
 
 const REPLAY_SPEED_MS = 800
 const POLL_INTERVAL_MS = 2000
@@ -217,5 +218,20 @@ export const dataSources: Record<DataSourceKey, GovernanceDataSource> = {
         onStatus?.({ connected: false, message: "SSE disconnected" })
       }
     },
+  },
+  live_grpc: {
+    key: "live_grpc",
+    label: "Live gRPC-web",
+    mode: "stream",
+    config: {
+      url: process.env.NEXT_PUBLIC_GRPC_URL ?? "http://localhost:8080",
+      reconnect: { initialMs: 1000, maxMs: 30000, multiplier: 2 },
+    },
+    connect: (opts) =>
+      connectGrpcWeb({
+        onMessage: opts.onMessage,
+        onStatus: opts.onStatus,
+        config: opts.config,
+      }),
   },
 }

@@ -55,8 +55,9 @@ describe("schema types compile correctly", () => {
       "live_api",
       "live_ws",
       "live_sse",
+      "live_grpc",
     ]
-    expect(keys).toHaveLength(7)
+    expect(keys).toHaveLength(8)
   })
 
   it("GovernanceThresholds has required numeric fields", () => {
