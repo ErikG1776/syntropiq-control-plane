@@ -171,6 +171,15 @@ export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
           >
             {virtualizer.getVirtualItems().map((virtualRow) => {
               const event = filtered[virtualRow.index]
+              const actor =
+                event.metadata?.actor && typeof event.metadata.actor === "object"
+                  ? event.metadata.actor as { user_id?: unknown; role?: unknown }
+                  : null
+              const actorUserId = typeof actor?.user_id === "string" ? actor.user_id : null
+              const actorRole = typeof actor?.role === "string" ? actor.role : null
+              const requestId =
+                typeof event.metadata?.request_id === "string" ? event.metadata.request_id : null
+
               return (
                 <div
                   key={event.id}
@@ -214,6 +223,16 @@ export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
                     {typeof event.metadata?.selected_agent === "string" && typeof event.metadata?.selection_strategy === "string" && (
                       <div className="mt-1 text-xs text-muted-foreground">
                         selected: {event.metadata.selected_agent} · strategy: {event.metadata.selection_strategy}
+                      </div>
+                    )}
+                    {requestId && (
+                      <div className="mt-1 text-xs text-muted-foreground">
+                        request_id: {requestId}
+                      </div>
+                    )}
+                    {actorUserId && actorRole && (
+                      <div className="mt-1 text-xs text-muted-foreground">
+                        actor: {actorUserId} ({actorRole})
                       </div>
                     )}
                     {event.tags && event.tags.length > 0 && (

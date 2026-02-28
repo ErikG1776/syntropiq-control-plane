@@ -31,6 +31,10 @@ describe("schema types compile correctly", () => {
     const types: GovernanceEventType[] = [
       "trust_update",
       "suppression",
+      "restoration",
+      "circuit_breaker",
+      "circuit_reset",
+      "mediation_decision",
       "probation",
       "mutation",
       "routing_freeze",
@@ -39,7 +43,7 @@ describe("schema types compile correctly", () => {
       "threshold_breach",
       "heartbeat",
     ]
-    expect(types).toHaveLength(9)
+    expect(types).toHaveLength(13)
   })
 
   it("DataSourceKey union covers all values", () => {

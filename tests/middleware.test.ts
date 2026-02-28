@@ -151,6 +151,15 @@ describe("middleware", () => {
     expect(res.status).toBe(200)
   })
 
+  it("skips API key auth for /api/auth routes", async () => {
+    process.env.API_KEY = "test-secret-key"
+    const { middleware } = await import("@/middleware")
+    const req = createMockRequest("/api/auth/session")
+    const res = middleware(req as never)
+
+    expect(res.status).toBe(200)
+  })
+
   it("uses wildcard origin by default", async () => {
     const { middleware } = await import("@/middleware")
     const req = createMockRequest("/api/health")

@@ -40,6 +40,9 @@ export type GovernanceEventType =
   | "trust_update"
   | "suppression"
   | "restoration"
+  | "circuit_breaker"
+  | "circuit_reset"
+  | "mediation_decision"
   | "probation"
   | "mutation"
   | "routing_freeze"
@@ -47,8 +50,15 @@ export type GovernanceEventType =
   | "status_change"
   | "threshold_breach"
   | "heartbeat"
-  | "mediation_decision"
-  | "circuit_breaker"
+
+export interface GovernanceEventMetadata extends Record<string, unknown> {
+  actor?: {
+    user_id?: string
+    role?: string
+    source?: string
+  }
+  request_id?: string
+}
 
 export interface GovernanceEvent {
   id: string
@@ -58,7 +68,7 @@ export interface GovernanceEvent {
   message: string
   agentId?: string
   tags?: string[]
-  metadata?: Record<string, unknown>
+  metadata?: GovernanceEventMetadata
 }
 
 export type DataSourceKey =

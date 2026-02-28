@@ -37,6 +37,10 @@ function isHealthRoute(pathname: string): boolean {
   return pathname === "/api/health"
 }
 
+function isNextAuthRoute(pathname: string): boolean {
+  return pathname.startsWith("/api/auth/")
+}
+
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
@@ -59,7 +63,7 @@ export function middleware(request: NextRequest) {
   // Skip auth for health endpoint (needed by load balancers)
   // Only enforce if API_KEY env var is set
   const apiKey = process.env.API_KEY
-  if (apiKey && isApiRoute(pathname) && !isHealthRoute(pathname)) {
+  if (apiKey && isApiRoute(pathname) && !isHealthRoute(pathname) && !isNextAuthRoute(pathname)) {
     const providedKey =
       request.headers.get("X-Api-Key") ??
       request.headers.get("Authorization")?.replace("Bearer ", "")

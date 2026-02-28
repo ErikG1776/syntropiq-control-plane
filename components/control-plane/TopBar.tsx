@@ -6,6 +6,7 @@ import { ConnectSourceDialog } from "@/components/control-plane/ConnectSourceDia
 import { TimeRangePicker } from "@/components/control-plane/TimeRangePicker"
 import { ThemeToggle } from "@/components/control-plane/ThemeToggle"
 import { ExportMenu } from "@/components/control-plane/ExportMenu"
+import { UserMenu } from "@/components/control-plane/UserMenu"
 import { activeFilterCount, useFilters } from "@/store/filter-store"
 import { Button } from "@/components/ui/button"
 import { X } from "lucide-react"
@@ -80,6 +81,7 @@ export function TopBar() {
           <ExportMenu />
           <ConnectSourceDialog />
           <ThemeToggle />
+          <UserMenu />
         </div>
       </div>
 
