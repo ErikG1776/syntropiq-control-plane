@@ -191,7 +191,7 @@ function applyPayload(
     stabilityHistory: [
       ...state.stabilityHistory,
       {
-        ts: payload.snapshot.timestamp,
+        ts: new Date(payload.snapshot.timestamp).getTime(),
         value:
           payload.snapshot.agents.reduce(
             (sum, a) => sum + a.trustScore * a.authorityWeight,
