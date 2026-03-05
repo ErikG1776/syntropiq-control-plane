@@ -37,9 +37,12 @@ export function StabilityChart() {
       ) : (
         <div className="h-[260px]">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={history}>
+            <LineChart data={history || []}>
               <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
-              <XAxis dataKey="ts" tick={false} />
+              <XAxis
+                dataKey="timestamp"
+                tickFormatter={(v) => new Date(v).toLocaleTimeString()}
+              />
               <YAxis domain={[0, 1]} />
               <Tooltip
                 contentStyle={{
@@ -49,13 +52,7 @@ export function StabilityChart() {
                   borderRadius: "0.375rem",
                 }}
               />
-              <Line
-                type="monotone"
-                dataKey="value"
-                stroke="hsl(var(--primary))"
-                dot={false}
-                strokeWidth={2}
-              />
+              <Line dataKey="value" />
 
               {trustThreshold >= 0 && (
                 <ReferenceLine
