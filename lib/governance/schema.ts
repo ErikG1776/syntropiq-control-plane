@@ -28,7 +28,7 @@ export interface AgentState {
   id: string
   /** Trust score in the range [0, 1]. */
   trustScore: number
-  /** Authority weight in the range [0, 1].  See contract note above. */
+  /** Authority weight in the range [0, 1]. */
   authorityWeight: number
   status: AgentStatus
   capabilities?: string[]
@@ -50,6 +50,7 @@ export type GovernanceEventType =
   | "status_change"
   | "threshold_breach"
   | "heartbeat"
+  | "reflection"
 
 export interface GovernanceEventMetadata extends Record<string, unknown> {
   actor?: {
@@ -80,6 +81,7 @@ export type DataSourceKey =
   | "live_ws"
   | "live_sse"
   | "live_grpc"
+  | "live_events_stream"
 
 /**
  * Canonical snapshot of the governed system at a point in time.
