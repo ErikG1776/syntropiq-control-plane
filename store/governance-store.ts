@@ -180,36 +180,29 @@ function applyPayload(
   state: GovernanceState,
   payload: GovernanceStreamPayload,
 ): Partial<GovernanceState> {
-  const mergedEvents = deduplicateEvents(state.events, payload.events)
-  const cappedEvents =
-    mergedEvents.length > MAX_EVENTS
-      ? mergedEvents.slice(mergedEvents.length - MAX_EVENTS)
-      : mergedEvents
-
-  // Stability: normalized weighted mean bounded 0-1
-  const totalWeight = payload.snapshot.agents.reduce(
-    (acc, a) => acc + a.authorityWeight, 0,
-  )
-  const stability =
-    totalWeight > 0
-      ? payload.snapshot.agents.reduce(
-          (acc, a) => acc + a.trustScore * a.authorityWeight, 0,
-        ) / totalWeight
-      : 0
-
-  const newStabilityHistory = [
-    ...state.stabilityHistory,
-    { ts: payload.snapshot.timestamp, value: stability },
-  ].slice(-300)
-
   const warnings = validatePayload(payload)
   if (warnings.length > 0) _totalValidationWarnings += warnings.length
+  const newHistory = [...state.history, payload.snapshot].slice(-200)
 
   return {
     snapshot: payload.snapshot,
-    events: cappedEvents,
-    history: [...state.history, payload.snapshot].slice(-300),
-    stabilityHistory: newStabilityHistory,
+    events: [...state.events, ...payload.events],
+    history: newHistory,
+    stabilityHistory: [
+      ...state.stabilityHistory,
+      {
+        ts: payload.snapshot.timestamp,
+        value:
+          payload.snapshot.agents.reduce(
+            (sum, a) => sum + a.trustScore * a.authorityWeight,
+            0,
+          ) /
+          payload.snapshot.agents.reduce(
+            (sum, a) => sum + a.authorityWeight,
+            0,
+          ),
+      },
+    ].slice(-200),
     connected: true,
     connecting: false,
     error: null,
