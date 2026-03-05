@@ -40,7 +40,10 @@ export function StabilityChart() {
             <LineChart data={history || []}>
               <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
               <XAxis
-                dataKey="timestamp"
+                dataKey="ts"
+                type="number"
+                scale="time"
+                domain={["dataMin", "dataMax"]}
                 tickFormatter={(v) => new Date(v).toLocaleTimeString()}
               />
               <YAxis domain={[0, 1]} />
