@@ -234,4 +234,41 @@ export const dataSources: Record<DataSourceKey, GovernanceDataSource> = {
         config: opts.config,
       }),
   },
+  live_events_stream: {
+    key: "live_events_stream",
+    label: "Live Events Stream",
+    mode: "stream",
+    config: {
+      url: "/api/control-plane/events/stream",
+    },
+    connect: async ({ onMessage, onStatus }) => {
+      let stopped = false
+      const es = new EventSource("/api/control-plane/events/stream")
+
+      es.onopen = () => {
+        onStatus?.({ connected: true, message: "Events stream connected" })
+      }
+
+      es.onmessage = (event) => {
+        if (stopped) return
+        try {
+          const data = JSON.parse(event.data)
+          onMessage(data)
+        } catch {
+          // ignore malformed frames
+        }
+      }
+
+      es.onerror = () => {
+        if (stopped) return
+        onStatus?.({ connected: false, message: "Events stream error" })
+      }
+
+      return () => {
+        stopped = true
+        es.close()
+        onStatus?.({ connected: false, message: "Events stream disconnected" })
+      }
+    },
+  },
 }
