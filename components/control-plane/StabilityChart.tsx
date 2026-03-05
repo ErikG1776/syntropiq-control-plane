@@ -37,7 +37,7 @@ export function StabilityChart() {
       ) : (
         <div className="h-[260px]">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={history || []}>
+            <LineChart data={history ?? []}>
               <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
               <XAxis
                 dataKey="ts"
