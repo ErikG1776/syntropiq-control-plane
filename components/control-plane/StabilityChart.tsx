@@ -35,45 +35,50 @@ export function StabilityChart() {
           Waiting for stability data...
         </p>
       ) : (
-        <div className="h-[260px]">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={history ?? []}>
-              <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
-              <XAxis
-                dataKey="ts"
-                type="number"
-                scale="time"
-                domain={["dataMin", "dataMax"]}
-                tickFormatter={(v) => new Date(v).toLocaleTimeString()}
-              />
-              <YAxis domain={[0, 1]} />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "hsl(var(--popover))",
-                  border: "1px solid hsl(var(--border))",
-                  color: "hsl(var(--popover-foreground))",
-                  borderRadius: "0.375rem",
-                }}
-              />
-              <Line dataKey="value" />
+        <ResponsiveContainer width="100%" height={260}>
+          <LineChart data={history ?? []}>
+            <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
+            <XAxis
+              dataKey="ts"
+              type="number"
+              scale="time"
+              domain={["dataMin", "dataMax"]}
+              tickFormatter={(v) => new Date(v).toLocaleTimeString()}
+            />
+            <YAxis domain={[0, 1]} />
+            <Tooltip
+              labelFormatter={(v) => new Date(v).toLocaleTimeString()}
+              contentStyle={{
+                backgroundColor: "hsl(var(--popover))",
+                border: "1px solid hsl(var(--border))",
+                color: "hsl(var(--popover-foreground))",
+                borderRadius: "0.375rem",
+              }}
+            />
+            <Line
+              type="monotone"
+              dataKey="value"
+              stroke="#2563eb"
+              strokeWidth={2}
+              dot={false}
+            />
 
-              {trustThreshold >= 0 && (
-                <ReferenceLine
-                  y={trustThreshold}
-                  stroke="hsl(var(--chart-2, 38 92% 50%))"
-                  strokeDasharray="4 4"
-                />
-              )}
-              {suppressionThreshold >= 0 && (
-                <ReferenceLine
-                  y={suppressionThreshold}
-                  stroke="hsl(var(--destructive))"
-                  strokeDasharray="4 4"
-                />
-              )}
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
+            {trustThreshold >= 0 && (
+              <ReferenceLine
+                y={trustThreshold}
+                stroke="hsl(var(--chart-2, 38 92% 50%))"
+                strokeDasharray="4 4"
+              />
+            )}
+            {suppressionThreshold >= 0 && (
+              <ReferenceLine
+                y={suppressionThreshold}
+                stroke="hsl(var(--destructive))"
+                strokeDasharray="4 4"
+              />
+            )}
+          </LineChart>
+        </ResponsiveContainer>
       )}
     </Card>
   )
