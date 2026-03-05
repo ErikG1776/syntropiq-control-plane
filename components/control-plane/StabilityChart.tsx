@@ -8,7 +8,6 @@ import {
   Tooltip,
   CartesianGrid,
   ResponsiveContainer,
-  ReferenceLine,
 } from "recharts"
 
 import { Card } from "@/components/ui/card"
@@ -16,10 +15,6 @@ import { useGovernanceStore } from "@/store/governance-store"
 
 export function StabilityChart() {
   const history = useGovernanceStore((s) => s.stabilityHistory)
-  const thresholds = useGovernanceStore((s) => s.snapshot?.thresholds)
-
-  const trustThreshold = thresholds?.trustThreshold ?? -1
-  const suppressionThreshold = thresholds?.suppressionThreshold ?? -1
 
   return (
     <Card className="p-5">
@@ -27,7 +22,7 @@ export function StabilityChart() {
         Stability Over Time
       </h2>
       <p className="text-xs text-muted-foreground mb-4">
-        Normalized weighted mean: &Sigma;(trust &times; authority) / &Sigma;(authority){trustThreshold < 0 && " — thresholds unavailable"}
+        Normalized weighted mean: &Sigma;(trust &times; authority) / &Sigma;(authority)
       </p>
 
       {history.length === 0 ? (
@@ -37,23 +32,16 @@ export function StabilityChart() {
       ) : (
         <ResponsiveContainer width="100%" height={260}>
           <LineChart data={history ?? []}>
-            <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
+            <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="ts"
               type="number"
-              scale="time"
               domain={["dataMin", "dataMax"]}
               tickFormatter={(v) => new Date(v).toLocaleTimeString()}
             />
             <YAxis domain={[0, 1]} />
             <Tooltip
               labelFormatter={(v) => new Date(v).toLocaleTimeString()}
-              contentStyle={{
-                backgroundColor: "hsl(var(--popover))",
-                border: "1px solid hsl(var(--border))",
-                color: "hsl(var(--popover-foreground))",
-                borderRadius: "0.375rem",
-              }}
             />
             <Line
               type="monotone"
@@ -62,21 +50,6 @@ export function StabilityChart() {
               strokeWidth={2}
               dot={false}
             />
-
-            {trustThreshold >= 0 && (
-              <ReferenceLine
-                y={trustThreshold}
-                stroke="hsl(var(--chart-2, 38 92% 50%))"
-                strokeDasharray="4 4"
-              />
-            )}
-            {suppressionThreshold >= 0 && (
-              <ReferenceLine
-                y={suppressionThreshold}
-                stroke="hsl(var(--destructive))"
-                strokeDasharray="4 4"
-              />
-            )}
           </LineChart>
         </ResponsiveContainer>
       )}
