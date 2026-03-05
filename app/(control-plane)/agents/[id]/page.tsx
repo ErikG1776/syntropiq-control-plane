@@ -1,12 +1,14 @@
 "use client"
 
 import { useParams } from "next/navigation"
+import { useState } from "react"
 import Link from "next/link"
 import { useGovernanceStore } from "@/store/governance-store"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { toast } from "sonner"
 import {
   LineChart,
   Line,
@@ -25,13 +27,27 @@ const severityClass: Record<string, string> = {
   critical: "text-red-700 font-semibold",
 }
 
+async function setAgentStatus(agentId: string, status: "suppressed" | "active") {
+  const res = await fetch("/api/control-plane/agents/status", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ agentId, status }),
+  })
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({ error: "Status update failed" }))
+    throw new Error(data.error ?? "Status update failed")
+  }
+}
+
 export default function AgentDetailPage() {
   const params = useParams()
   const agentId = params.id as string
+  const [statusRequest, setStatusRequest] = useState<"suppressed" | "active" | null>(null)
 
   const snapshot = useGovernanceStore((s) => s.snapshot)
   const history = useGovernanceStore((s) => s.history)
   const events = useGovernanceStore((s) => s.events)
+  const connect = useGovernanceStore((s) => s.connect)
 
   const agent = snapshot?.agents.find((a) => a.id === agentId)
   const thresholds = snapshot?.thresholds
@@ -89,6 +105,21 @@ export default function AgentDetailPage() {
 
   const trustThreshold = thresholds?.trustThreshold ?? -1
   const isBreach = trustThreshold >= 0 && agent.trustScore < trustThreshold
+  const requestInFlight = statusRequest !== null
+
+  async function handleStatusChange(status: "suppressed" | "active") {
+    setStatusRequest(status)
+    try {
+      await setAgentStatus(agentId, status)
+      toast.success(status === "suppressed" ? "Agent suppressed" : "Agent restored")
+      await connect("live_api")
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Status update failed"
+      toast.error(message)
+    } finally {
+      setStatusRequest(null)
+    }
+  }
 
   return (
     <div className="space-y-6">
@@ -113,6 +144,20 @@ export default function AgentDetailPage() {
           </div>
         </div>
         <div className="flex items-center gap-2">
+          <button
+            onClick={() => handleStatusChange("suppressed")}
+            disabled={requestInFlight}
+            className="rounded border px-2 py-1 text-xs hover:bg-muted disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {statusRequest === "suppressed" ? "Suppressing..." : "Suppress"}
+          </button>
+          <button
+            onClick={() => handleStatusChange("active")}
+            disabled={requestInFlight}
+            className="rounded border px-2 py-1 text-xs hover:bg-muted disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {statusRequest === "active" ? "Restoring..." : "Restore"}
+          </button>
           <Badge variant={statusVariant}>{agent.status}</Badge>
           {isBreach && (
             <Badge variant="destructive" className="text-[10px]">BREACH</Badge>
@@ -129,15 +174,23 @@ export default function AgentDetailPage() {
             ) : (
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={chartData}>
-                  <CartesianGrid strokeDasharray="3 3" />
+                  <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
                   <XAxis dataKey="idx" tick={false} />
                   <YAxis domain={[0, 1]} />
-                  <Tooltip labelFormatter={(v) => `Tick ${v}`} />
+                  <Tooltip
+                    labelFormatter={(v) => `Tick ${v}`}
+                    contentStyle={{
+                      backgroundColor: "hsl(var(--popover))",
+                      border: "1px solid hsl(var(--border))",
+                      color: "hsl(var(--popover-foreground))",
+                      borderRadius: "0.375rem",
+                    }}
+                  />
                   <Line
                     type="monotone"
                     dataKey="trust"
                     name="Trust"
-                    stroke="#2563eb"
+                    stroke="hsl(var(--chart-1))"
                     dot={false}
                     strokeWidth={2}
                     connectNulls
@@ -145,7 +198,7 @@ export default function AgentDetailPage() {
                   {trustThreshold >= 0 && (
                     <ReferenceLine
                       y={trustThreshold}
-                      stroke="#f59e0b"
+                      stroke="hsl(var(--chart-3, 38 92% 50%))"
                       strokeDasharray="4 4"
                     />
                   )}
@@ -163,15 +216,23 @@ export default function AgentDetailPage() {
             ) : (
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={chartData}>
-                  <CartesianGrid strokeDasharray="3 3" />
+                  <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
                   <XAxis dataKey="idx" tick={false} />
                   <YAxis domain={[0, 1]} />
-                  <Tooltip labelFormatter={(v) => `Tick ${v}`} />
+                  <Tooltip
+                    labelFormatter={(v) => `Tick ${v}`}
+                    contentStyle={{
+                      backgroundColor: "hsl(var(--popover))",
+                      border: "1px solid hsl(var(--border))",
+                      color: "hsl(var(--popover-foreground))",
+                      borderRadius: "0.375rem",
+                    }}
+                  />
                   <Line
                     type="monotone"
                     dataKey="authority"
                     name="Authority"
-                    stroke="#8b5cf6"
+                    stroke="hsl(var(--chart-4))"
                     dot={false}
                     strokeWidth={2}
                     connectNulls

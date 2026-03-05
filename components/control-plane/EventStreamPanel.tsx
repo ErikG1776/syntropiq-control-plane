@@ -1,13 +1,14 @@
 "use client"
 
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useMemo, useRef } from "react"
+import { useVirtualizer } from "@tanstack/react-virtual"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { Select } from "@/components/ui/select"
 import { useGovernanceStore } from "@/store/governance-store"
+import { useFilters, TIME_RANGES } from "@/store/filter-store"
 import type { GovernanceEvent } from "@/lib/governance/schema"
 
 const severityClass: Record<string, string> = {
@@ -16,20 +17,14 @@ const severityClass: Record<string, string> = {
   error: "text-red-600",
   critical: "text-red-700 font-semibold",
 }
-const typeClass: Record<string, string> = {
-  trust_update: "border-blue-500/30 bg-blue-500/5",
-  mutation: "border-violet-500/35 bg-violet-500/8",
-  suppression: "border-red-500/40 bg-red-500/10",
+
+const eventTypeBadgeClass: Record<string, string> = {
+  suppression: "border-red-300 bg-red-50 text-red-700",
+  restoration: "border-green-300 bg-green-50 text-green-700",
+  mediation_decision: "border-blue-300 bg-blue-50 text-blue-700",
 }
 
-const ALL = "__all__"
-
-const TIME_WINDOWS = [
-  { label: "All", ms: 0 },
-  { label: "Last 5m", ms: 5 * 60_000 },
-  { label: "Last 15m", ms: 15 * 60_000 },
-  { label: "Last 1h", ms: 60 * 60_000 },
-]
+const ALL = ""
 
 interface EventStreamPanelProps {
   fullPage?: boolean
@@ -37,16 +32,8 @@ interface EventStreamPanelProps {
 
 export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
   const events = useGovernanceStore((s) => s.events)
-
-  const [severityFilter, setSeverityFilter] = useState(ALL)
-  const [typeFilter, setTypeFilter] = useState(ALL)
-  const [agentFilter, setAgentFilter] = useState(ALL)
-  const [searchQuery, setSearchQuery] = useState("")
-  const [timeWindow, setTimeWindow] = useState(0)
-  const [visibleCount, setVisibleCount] = useState(fullPage ? 120 : 60)
-  const loadMoreRef = useRef<HTMLDivElement | null>(null)
-  const knownEventIds = useRef<Set<string>>(new Set())
-  const [freshEventIds, setFreshEventIds] = useState<Set<string>>(new Set())
+  const filters = useFilters()
+  const scrollRef = useRef<HTMLDivElement>(null)
 
   const severities = useMemo(
     () => [...new Set(events.map((e) => e.severity))].sort(),
@@ -63,60 +50,44 @@ export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
 
   const filtered = useMemo(() => {
     const now = Date.now()
-    const lowerQuery = searchQuery.toLowerCase()
+    const searchQuery = filters.q
+    const q = searchQuery.trim().toLowerCase()
+
+    const matchesQuery = (evt: GovernanceEvent) => {
+      if (!q) return true
+      const haystack = [
+        evt.message ?? "",
+        evt.type ?? "",
+        evt.agentId ?? "",
+        ...(evt.tags ?? []),
+        JSON.stringify(evt.metadata ?? {}),
+      ]
+        .join(" ")
+        .toLowerCase()
+      return haystack.includes(q)
+    }
+
     return events.filter((e: GovernanceEvent) => {
-      if (severityFilter !== ALL && e.severity !== severityFilter) return false
-      if (typeFilter !== ALL && e.type !== typeFilter) return false
-      if (agentFilter !== ALL && e.agentId !== agentFilter) return false
-      if (lowerQuery && !e.message.toLowerCase().includes(lowerQuery)) return false
-      if (timeWindow > 0) {
+      if (filters.severity && e.severity !== filters.severity) return false
+      if (filters.eventType && e.type !== filters.eventType) return false
+      if (filters.agentId && e.agentId !== filters.agentId) return false
+      if (!matchesQuery(e)) return false
+      if (filters.timeRange > 0) {
         const ts = Date.parse(e.timestamp)
-        if (Number.isFinite(ts) && ts < now - timeWindow) return false
+        if (Number.isFinite(ts) && ts < now - filters.timeRange) return false
       }
       return true
     }).reverse()
-  }, [events, severityFilter, typeFilter, agentFilter, searchQuery, timeWindow])
+  }, [events, filters.severity, filters.eventType, filters.agentId, filters.q, filters.timeRange])
 
-  useEffect(() => {
-    setVisibleCount(fullPage ? 120 : 60)
-  }, [fullPage, severityFilter, typeFilter, agentFilter, searchQuery, timeWindow])
-
-  useEffect(() => {
-    if (!fullPage) return
-    const node = loadMoreRef.current
-    if (!node) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0]
-        if (!entry.isIntersecting) return
-        setVisibleCount((count) => Math.min(count + 120, filtered.length))
-      },
-      { root: null, rootMargin: "150px" },
-    )
-
-    observer.observe(node)
-    return () => observer.disconnect()
-  }, [filtered.length, fullPage])
-
-  useEffect(() => {
-    const nextFresh = new Set<string>()
-    for (const event of events.slice(-40)) {
-      if (!knownEventIds.current.has(event.id)) {
-        nextFresh.add(event.id)
-        knownEventIds.current.add(event.id)
-      }
-    }
-    if (nextFresh.size > 0) {
-      setFreshEventIds(nextFresh)
-      const timeout = setTimeout(() => setFreshEventIds(new Set()), 900)
-      return () => clearTimeout(timeout)
-    }
-    return
-  }, [events])
+  const virtualizer = useVirtualizer({
+    count: filtered.length,
+    getScrollElement: () => scrollRef.current,
+    estimateSize: () => 72,
+    overscan: 10,
+  })
 
   const showFilters = fullPage
-  const visibleEvents = filtered.slice(0, fullPage ? visibleCount : Math.min(80, filtered.length))
 
   return (
     <Card className="p-5">
@@ -133,13 +104,13 @@ export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
           <div className="flex flex-wrap items-center gap-2 mb-3">
             <Input
               placeholder="Search messages..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              value={filters.q}
+              onChange={(e) => filters.setSearch(e.target.value)}
               className="w-48 h-8 text-xs"
             />
             <Select
-              value={severityFilter}
-              onChange={(e) => setSeverityFilter(e.target.value)}
+              value={filters.severity}
+              onChange={(e) => filters.setSeverity(e.target.value)}
               className="w-28 h-8 text-xs"
             >
               <option value={ALL}>All severity</option>
@@ -148,8 +119,8 @@ export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
               ))}
             </Select>
             <Select
-              value={typeFilter}
-              onChange={(e) => setTypeFilter(e.target.value)}
+              value={filters.eventType}
+              onChange={(e) => filters.setEventType(e.target.value)}
               className="w-36 h-8 text-xs"
             >
               <option value={ALL}>All types</option>
@@ -158,8 +129,8 @@ export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
               ))}
             </Select>
             <Select
-              value={agentFilter}
-              onChange={(e) => setAgentFilter(e.target.value)}
+              value={filters.agentId}
+              onChange={(e) => filters.setAgentId(e.target.value)}
               className="w-40 h-8 text-xs"
             >
               <option value={ALL}>All agents</option>
@@ -168,12 +139,12 @@ export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
               ))}
             </Select>
             <div className="flex gap-1">
-              {TIME_WINDOWS.map((tw) => (
+              {TIME_RANGES.map((tw) => (
                 <button
                   key={tw.ms}
-                  onClick={() => setTimeWindow(tw.ms)}
+                  onClick={() => filters.setTimeRange(tw.ms)}
                   className={`px-2 py-1 rounded text-xs border transition-colors ${
-                    timeWindow === tw.ms
+                    filters.timeRange === tw.ms
                       ? "bg-primary text-primary-foreground"
                       : "bg-transparent text-muted-foreground hover:bg-muted"
                   }`}
@@ -188,56 +159,98 @@ export function EventStreamPanel({ fullPage = false }: EventStreamPanelProps) {
 
       <Separator className="my-3" />
 
-      <ScrollArea className={fullPage ? "h-[600px]" : "h-[320px]"}>
-        {visibleEvents.length === 0 ? (
+      <div
+        ref={scrollRef}
+        className={`overflow-y-auto ${fullPage ? "h-[600px]" : "h-[320px]"}`}
+      >
+        {filtered.length === 0 ? (
           <p className="text-sm text-muted-foreground">No events match filters.</p>
         ) : (
-          <div className="space-y-2">
-            {visibleEvents.map((event) => (
-              <div
-                key={event.id}
-                className={[
-                  "rounded-md border px-3 py-2 text-sm transition-colors",
-                  typeClass[event.type] ?? "border-border",
-                  freshEventIds.has(event.id) ? "event-fade-in" : "",
-                ].join(" ")}
-              >
-                <div className="flex items-center justify-between gap-3 text-xs">
-                  <div className="flex items-center gap-2">
-                    <span className={severityClass[event.severity] ?? severityClass.info}>
-                      {event.severity.toUpperCase()}
-                    </span>
-                    <Badge variant="outline" className="text-[10px] px-1.5 py-0">
-                      {event.type}
-                    </Badge>
-                    {event.agentId && (
-                      <span className="text-muted-foreground">{event.agentId}</span>
+          <div
+            style={{ height: `${virtualizer.getTotalSize()}px`, position: "relative" }}
+          >
+            {virtualizer.getVirtualItems().map((virtualRow) => {
+              const event = filtered[virtualRow.index]
+              const actor =
+                event.metadata?.actor && typeof event.metadata.actor === "object"
+                  ? event.metadata.actor as { user_id?: unknown; role?: unknown }
+                  : null
+              const actorUserId = typeof actor?.user_id === "string" ? actor.user_id : null
+              const actorRole = typeof actor?.role === "string" ? actor.role : null
+              const requestId =
+                typeof event.metadata?.request_id === "string" ? event.metadata.request_id : null
+
+              return (
+                <div
+                  key={event.id}
+                  data-index={virtualRow.index}
+                  ref={virtualizer.measureElement}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    transform: `translateY(${virtualRow.start}px)`,
+                  }}
+                  className="pb-2"
+                >
+                  <div className="rounded-md border px-3 py-2 text-sm">
+                    <div className="flex items-center justify-between gap-3 text-xs">
+                      <div className="flex items-center gap-2">
+                        <span className={severityClass[event.severity] ?? severityClass.info}>
+                          {event.severity.toUpperCase()}
+                        </span>
+                        <Badge
+                          variant="outline"
+                          className={`text-[10px] px-1.5 py-0 ${eventTypeBadgeClass[event.type] ?? ""}`}
+                        >
+                          {event.type}
+                        </Badge>
+                        {event.agentId && (
+                          <button
+                            className="text-muted-foreground hover:text-foreground hover:underline"
+                            onClick={() => filters.setAgentId(event.agentId!)}
+                          >
+                            {event.agentId}
+                          </button>
+                        )}
+                      </div>
+                      <span className="text-muted-foreground whitespace-nowrap">
+                        {new Date(event.timestamp).toLocaleTimeString()}
+                      </span>
+                    </div>
+                    <div className="mt-1">{event.message}</div>
+                    {typeof event.metadata?.selected_agent === "string" && typeof event.metadata?.selection_strategy === "string" && (
+                      <div className="mt-1 text-xs text-muted-foreground">
+                        selected: {event.metadata.selected_agent} · strategy: {event.metadata.selection_strategy}
+                      </div>
+                    )}
+                    {requestId && (
+                      <div className="mt-1 text-xs text-muted-foreground">
+                        request_id: {requestId}
+                      </div>
+                    )}
+                    {actorUserId && actorRole && (
+                      <div className="mt-1 text-xs text-muted-foreground">
+                        actor: {actorUserId} ({actorRole})
+                      </div>
+                    )}
+                    {event.tags && event.tags.length > 0 && (
+                      <div className="mt-1 flex gap-1">
+                        {event.tags.map((tag) => (
+                          <Badge key={tag} variant="secondary" className="text-[9px] px-1 py-0">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
                     )}
                   </div>
-                  <span className="text-muted-foreground whitespace-nowrap">
-                    {new Date(event.timestamp).toLocaleTimeString()}
-                  </span>
                 </div>
-                <div className="mt-1">{event.message}</div>
-                {event.tags && event.tags.length > 0 && (
-                  <div className="mt-1 flex gap-1">
-                    {event.tags.map((tag) => (
-                      <Badge key={tag} variant="secondary" className="text-[9px] px-1 py-0">
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-            {fullPage && visibleCount < filtered.length && (
-              <div ref={loadMoreRef} className="py-2 text-center text-xs text-muted-foreground">
-                Loading more events...
-              </div>
-            )}
+              )
+            })}
           </div>
         )}
-      </ScrollArea>
+      </div>
     </Card>
   )
 }

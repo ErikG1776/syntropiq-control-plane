@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package syntropiq.governance.v1;
+
+// Agent status enum mirroring AgentStatus type.
+enum AgentStatus {
+  AGENT_STATUS_UNKNOWN = 0;
+  AGENT_STATUS_ACTIVE = 1;
+  AGENT_STATUS_PROBATION = 2;
+  AGENT_STATUS_SUPPRESSED = 3;
+}
+
+// Governance thresholds.
+message Thresholds {
+  double trust_threshold = 1;
+  double suppression_threshold = 2;
+  double drift_delta = 3;
+}
+
+// Agent state at a point in time.
+message AgentState {
+  string id = 1;
+  double trust_score = 2;
+  double authority_weight = 3;
+  AgentStatus status = 4;
+  repeated string capabilities = 5;
+  map<string, string> labels = 6;
+  string last_decision_at = 7;
+}
+
+// Governance event.
+message GovernanceEvent {
+  string id = 1;
+  string timestamp = 2;
+  string type = 3;
+  string severity = 4;
+  string message = 5;
+  string agent_id = 6;
+  repeated string tags = 7;
+}
+
+// Snapshot of the governed system.
+message GovernanceSnapshot {
+  string timestamp = 1;
+  string source = 2;
+  string run_id = 3;
+  int32 sequence = 4;
+  bool healthy = 5;
+  repeated AgentState agents = 6;
+  Thresholds thresholds = 7;
+  int32 event_count = 8;
+  int32 suppressed_count = 9;
+}
+
+// Stream payload.
+message GovernanceStreamPayload {
+  GovernanceSnapshot snapshot = 1;
+  repeated GovernanceEvent events = 2;
+}
+
+// Empty request for stream subscription.
+message SubscribeRequest {}
+
+// Service definition.
+service GovernanceService {
+  // Server-streaming RPC for governance updates.
+  rpc Subscribe(SubscribeRequest) returns (stream GovernanceStreamPayload);
+}

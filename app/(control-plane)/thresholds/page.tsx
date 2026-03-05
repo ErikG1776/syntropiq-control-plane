@@ -1,10 +1,15 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useState } from "react"
+import { useSession } from "next-auth/react"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
+import { DataGuard } from "@/components/control-plane/DataGuard"
 import { useGovernanceStore } from "@/store/governance-store"
+import { toast } from "sonner"
 
 function formatThreshold(v: number | undefined): string {
   if (v === undefined || v < 0) return "\u2014"
@@ -25,41 +30,126 @@ function ThresholdAvailability({ v }: { v: number | undefined }) {
 
 type ThresholdKey = "trustThreshold" | "suppressionThreshold" | "driftDelta"
 
-function parseMutationThreshold(
-  metadata: Record<string, unknown> | undefined,
-  key: ThresholdKey,
-): { before: number | null; after: number | null } {
-  if (!metadata) return { before: null, after: null }
-  const naming: Record<ThresholdKey, [string, string]> = {
-    trustThreshold: ["trust_threshold_before", "trust_threshold_after"],
-    suppressionThreshold: ["suppression_threshold_before", "suppression_threshold_after"],
-    driftDelta: ["drift_delta_before", "drift_delta_after"],
-  }
-  const [beforeKey, afterKey] = naming[key]
-  const before = metadata[beforeKey]
-  const after = metadata[afterKey]
-  return {
-    before: typeof before === "number" ? before : null,
-    after: typeof after === "number" ? after : null,
-  }
+interface ThresholdRowDef {
+  key: ThresholdKey
+  label: string
+  description: string
+  min: number
+  max: number
+  step: number
 }
 
-function formatDelta(v: number): string {
-  return `${v > 0 ? "+" : ""}${v.toFixed(3)}`
-}
+const THRESHOLD_ROWS: ThresholdRowDef[] = [
+  {
+    key: "trustThreshold",
+    label: "Trust Threshold",
+    description: "Minimum trust score before agent enters probation",
+    min: 0,
+    max: 1,
+    step: 0.01,
+  },
+  {
+    key: "suppressionThreshold",
+    label: "Suppression Threshold",
+    description: "Trust level below which agents are suppressed",
+    min: 0,
+    max: 1,
+    step: 0.01,
+  },
+  {
+    key: "driftDelta",
+    label: "Drift Delta",
+    description: "Maximum allowed trust drift between cycles",
+    min: 0,
+    max: 1,
+    step: 0.001,
+  },
+]
 
-function mutationDirection(key: ThresholdKey, delta: number): "loosened" | "tightened" | "stable" {
-  if (Math.abs(delta) < 0.0001) return "stable"
-  if (key === "driftDelta") {
-    return delta > 0 ? "loosened" : "tightened"
+function ThresholdEditor({
+  row,
+  currentValue,
+  canEdit,
+  onSave,
+}: {
+  row: ThresholdRowDef
+  currentValue: number | undefined
+  canEdit: boolean
+  onSave: (key: ThresholdKey, value: number) => void
+}) {
+  const [editing, setEditing] = useState(false)
+  const [draft, setDraft] = useState("")
+
+  const startEdit = () => {
+    setDraft(currentValue !== undefined && currentValue >= 0 ? currentValue.toString() : "0.5")
+    setEditing(true)
   }
-  return delta < 0 ? "loosened" : "tightened"
+
+  const cancel = () => setEditing(false)
+
+  const save = () => {
+    const parsed = parseFloat(draft)
+    if (isNaN(parsed) || parsed < row.min || parsed > row.max) {
+      toast.error(`Value must be between ${row.min} and ${row.max}`)
+      return
+    }
+    onSave(row.key, parsed)
+    setEditing(false)
+  }
+
+  if (editing) {
+    return (
+      <div className="flex items-center gap-2">
+        <Input
+          type="number"
+          value={draft}
+          onChange={(e) => setDraft(e.target.value)}
+          min={row.min}
+          max={row.max}
+          step={row.step}
+          className="w-24 h-8 text-right font-mono"
+          autoFocus
+          onKeyDown={(e) => {
+            if (e.key === "Enter") save()
+            if (e.key === "Escape") cancel()
+          }}
+        />
+        <Button size="sm" variant="default" className="h-7 text-xs" onClick={save}>
+          Apply
+        </Button>
+        <Button size="sm" variant="ghost" className="h-7 text-xs" onClick={cancel}>
+          Cancel
+        </Button>
+      </div>
+    )
+  }
+
+  return (
+    <div className="flex items-center gap-3">
+      <span className="font-mono text-lg font-semibold">
+        {formatThreshold(currentValue)}
+      </span>
+      <ThresholdAvailability v={currentValue} />
+      {canEdit && (
+        <Button size="sm" variant="outline" className="h-7 text-xs" onClick={startEdit}>
+          Edit
+        </Button>
+      )}
+    </div>
+  )
 }
 
 export default function ThresholdsPage() {
-  const connected = useGovernanceStore((s) => s.connected)
   const thresholds = useGovernanceStore((s) => s.snapshot?.thresholds)
   const events = useGovernanceStore((s) => s.events)
+  const { data: session } = useSession()
+  const [pendingOverrides, setPendingOverrides] = useState<
+    Partial<Record<ThresholdKey, number>>
+  >({})
+  const [saving, setSaving] = useState(false)
+
+  const role = session?.user?.role ?? "viewer"
+  const canEdit = role === "admin" || role === "operator"
 
   const mutationEvents = events
     .filter((e) => e.type === "mutation")
@@ -71,41 +161,44 @@ export default function ThresholdsPage() {
     .slice(-20)
     .reverse()
 
-  const [flashKey, setFlashKey] = useState<ThresholdKey | null>(null)
-  const latestMutation = mutationEvents[0]
+  const handleSaveThreshold = useCallback(
+    async (key: ThresholdKey, value: number) => {
+      setPendingOverrides((prev) => ({ ...prev, [key]: value }))
+      setSaving(true)
 
-  const mutationDeltaByKey = useMemo(() => {
-    const metadata = latestMutation?.metadata
-    const rows: Record<ThresholdKey, number | null> = {
-      trustThreshold: null,
-      suppressionThreshold: null,
-      driftDelta: null,
-    }
-    ;(Object.keys(rows) as ThresholdKey[]).forEach((key) => {
-      const values = parseMutationThreshold(metadata, key)
-      if (values.before !== null && values.after !== null) {
-        rows[key] = values.after - values.before
+      try {
+        const res = await fetch("/api/control-plane/thresholds", {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ [key]: value }),
+        })
+
+        if (!res.ok) {
+          const body = await res.json().catch(() => ({}))
+          throw new Error(body.error ?? `Server returned ${res.status}`)
+        }
+
+        toast.success(`${key} updated to ${value.toFixed(3)}`)
+      } catch (err) {
+        toast.error(
+          `Failed to update ${key}: ${err instanceof Error ? err.message : "Unknown error"}`,
+        )
+        setPendingOverrides((prev) => {
+          const next = { ...prev }
+          delete next[key]
+          return next
+        })
+      } finally {
+        setSaving(false)
       }
-    })
-    return rows
-  }, [latestMutation])
+    },
+    [],
+  )
 
-  useEffect(() => {
-    if (!latestMutation) return
-    const changed = (Object.keys(mutationDeltaByKey) as ThresholdKey[]).find(
-      (key) => mutationDeltaByKey[key] !== null && Math.abs(mutationDeltaByKey[key] ?? 0) > 0.0001,
-    )
-    if (!changed) return
-    setFlashKey(changed)
-    const timeout = setTimeout(() => setFlashKey(null), 850)
-    return () => clearTimeout(timeout)
-  }, [latestMutation?.id, mutationDeltaByKey])
-
-  const thresholdRows: { key: ThresholdKey; label: string; value: number | undefined; description: string }[] = [
-    { key: "trustThreshold", label: "Trust Threshold", value: thresholds?.trustThreshold, description: "Minimum trust score before agent enters probation" },
-    { key: "suppressionThreshold", label: "Suppression Threshold", value: thresholds?.suppressionThreshold, description: "Trust level below which agents are suppressed" },
-    { key: "driftDelta", label: "Drift Delta", value: thresholds?.driftDelta, description: "Maximum allowed trust drift between cycles" },
-  ]
+  const effectiveValue = (key: ThresholdKey): number | undefined => {
+    if (key in pendingOverrides) return pendingOverrides[key]
+    return thresholds?.[key]
+  }
 
   return (
     <div className="space-y-6">
@@ -113,50 +206,27 @@ export default function ThresholdsPage() {
         <h1 className="text-2xl font-semibold tracking-tight">Thresholds</h1>
         <p className="text-sm text-muted-foreground">
           Active governance thresholds for trust, suppression, and drift.
+          {saving && <span className="ml-2 text-xs">(saving...)</span>}
         </p>
       </div>
 
-      {!connected ? (
-        <Card className="p-5 text-sm text-muted-foreground">
-          Connect a source to view threshold policies.
-        </Card>
-      ) : (
+      <DataGuard emptyMessage="Connect a source to view threshold policies.">
         <>
           <Card className="p-5">
             <h2 className="text-base font-semibold mb-4">Active Thresholds</h2>
             <div className="space-y-4">
-              {thresholdRows.map((row) => (
-                <div key={row.label} className={`flex items-center justify-between ${flashKey === row.key ? "threshold-flash" : ""}`}>
+              {THRESHOLD_ROWS.map((row) => (
+                <div key={row.key} className="flex items-center justify-between">
                   <div>
                     <div className="text-sm font-medium">{row.label}</div>
                     <div className="text-xs text-muted-foreground">{row.description}</div>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <span className="font-mono text-lg font-semibold">
-                      {formatThreshold(row.value)}
-                    </span>
-                    {mutationDeltaByKey[row.key] !== null && (
-                      (() => {
-                        const delta = mutationDeltaByKey[row.key] ?? 0
-                        const direction = mutationDirection(row.key, delta)
-                        const cls =
-                          direction === "loosened"
-                            ? "text-emerald-400"
-                            : direction === "tightened"
-                              ? "text-amber-300"
-                              : "text-muted-foreground"
-                        return (
-                      <span
-                        className={`text-xs font-mono ${cls}`}
-                      >
-                        {direction === "loosened" ? "\u2191" : direction === "tightened" ? "\u2193" : "\u2022"}{" "}
-                        {formatDelta(delta)}
-                      </span>
-                        )
-                      })()
-                    )}
-                    <ThresholdAvailability v={row.value} />
-                  </div>
+                  <ThresholdEditor
+                    row={row}
+                    currentValue={effectiveValue(row.key)}
+                    canEdit={canEdit}
+                    onSave={handleSaveThreshold}
+                  />
                 </div>
               ))}
             </div>
@@ -211,7 +281,7 @@ export default function ThresholdsPage() {
             </Card>
           )}
         </>
-      )}
+      </DataGuard>
     </div>
   )
 }

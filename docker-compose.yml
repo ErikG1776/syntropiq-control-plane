@@ -1,0 +1,29 @@
+services:
+  control-plane:
+    build:
+      context: .
+      args:
+        BACKEND_URL: http://mock-backend:8000
+        NEXT_PUBLIC_WS_URL: ws://localhost:8000/ws/governance
+    ports:
+      - "3000:3000"
+    environment:
+      - BACKEND_URL=http://mock-backend:8000
+      - NEXT_PUBLIC_WS_URL=ws://localhost:8000/ws/governance
+    depends_on:
+      mock-backend:
+        condition: service_healthy
+
+  mock-backend:
+    image: node:22-alpine
+    working_dir: /app
+    volumes:
+      - ./scripts/mock-backend.mjs:/app/server.mjs:ro
+    command: ["node", "server.mjs"]
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8000/api/v1/agents"]
+      interval: 5s
+      timeout: 3s
+      retries: 3

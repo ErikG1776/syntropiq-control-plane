@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 import { useGovernanceStore } from "@/store/governance-store"
 import { dataSources } from "@/lib/datasources"
 import type { DataSourceKey } from "@/lib/governance/schema"
@@ -14,14 +14,27 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Separator } from "@/components/ui/separator"
+import {
+  AddCustomSourceDialog,
+  CustomSourceList,
+  loadCustomSources,
+} from "@/components/control-plane/AddCustomSourceDialog"
 
 export function ConnectSourceDialog() {
   const { connect, disconnect, connected, source, connecting } = useGovernanceStore()
   const [open, setOpen] = useState(false)
-  const sources = useMemo(
+  const [refreshKey, setRefreshKey] = useState(0)
+
+  const builtInSources = useMemo(
     () => Object.values(dataSources).map((s) => ({ key: s.key, label: s.label, mode: s.mode })),
     [],
   )
+
+  const customSources = useMemo(() => loadCustomSources(), [refreshKey])
+
+  const handleRefresh = useCallback(() => {
+    setRefreshKey((k) => k + 1)
+  }, [])
 
   const handleConnect = async (key: DataSourceKey) => {
     await connect(key)
@@ -35,7 +48,7 @@ export function ConnectSourceDialog() {
           {connected ? "Switch Source" : "Connect Source"}
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-xl">
+      <DialogContent className="max-w-xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Connect Governance Source</DialogTitle>
         </DialogHeader>
@@ -46,25 +59,42 @@ export function ConnectSourceDialog() {
           </Badge>
         </div>
         <Separator />
-        <div className="grid gap-3">
-          {sources.map((s) => (
+
+        {/* Built-in sources */}
+        <div className="grid gap-2">
+          <div className="text-xs text-muted-foreground font-semibold uppercase">
+            Built-in Sources
+          </div>
+          {builtInSources.map((s) => (
             <Button
               key={s.key}
               variant="outline"
               className="h-auto justify-between py-3"
               disabled={connecting}
-              onClick={() => handleConnect(s.key)}
+              onClick={() => handleConnect(s.key as DataSourceKey)}
             >
               <span>{s.label}</span>
               <Badge variant="secondary">{s.mode}</Badge>
             </Button>
           ))}
         </div>
+
+        {/* Custom sources */}
+        {customSources.length > 0 && (
+          <>
+            <Separator />
+            <CustomSourceList onRemoved={handleRefresh} />
+          </>
+        )}
+
         <Separator />
         <div className="flex items-center justify-between">
-          <Button variant="ghost" onClick={disconnect} disabled={connecting}>
-            Disconnect
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" onClick={disconnect} disabled={connecting}>
+              Disconnect
+            </Button>
+            <AddCustomSourceDialog onAdded={handleRefresh} />
+          </div>
           <span className="text-xs text-muted-foreground">
             {connecting ? "connecting..." : "ready"}
           </span>

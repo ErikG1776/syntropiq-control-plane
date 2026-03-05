@@ -6,15 +6,17 @@ import { useGovernanceStore } from "@/store/governance-store"
 export function KpiRow() {
   const snapshot = useGovernanceStore((s) => s.snapshot)
   const events = useGovernanceStore((s) => s.events)
-  const connected = useGovernanceStore((s) => s.connected)
-
   const mutationCount = events.filter((e) => e.type === "mutation").length
 
-  // Stability: trust-weighted authority proxy
-  const stabilityScore =
+  // Stability: normalized weighted mean Σ(trust×authority) / Σ(authority), bounded 0-1
+  const totalWeight =
     snapshot && snapshot.agents.length > 0
-      ? snapshot.agents.reduce((acc, a) => acc + a.trustScore * a.authorityWeight, 0) /
-        snapshot.agents.length
+      ? snapshot.agents.reduce((acc, a) => acc + a.authorityWeight, 0)
+      : 0
+  const stabilityScore =
+    totalWeight > 0
+      ? snapshot!.agents.reduce((acc, a) => acc + a.trustScore * a.authorityWeight, 0) /
+        totalWeight
       : null
 
   const stabilityTone =
@@ -38,8 +40,8 @@ export function KpiRow() {
   const metrics = [
     {
       label: "Stability",
-      value: stabilityScore !== null ? stabilityScore.toFixed(3) : "\u2014",
-      sublabel: "proxy",
+      value: stabilityScore !== null ? `${(stabilityScore * 100).toFixed(1)}%` : "\u2014",
+      sublabel: "weighted mean",
     },
     { label: "Agents", value: snapshot?.agents.length ?? 0 },
     { label: "Suppressed", value: snapshot?.suppressedCount ?? 0 },
@@ -48,7 +50,7 @@ export function KpiRow() {
   ]
 
   return (
-    <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
       {metrics.map((metric) => (
         <Card key={metric.label} className="p-4">
           <div className="text-xs uppercase tracking-wide text-muted-foreground">

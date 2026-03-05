@@ -1,1 +1,4283 @@
-{ "summary": {}, "timeline": [] }
+{
+  "summary": {
+    "description": "Hospital readmission risk prediction governance",
+    "frameCount": 45,
+    "frameIntervalMs": 2000,
+    "startTime": "2026-02-23T14:00:00.000Z",
+    "endTime": "2026-02-23T14:01:28.000Z",
+    "agents": [
+      {
+        "id": "risk-predictor",
+        "name": "Risk Predictor",
+        "role": "Patient risk scoring model"
+      },
+      {
+        "id": "data-validator",
+        "name": "Data Validator",
+        "role": "Data quality & completeness checker"
+      },
+      {
+        "id": "compliance-auditor",
+        "name": "Compliance Auditor",
+        "role": "Regulatory compliance monitor"
+      },
+      {
+        "id": "alert-dispatcher",
+        "name": "Alert Dispatcher",
+        "role": "Notification and escalation agent"
+      }
+    ],
+    "keyEvents": [
+      "Frame 11: Data quality issues detected in EHR pipeline",
+      "Frame 15: Risk predictor scores become inconsistent on dirty data",
+      "Frame 16: Drift delta threshold breached by risk-predictor",
+      "Frame 19: Compliance auditor flags HIPAA audit trail violation",
+      "Frame 20: Risk predictor placed on probation",
+      "Frame 23: Risk predictor suppressed, data-validator enters probation",
+      "Frame 27: Governance mutation — driftDelta tightened to 0.05",
+      "Frame 30: EHR pipeline hotfix deployed",
+      "Frame 36: Data validator restored to active, driftDelta relaxed to 0.08",
+      "Frame 37: Risk predictor promoted to probation",
+      "Frame 41: Risk predictor restored to active — full recovery"
+    ]
+  },
+  "runId": "readmission-001",
+  "timeline": [
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.92,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:00.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.921,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:00.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9647,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:00.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8705,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:00.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_001",
+          "timestamp": "2026-02-23T14:00:00.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Readmission prediction pipeline initialized — all systems nominal",
+          "tags": [
+            "healthcare",
+            "startup"
+          ]
+        },
+        {
+          "id": "evt_readm_002",
+          "timestamp": "2026-02-23T14:00:00.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Initial trust calibration complete for all agents",
+          "tags": [
+            "healthcare",
+            "trust"
+          ],
+          "agentId": "risk-predictor"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:00.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.935,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:02.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.9079,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:02.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9695,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:02.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8805,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:02.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_003",
+          "timestamp": "2026-02-23T14:00:02.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "EHR data ingestion active — 1,247 patient records queued",
+          "tags": [
+            "healthcare",
+            "pipeline"
+          ],
+          "agentId": "data-validator"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:02.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.9412,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:04.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.9103,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:04.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9521,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:04.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8926,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:04.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_004",
+          "timestamp": "2026-02-23T14:00:04.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Risk predictor trust stable at 0.9412 — model predictions within expected range",
+          "tags": [
+            "healthcare",
+            "trust"
+          ],
+          "agentId": "risk-predictor"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:04.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.956,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:06.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.9181,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:06.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9549,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:06.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8699,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:06.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_005",
+          "timestamp": "2026-02-23T14:00:06.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "HIPAA compliance audit cycle 47 — no violations detected",
+          "tags": [
+            "healthcare",
+            "compliance"
+          ],
+          "agentId": "compliance-auditor"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:06.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.9275,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:08.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.9129,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:08.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9521,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:08.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8923,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:08.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_006",
+          "timestamp": "2026-02-23T14:00:08.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Patient cohort batch #312 scored — 23 flagged high-risk for 30-day readmission",
+          "tags": [
+            "healthcare",
+            "prediction"
+          ],
+          "agentId": "risk-predictor"
+        },
+        {
+          "id": "evt_readm_007",
+          "timestamp": "2026-02-23T14:00:08.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Data validator trust nominal at 0.9129",
+          "tags": [
+            "healthcare",
+            "trust"
+          ],
+          "agentId": "data-validator"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:08.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.9414,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:10.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.9338,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:10.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9647,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:10.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8631,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:10.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_008",
+          "timestamp": "2026-02-23T14:00:10.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Alert dispatcher routing check — 3 pending notifications, 0 escalations",
+          "tags": [
+            "healthcare",
+            "operations"
+          ],
+          "agentId": "alert-dispatcher"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:10.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.9416,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:12.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.9052,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:12.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9673,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:12.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8786,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:12.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_009",
+          "timestamp": "2026-02-23T14:00:12.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Compliance auditor trust reinforced — audit trail integrity confirmed",
+          "tags": [
+            "healthcare",
+            "trust"
+          ],
+          "agentId": "compliance-auditor"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:12.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.9389,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:14.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.918,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:14.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9547,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:14.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8605,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:14.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_010",
+          "timestamp": "2026-02-23T14:00:14.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "EHR pipeline throughput: 412 records/min — within SLA",
+          "tags": [
+            "healthcare",
+            "pipeline"
+          ],
+          "agentId": "data-validator"
+        },
+        {
+          "id": "evt_readm_011",
+          "timestamp": "2026-02-23T14:00:14.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Risk model inference latency: 23ms p99 — nominal",
+          "tags": [
+            "healthcare",
+            "performance"
+          ],
+          "agentId": "risk-predictor"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:14.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.9209,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:16.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.9397,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:16.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9683,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:16.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8914,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:16.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_012",
+          "timestamp": "2026-02-23T14:00:16.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Periodic trust recalibration — all agents within governance bounds",
+          "tags": [
+            "healthcare",
+            "governance"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:16.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.9428,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:18.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.9308,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:18.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9625,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:18.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8738,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:18.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_013",
+          "timestamp": "2026-02-23T14:00:18.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Readmission model AUC validated at 0.847 against holdout set",
+          "tags": [
+            "healthcare",
+            "validation"
+          ],
+          "agentId": "risk-predictor"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:18.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.935,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:20.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.9107,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:20.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.957,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:20.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8856,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:20.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_014",
+          "timestamp": "2026-02-23T14:00:20.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "System health check — memory 62%, CPU 34%, disk I/O nominal",
+          "tags": [
+            "healthcare",
+            "infrastructure"
+          ]
+        },
+        {
+          "id": "evt_readm_015",
+          "timestamp": "2026-02-23T14:00:20.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Pre-batch trust snapshot recorded for audit trail",
+          "tags": [
+            "healthcare",
+            "audit"
+          ],
+          "agentId": "compliance-auditor"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:20.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.9323,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:22.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.8711,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:22.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9406,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:22.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8463,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:22.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_016",
+          "timestamp": "2026-02-23T14:00:22.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "Data validator trust declining — missing discharge codes detected in 14% of incoming EHR records",
+          "tags": [
+            "healthcare",
+            "data_quality"
+          ],
+          "agentId": "data-validator"
+        },
+        {
+          "id": "evt_readm_017",
+          "timestamp": "2026-02-23T14:00:22.000Z",
+          "type": "system_alert",
+          "severity": "warning",
+          "message": "EHR pipeline anomaly: discharge_code field null rate spiked from 0.3% to 14.2%",
+          "tags": [
+            "healthcare",
+            "anomaly"
+          ],
+          "agentId": "data-validator"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:22.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.9291,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:24.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.8366,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:24.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9339,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:24.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8426,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:24.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_018",
+          "timestamp": "2026-02-23T14:00:24.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "Data validator trust at 0.8366 — continued data quality degradation in EHR feed",
+          "tags": [
+            "healthcare",
+            "trust"
+          ],
+          "agentId": "data-validator"
+        },
+        {
+          "id": "evt_readm_019",
+          "timestamp": "2026-02-23T14:00:24.000Z",
+          "type": "system_alert",
+          "severity": "warning",
+          "message": "Additional data issue: patient_age field contains out-of-range values (age > 150) in batch #315",
+          "tags": [
+            "healthcare",
+            "data_quality"
+          ],
+          "agentId": "data-validator"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:24.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.9347,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:26.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.8009,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:26.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9318,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:26.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8797,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:26.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_020",
+          "timestamp": "2026-02-23T14:00:26.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "Data quality score dropped to 0.61 — medication_history field incomplete for 22% of records",
+          "tags": [
+            "healthcare",
+            "data_quality"
+          ],
+          "agentId": "data-validator"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:26.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.9187,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:28.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.784,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:28.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9337,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:28.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8617,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:28.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_021",
+          "timestamp": "2026-02-23T14:00:28.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "Data validator trust at 0.784 — approaching governance threshold (0.70)",
+          "tags": [
+            "healthcare",
+            "trust"
+          ],
+          "agentId": "data-validator"
+        },
+        {
+          "id": "evt_readm_022",
+          "timestamp": "2026-02-23T14:00:28.000Z",
+          "type": "system_alert",
+          "severity": "warning",
+          "message": "Root cause analysis: upstream EHR system migration introduced schema drift in ADT feed",
+          "tags": [
+            "healthcare",
+            "pipeline"
+          ],
+          "agentId": "data-validator"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:28.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.8899,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:30.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.7276,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:30.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9437,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:30.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.856,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:30.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_023",
+          "timestamp": "2026-02-23T14:00:30.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "Risk predictor trust declining to 0.8899 — prediction variance increased 3.2x on dirty input data",
+          "tags": [
+            "healthcare",
+            "trust"
+          ],
+          "agentId": "risk-predictor"
+        },
+        {
+          "id": "evt_readm_024",
+          "timestamp": "2026-02-23T14:00:30.000Z",
+          "type": "system_alert",
+          "severity": "warning",
+          "message": "Model output anomaly: readmission scores showing bimodal distribution instead of expected calibrated probabilities",
+          "tags": [
+            "healthcare",
+            "model_quality"
+          ],
+          "agentId": "risk-predictor"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:30.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.8188,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:32.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.7499,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:32.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9336,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:32.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8724,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:32.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_025",
+          "timestamp": "2026-02-23T14:00:32.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "Risk predictor trust at 0.8188 — SHAP explanations inconsistent with expected feature importance",
+          "tags": [
+            "healthcare",
+            "trust"
+          ],
+          "agentId": "risk-predictor"
+        },
+        {
+          "id": "evt_readm_026",
+          "timestamp": "2026-02-23T14:00:32.000Z",
+          "type": "threshold_breach",
+          "severity": "error",
+          "message": "Drift delta exceeded: risk-predictor prediction distribution shifted by 0.12 (threshold: 0.08)",
+          "tags": [
+            "healthcare",
+            "drift"
+          ],
+          "agentId": "risk-predictor"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:32.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.7861,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:34.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.7239,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:34.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9306,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:34.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8454,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:34.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_027",
+          "timestamp": "2026-02-23T14:00:34.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "Risk predictor trust at 0.7861 — 47 patients potentially misclassified in last batch",
+          "tags": [
+            "healthcare",
+            "trust"
+          ],
+          "agentId": "risk-predictor"
+        },
+        {
+          "id": "evt_readm_028",
+          "timestamp": "2026-02-23T14:00:34.000Z",
+          "type": "system_alert",
+          "severity": "warning",
+          "message": "Feature importance shift detected: discharge_code weight dropped from 0.18 to 0.02 due to missing values",
+          "tags": [
+            "healthcare",
+            "model_quality"
+          ],
+          "agentId": "risk-predictor"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:34.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.7527,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:36.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.7352,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:36.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.935,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:36.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8603,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:36.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_029",
+          "timestamp": "2026-02-23T14:00:36.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "Risk predictor trust at 0.7527 — approaching probation threshold",
+          "tags": [
+            "healthcare",
+            "trust"
+          ],
+          "agentId": "risk-predictor"
+        },
+        {
+          "id": "evt_readm_030",
+          "timestamp": "2026-02-23T14:00:36.000Z",
+          "type": "threshold_breach",
+          "severity": "error",
+          "message": "Calibration breach: expected 30-day readmission rate 12.3%, model predicting 28.7%",
+          "tags": [
+            "healthcare",
+            "calibration"
+          ],
+          "agentId": "risk-predictor"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:36.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.6808,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:38.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.6841,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:38.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9193,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:38.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8539,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:38.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_031",
+          "timestamp": "2026-02-23T14:00:38.000Z",
+          "type": "system_alert",
+          "severity": "error",
+          "message": "HIPAA audit trail violation: predictions generated from records with incomplete patient identifiers",
+          "tags": [
+            "healthcare",
+            "compliance",
+            "HIPAA"
+          ],
+          "agentId": "compliance-auditor"
+        },
+        {
+          "id": "evt_readm_032",
+          "timestamp": "2026-02-23T14:00:38.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "Compliance auditor flagging risk-predictor — clinical decisions based on unvalidated data breach protocol 7.3.2",
+          "tags": [
+            "healthcare",
+            "regulatory"
+          ],
+          "agentId": "compliance-auditor"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:38.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.6907,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:40.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.6906,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:40.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9067,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:40.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8766,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:40.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_033",
+          "timestamp": "2026-02-23T14:00:40.000Z",
+          "type": "system_alert",
+          "severity": "error",
+          "message": "Regulatory risk: 132 readmission predictions made on incomplete records may require disclosure under HIPAA §164.530",
+          "tags": [
+            "healthcare",
+            "compliance",
+            "HIPAA"
+          ],
+          "agentId": "compliance-auditor"
+        },
+        {
+          "id": "evt_readm_034",
+          "timestamp": "2026-02-23T14:00:40.000Z",
+          "type": "probation",
+          "severity": "error",
+          "message": "Risk predictor placed on probation — predictions on dirty data violate audit trail integrity requirements",
+          "tags": [
+            "healthcare",
+            "governance"
+          ],
+          "agentId": "risk-predictor"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:40.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.548,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:42.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.6976,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:42.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9169,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:42.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8587,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:42.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_035",
+          "timestamp": "2026-02-23T14:00:42.000Z",
+          "type": "system_alert",
+          "severity": "error",
+          "message": "Audit trail gap identified: 47 prediction records lack required data provenance metadata",
+          "tags": [
+            "healthcare",
+            "audit"
+          ],
+          "agentId": "compliance-auditor"
+        },
+        {
+          "id": "evt_readm_036",
+          "timestamp": "2026-02-23T14:00:42.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "Risk predictor trust continuing to degrade at 0.548 — suppression imminent",
+          "tags": [
+            "healthcare",
+            "trust"
+          ],
+          "agentId": "risk-predictor"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:42.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.5786,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:44.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.6928,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:44.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9118,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:44.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8746,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:44.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_037",
+          "timestamp": "2026-02-23T14:00:44.000Z",
+          "type": "system_alert",
+          "severity": "error",
+          "message": "Compliance review initiated: all predictions from batch #314-#318 quarantined for manual review",
+          "tags": [
+            "healthcare",
+            "compliance"
+          ],
+          "agentId": "compliance-auditor"
+        },
+        {
+          "id": "evt_readm_038",
+          "timestamp": "2026-02-23T14:00:44.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "Data validator trust unstable at 0.6928 — probation threshold approaching",
+          "tags": [
+            "healthcare",
+            "trust"
+          ],
+          "agentId": "data-validator"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:44.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.4449,
+          "authorityWeight": 0.9,
+          "status": "suppressed",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:46.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.6611,
+          "authorityWeight": 0.8,
+          "status": "probation",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:46.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.8931,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:46.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8412,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:46.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_039",
+          "timestamp": "2026-02-23T14:00:46.000Z",
+          "type": "suppression",
+          "severity": "critical",
+          "message": "Risk predictor SUPPRESSED — trust score 0.4449 below suppression threshold (0.45). All prediction endpoints disabled.",
+          "tags": [
+            "healthcare",
+            "governance",
+            "suppression"
+          ],
+          "agentId": "risk-predictor"
+        },
+        {
+          "id": "evt_readm_040",
+          "timestamp": "2026-02-23T14:00:46.000Z",
+          "type": "probation",
+          "severity": "error",
+          "message": "Data validator placed on PROBATION — trust score 0.6611 below trust threshold (0.70). Output requires secondary validation.",
+          "tags": [
+            "healthcare",
+            "governance",
+            "probation"
+          ],
+          "agentId": "data-validator"
+        },
+        {
+          "id": "evt_readm_041",
+          "timestamp": "2026-02-23T14:00:46.000Z",
+          "type": "system_alert",
+          "severity": "critical",
+          "message": "Clinical decision support degraded: readmission predictions offline, manual risk assessment required",
+          "tags": [
+            "healthcare",
+            "escalation"
+          ],
+          "agentId": "alert-dispatcher"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:46.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.3723,
+          "authorityWeight": 0.9,
+          "status": "suppressed",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:48.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.6137,
+          "authorityWeight": 0.8,
+          "status": "probation",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:48.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.8725,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:48.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8379,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:48.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_042",
+          "timestamp": "2026-02-23T14:00:48.000Z",
+          "type": "system_alert",
+          "severity": "critical",
+          "message": "Escalation: on-call clinical informatics team paged — readmission prediction service offline",
+          "tags": [
+            "healthcare",
+            "escalation",
+            "pager"
+          ],
+          "agentId": "alert-dispatcher"
+        },
+        {
+          "id": "evt_readm_043",
+          "timestamp": "2026-02-23T14:00:48.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "Data validator trust at 0.6137 — EHR pipeline running in degraded validation mode",
+          "tags": [
+            "healthcare",
+            "trust"
+          ],
+          "agentId": "data-validator"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:48.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.3827,
+          "authorityWeight": 0.9,
+          "status": "suppressed",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:50.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.6261,
+          "authorityWeight": 0.8,
+          "status": "probation",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:50.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.8625,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:50.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8396,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:50.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_044",
+          "timestamp": "2026-02-23T14:00:50.000Z",
+          "type": "system_alert",
+          "severity": "error",
+          "message": "Care coordination impact: 3 discharge planning teams notified of prediction service outage",
+          "tags": [
+            "healthcare",
+            "operations"
+          ],
+          "agentId": "alert-dispatcher"
+        },
+        {
+          "id": "evt_readm_045",
+          "timestamp": "2026-02-23T14:00:50.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Compliance auditor maintaining oversight — generating incident report for regulatory file",
+          "tags": [
+            "healthcare",
+            "compliance"
+          ],
+          "agentId": "compliance-auditor"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:50.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.3782,
+          "authorityWeight": 0.9,
+          "status": "suppressed",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:52.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.6004,
+          "authorityWeight": 0.8,
+          "status": "probation",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:52.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.888,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:52.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8355,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:52.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_046",
+          "timestamp": "2026-02-23T14:00:52.000Z",
+          "type": "routing_freeze",
+          "severity": "error",
+          "message": "Prediction routing frozen — all readmission risk queries routed to fallback static risk table",
+          "tags": [
+            "healthcare",
+            "routing"
+          ],
+          "agentId": "risk-predictor"
+        },
+        {
+          "id": "evt_readm_047",
+          "timestamp": "2026-02-23T14:00:52.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "Risk predictor trust floor at 0.3782 — awaiting data pipeline remediation before recovery",
+          "tags": [
+            "healthcare",
+            "trust"
+          ],
+          "agentId": "risk-predictor"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:52.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.3479,
+          "authorityWeight": 0.9,
+          "status": "suppressed",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:54.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.5974,
+          "authorityWeight": 0.8,
+          "status": "probation",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:54.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.845,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:54.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8371,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:54.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_048",
+          "timestamp": "2026-02-23T14:00:54.000Z",
+          "type": "mutation",
+          "severity": "critical",
+          "message": "Governance mutation applied: driftDelta tightened from 0.08 to 0.05 — stricter drift detection during incident",
+          "tags": [
+            "healthcare",
+            "governance",
+            "mutation"
+          ]
+        },
+        {
+          "id": "evt_readm_049",
+          "timestamp": "2026-02-23T14:00:54.000Z",
+          "type": "system_alert",
+          "severity": "critical",
+          "message": "Governance posture elevated to HEIGHTENED — all agent outputs subject to enhanced monitoring",
+          "tags": [
+            "healthcare",
+            "governance"
+          ],
+          "agentId": "compliance-auditor"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:54.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.05
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.3417,
+          "authorityWeight": 0.9,
+          "status": "suppressed",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:56.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.5764,
+          "authorityWeight": 0.8,
+          "status": "probation",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:56.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.8497,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:56.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8346,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:56.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_050",
+          "timestamp": "2026-02-23T14:00:56.000Z",
+          "type": "system_alert",
+          "severity": "critical",
+          "message": "Escalation tier 2: hospital CMIO notified — readmission prediction outage exceeding 60-second SLA",
+          "tags": [
+            "healthcare",
+            "escalation",
+            "leadership"
+          ],
+          "agentId": "alert-dispatcher"
+        },
+        {
+          "id": "evt_readm_051",
+          "timestamp": "2026-02-23T14:00:56.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "Alert dispatcher handling 12 active escalation threads — trust stable at 0.8346",
+          "tags": [
+            "healthcare",
+            "trust"
+          ],
+          "agentId": "alert-dispatcher"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:56.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.05
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.3584,
+          "authorityWeight": 0.9,
+          "status": "suppressed",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:58.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.5974,
+          "authorityWeight": 0.8,
+          "status": "probation",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:58.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.8407,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:58.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8391,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:00:58.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_052",
+          "timestamp": "2026-02-23T14:00:58.000Z",
+          "type": "system_alert",
+          "severity": "error",
+          "message": "Data engineering team acknowledges EHR pipeline issue — hotfix branch created for schema mapping",
+          "tags": [
+            "healthcare",
+            "remediation"
+          ],
+          "agentId": "data-validator"
+        },
+        {
+          "id": "evt_readm_053",
+          "timestamp": "2026-02-23T14:00:58.000Z",
+          "type": "trust_update",
+          "severity": "warning",
+          "message": "Data validator trust at 0.5974 — awaiting pipeline fix deployment",
+          "tags": [
+            "healthcare",
+            "trust"
+          ],
+          "agentId": "data-validator"
+        }
+      ],
+      "timestamp": "2026-02-23T14:00:58.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.05
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.3629,
+          "authorityWeight": 0.9,
+          "status": "suppressed",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:00.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.5813,
+          "authorityWeight": 0.8,
+          "status": "probation",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:00.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.845,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:00.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.836,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:00.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_054",
+          "timestamp": "2026-02-23T14:01:00.000Z",
+          "type": "system_alert",
+          "severity": "warning",
+          "message": "Hotfix PR #4721 merged: EHR schema mapping corrected for ADT discharge codes",
+          "tags": [
+            "healthcare",
+            "remediation"
+          ],
+          "agentId": "data-validator"
+        },
+        {
+          "id": "evt_readm_055",
+          "timestamp": "2026-02-23T14:01:00.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Compliance auditor recording remediation timeline — incident report 78% complete",
+          "tags": [
+            "healthcare",
+            "audit"
+          ],
+          "agentId": "compliance-auditor"
+        }
+      ],
+      "timestamp": "2026-02-23T14:01:00.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.05
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.3852,
+          "authorityWeight": 0.9,
+          "status": "suppressed",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:02.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.6262,
+          "authorityWeight": 0.8,
+          "status": "probation",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:02.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.8757,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:02.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8431,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:02.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_056",
+          "timestamp": "2026-02-23T14:01:02.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Data validator trust recovering to 0.6262 — patched EHR pipeline showing improved data quality",
+          "tags": [
+            "healthcare",
+            "trust",
+            "recovery"
+          ],
+          "agentId": "data-validator"
+        },
+        {
+          "id": "evt_readm_057",
+          "timestamp": "2026-02-23T14:01:02.000Z",
+          "type": "system_alert",
+          "severity": "info",
+          "message": "EHR pipeline hotfix deployed — discharge code null rate dropping from 14.2% to 3.1%",
+          "tags": [
+            "healthcare",
+            "pipeline"
+          ],
+          "agentId": "data-validator"
+        }
+      ],
+      "timestamp": "2026-02-23T14:01:02.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.05
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.4039,
+          "authorityWeight": 0.9,
+          "status": "suppressed",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:04.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.6567,
+          "authorityWeight": 0.8,
+          "status": "probation",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:04.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.8701,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:04.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8555,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:04.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_058",
+          "timestamp": "2026-02-23T14:01:04.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Data validator trust at 0.6567 — data quality score improving to 0.82",
+          "tags": [
+            "healthcare",
+            "trust"
+          ],
+          "agentId": "data-validator"
+        },
+        {
+          "id": "evt_readm_059",
+          "timestamp": "2026-02-23T14:01:04.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Risk predictor still suppressed — awaiting data validator recovery confirmation before reactivation",
+          "tags": [
+            "healthcare",
+            "status"
+          ],
+          "agentId": "risk-predictor"
+        }
+      ],
+      "timestamp": "2026-02-23T14:01:04.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.05
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.3926,
+          "authorityWeight": 0.9,
+          "status": "suppressed",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:06.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.7023,
+          "authorityWeight": 0.8,
+          "status": "probation",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:06.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.8682,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:06.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8514,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:06.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_060",
+          "timestamp": "2026-02-23T14:01:06.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Data validator trust at 0.7023 — approaching active threshold",
+          "tags": [
+            "healthcare",
+            "trust"
+          ],
+          "agentId": "data-validator"
+        }
+      ],
+      "timestamp": "2026-02-23T14:01:06.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.05
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.4996,
+          "authorityWeight": 0.9,
+          "status": "suppressed",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:08.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.7339,
+          "authorityWeight": 0.8,
+          "status": "probation",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:08.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.8865,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:08.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8606,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:08.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_061",
+          "timestamp": "2026-02-23T14:01:08.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Data validator trust at 0.7339 — 500 consecutive records passed validation without errors",
+          "tags": [
+            "healthcare",
+            "trust"
+          ],
+          "agentId": "data-validator"
+        },
+        {
+          "id": "evt_readm_062",
+          "timestamp": "2026-02-23T14:01:08.000Z",
+          "type": "system_alert",
+          "severity": "info",
+          "message": "Data quality metrics recovering: null rate 0.8%, range violations 0.1%, schema compliance 99.2%",
+          "tags": [
+            "healthcare",
+            "data_quality"
+          ],
+          "agentId": "data-validator"
+        }
+      ],
+      "timestamp": "2026-02-23T14:01:08.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.05
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.4914,
+          "authorityWeight": 0.9,
+          "status": "suppressed",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:10.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.7725,
+          "authorityWeight": 0.8,
+          "status": "probation",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:10.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.8743,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:10.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8489,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:10.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_063",
+          "timestamp": "2026-02-23T14:01:10.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Data validator trust at 0.7725 — recovery trajectory positive, data quality score 0.91",
+          "tags": [
+            "healthcare",
+            "trust"
+          ],
+          "agentId": "data-validator"
+        },
+        {
+          "id": "evt_readm_064",
+          "timestamp": "2026-02-23T14:01:10.000Z",
+          "type": "status_change",
+          "severity": "info",
+          "message": "Risk predictor trust at 0.4914 — approaching suppression exit threshold",
+          "tags": [
+            "healthcare",
+            "status"
+          ],
+          "agentId": "risk-predictor"
+        }
+      ],
+      "timestamp": "2026-02-23T14:01:10.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.05
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.542,
+          "authorityWeight": 0.9,
+          "status": "probation",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:12.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.8067,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:12.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9291,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:12.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.889,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:12.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_065",
+          "timestamp": "2026-02-23T14:01:12.000Z",
+          "type": "status_change",
+          "severity": "info",
+          "message": "Data validator status restored to ACTIVE — trust score 0.8067 above trust threshold (0.70)",
+          "tags": [
+            "healthcare",
+            "governance",
+            "recovery"
+          ],
+          "agentId": "data-validator"
+        },
+        {
+          "id": "evt_readm_066",
+          "timestamp": "2026-02-23T14:01:12.000Z",
+          "type": "mutation",
+          "severity": "info",
+          "message": "Governance mutation: driftDelta relaxed from 0.05 back to 0.08 — data quality incident resolved",
+          "tags": [
+            "healthcare",
+            "governance",
+            "mutation"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T14:01:12.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.6236,
+          "authorityWeight": 0.9,
+          "status": "probation",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:14.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.8207,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:14.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9198,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:14.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8746,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:14.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_067",
+          "timestamp": "2026-02-23T14:01:14.000Z",
+          "type": "status_change",
+          "severity": "info",
+          "message": "Risk predictor promoted from SUPPRESSED to PROBATION — trust score 0.6236 above suppression threshold",
+          "tags": [
+            "healthcare",
+            "governance",
+            "recovery"
+          ],
+          "agentId": "risk-predictor"
+        },
+        {
+          "id": "evt_readm_068",
+          "timestamp": "2026-02-23T14:01:14.000Z",
+          "type": "system_alert",
+          "severity": "info",
+          "message": "Readmission predictions re-enabled in shadow mode — outputs logged but not routed to clinical teams",
+          "tags": [
+            "healthcare",
+            "operations"
+          ],
+          "agentId": "risk-predictor"
+        }
+      ],
+      "timestamp": "2026-02-23T14:01:14.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.6117,
+          "authorityWeight": 0.9,
+          "status": "probation",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:16.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.8156,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:16.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9182,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:16.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8772,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:16.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_069",
+          "timestamp": "2026-02-23T14:01:16.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Risk predictor trust improving to 0.6117 — shadow predictions correlating 0.93 with manual assessments",
+          "tags": [
+            "healthcare",
+            "trust"
+          ],
+          "agentId": "risk-predictor"
+        },
+        {
+          "id": "evt_readm_070",
+          "timestamp": "2026-02-23T14:01:16.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Data validator processing backlog — 2,847 records re-validated with corrected schema",
+          "tags": [
+            "healthcare",
+            "pipeline"
+          ],
+          "agentId": "data-validator"
+        }
+      ],
+      "timestamp": "2026-02-23T14:01:16.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.6929,
+          "authorityWeight": 0.9,
+          "status": "probation",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:18.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.8541,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:18.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9122,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:18.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8892,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:18.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_071",
+          "timestamp": "2026-02-23T14:01:18.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Risk predictor trust at 0.6929 — model recalibration in progress on clean data",
+          "tags": [
+            "healthcare",
+            "trust"
+          ],
+          "agentId": "risk-predictor"
+        },
+        {
+          "id": "evt_readm_072",
+          "timestamp": "2026-02-23T14:01:18.000Z",
+          "type": "system_alert",
+          "severity": "info",
+          "message": "Compliance auditor: incident report finalized — 132 affected predictions flagged for clinical review",
+          "tags": [
+            "healthcare",
+            "compliance"
+          ],
+          "agentId": "compliance-auditor"
+        }
+      ],
+      "timestamp": "2026-02-23T14:01:18.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.6964,
+          "authorityWeight": 0.9,
+          "status": "probation",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:20.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.8404,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:20.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.917,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:20.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8815,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:20.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_073",
+          "timestamp": "2026-02-23T14:01:20.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Risk predictor trust reaching 0.6964 — approaching active restoration threshold",
+          "tags": [
+            "healthcare",
+            "trust"
+          ],
+          "agentId": "risk-predictor"
+        },
+        {
+          "id": "evt_readm_074",
+          "timestamp": "2026-02-23T14:01:20.000Z",
+          "type": "status_change",
+          "severity": "info",
+          "message": "Governance posture returning to NORMAL — enhanced monitoring period ending",
+          "tags": [
+            "healthcare",
+            "governance"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T14:01:20.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.7677,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:22.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.9148,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:22.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9583,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:22.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.9186,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:22.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_075",
+          "timestamp": "2026-02-23T14:01:22.000Z",
+          "type": "status_change",
+          "severity": "info",
+          "message": "Risk predictor restored to ACTIVE — trust score 0.7677 above trust threshold. Predictions live.",
+          "tags": [
+            "healthcare",
+            "governance",
+            "recovery"
+          ],
+          "agentId": "risk-predictor"
+        },
+        {
+          "id": "evt_readm_076",
+          "timestamp": "2026-02-23T14:01:22.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Full pipeline recovery confirmed — all 4 agents active and within governance bounds",
+          "tags": [
+            "healthcare",
+            "recovery"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T14:01:22.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.7918,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:24.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.8893,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:24.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9502,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:24.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8879,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:24.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_077",
+          "timestamp": "2026-02-23T14:01:24.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "All agent trust scores normalizing — risk-predictor 0.7918, data-validator 0.8893",
+          "tags": [
+            "healthcare",
+            "trust"
+          ]
+        },
+        {
+          "id": "evt_readm_078",
+          "timestamp": "2026-02-23T14:01:24.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Readmission model re-scored 2,847 backlogged patients — 31 flagged for 30-day readmission risk",
+          "tags": [
+            "healthcare",
+            "prediction"
+          ],
+          "agentId": "risk-predictor"
+        }
+      ],
+      "timestamp": "2026-02-23T14:01:24.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.8949,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:26.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.9125,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:26.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9597,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:26.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8938,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:26.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_079",
+          "timestamp": "2026-02-23T14:01:26.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Post-incident performance: model AUC 0.851, data quality score 0.94, compliance score 100%",
+          "tags": [
+            "healthcare",
+            "performance"
+          ]
+        },
+        {
+          "id": "evt_readm_080",
+          "timestamp": "2026-02-23T14:01:26.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Trust recalibration complete — all agents above trust threshold with positive trajectories",
+          "tags": [
+            "healthcare",
+            "trust"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T14:01:26.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "risk-predictor",
+          "trustScore": 0.8851,
+          "authorityWeight": 0.9,
+          "status": "active",
+          "capabilities": [
+            "prediction",
+            "risk_assessment"
+          ],
+          "labels": {
+            "domain": "clinical",
+            "model": "xgboost-v3"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:28.000Z"
+        },
+        {
+          "id": "data-validator",
+          "trustScore": 0.907,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "validation",
+            "data_quality"
+          ],
+          "labels": {
+            "domain": "data",
+            "pipeline": "ehr-ingest"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:28.000Z"
+        },
+        {
+          "id": "compliance-auditor",
+          "trustScore": 0.9578,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "audit_trail"
+          ],
+          "labels": {
+            "domain": "regulatory",
+            "standard": "HIPAA"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:28.000Z"
+        },
+        {
+          "id": "alert-dispatcher",
+          "trustScore": 0.8849,
+          "authorityWeight": 0.75,
+          "status": "active",
+          "capabilities": [
+            "alerting",
+            "escalation"
+          ],
+          "labels": {
+            "domain": "operations",
+            "channel": "pager"
+          },
+          "lastDecisionAt": "2026-02-23T14:01:28.000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_readm_081",
+          "timestamp": "2026-02-23T14:01:28.000Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Readmission prediction pipeline — nominal operations restored. Incident duration: 66 seconds.",
+          "tags": [
+            "healthcare",
+            "recovery"
+          ]
+        },
+        {
+          "id": "evt_readm_082",
+          "timestamp": "2026-02-23T14:01:28.000Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Final trust snapshot: risk-predictor 0.8851, data-validator 0.907, compliance-auditor 0.9578, alert-dispatcher 0.8849",
+          "tags": [
+            "healthcare",
+            "trust"
+          ]
+        },
+        {
+          "id": "evt_readm_083",
+          "timestamp": "2026-02-23T14:01:28.000Z",
+          "type": "system_alert",
+          "severity": "info",
+          "message": "Incident retrospective scheduled — root cause: upstream EHR system migration without schema versioning",
+          "tags": [
+            "healthcare",
+            "postmortem"
+          ],
+          "agentId": "compliance-auditor"
+        }
+      ],
+      "timestamp": "2026-02-23T14:01:28.000Z",
+      "thresholds": {
+        "trustThreshold": 0.7,
+        "suppressionThreshold": 0.45,
+        "driftDelta": 0.08
+      }
+    }
+  ]
+}

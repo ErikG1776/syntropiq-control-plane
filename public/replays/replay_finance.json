@@ -1,1 +1,5397 @@
-{ "summary": {}, "timeline": [] }
+{
+  "runId": "finance-001",
+  "summary": {
+    "title": "Financial Trading Compliance Governance",
+    "description": "Financial trading compliance governance",
+    "frameCount": 48,
+    "frameIntervalMs": 2000,
+    "startTime": "2026-02-23T09:30:00Z",
+    "endTime": "2026-02-23T09:31:34Z",
+    "agents": [
+      {
+        "id": "trade-executor",
+        "name": "Trade Executor",
+        "role": "Executes trades based on strategy signals"
+      },
+      {
+        "id": "risk-assessor",
+        "name": "Risk Assessor",
+        "role": "Real-time portfolio risk calculation"
+      },
+      {
+        "id": "compliance-checker",
+        "name": "Compliance Checker",
+        "role": "Regulatory rule enforcement"
+      },
+      {
+        "id": "market-sentinel",
+        "name": "Market Sentinel",
+        "role": "Market anomaly detection"
+      },
+      {
+        "id": "audit-logger",
+        "name": "Audit Logger",
+        "role": "Immutable audit trail"
+      }
+    ],
+    "keyEvents": [
+      "Frame 11: market-sentinel detects unusual volatility in semiconductor sector",
+      "Frame 15: trade-executor begins deviating from strategy -- anomalous volume",
+      "Frame 18: trade-executor trust breaches threshold -- trust at 0.78",
+      "Frame 19: Compliance flags wash trading pattern -- VaR breach -- routing freeze",
+      "Frame 23: trade-executor enters probation -- driftDelta tightened to 0.04",
+      "Frame 27: trade-executor suppressed -- all execution halted",
+      "Frame 31: External market manipulation confirmed by market-sentinel",
+      "Frame 35: trade-executor begins recovery -- restricted permissions",
+      "Frame 39: trade-executor restored to active -- trust at 0.67",
+      "Frame 40: Governance mutation -- driftDelta relaxed to 0.07",
+      "Frame 47: Session close -- all agents active -- audit trail sealed"
+    ]
+  },
+  "timeline": [
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.9308,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:00Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9072,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:00Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.8887,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:00Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9183,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:00Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8814,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:00Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_001",
+          "timestamp": "2026-02-23T09:30:00Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Pre-market initialization complete -- all trading systems online",
+          "tags": [
+            "finance",
+            "market",
+            "startup"
+          ],
+          "agentId": "market-sentinel"
+        },
+        {
+          "id": "evt_fin_002",
+          "timestamp": "2026-02-23T09:30:00Z",
+          "type": "system_alert",
+          "severity": "info",
+          "message": "Trading session 2026-02-23 opening -- NYSE bell in T-0",
+          "tags": [
+            "finance",
+            "session"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:00Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.9331,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:02Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9134,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:02Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.8885,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:02Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9205,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:02Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8782,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:02Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_003",
+          "timestamp": "2026-02-23T09:30:02Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Order management gateway connected -- latency 0.3ms",
+          "tags": [
+            "finance",
+            "execution"
+          ],
+          "agentId": "trade-executor"
+        },
+        {
+          "id": "evt_fin_004",
+          "timestamp": "2026-02-23T09:30:02Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Initial trust calibration complete for all agents",
+          "tags": [
+            "finance",
+            "trust"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:02Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.9323,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:04Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.912,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:04Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.8892,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:04Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9202,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:04Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8829,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:04Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_005",
+          "timestamp": "2026-02-23T09:30:04Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Risk engine loaded -- Monte Carlo simulation warmed up with 10,000 paths",
+          "tags": [
+            "finance",
+            "risk"
+          ],
+          "agentId": "risk-assessor"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:04Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.9363,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:06Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9113,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:06Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.8935,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:06Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9249,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:06Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.88,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:06Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_006",
+          "timestamp": "2026-02-23T09:30:06Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Compliance rule set SEC-17a loaded -- 847 rules active",
+          "tags": [
+            "finance",
+            "compliance"
+          ],
+          "agentId": "compliance-checker"
+        },
+        {
+          "id": "evt_fin_007",
+          "timestamp": "2026-02-23T09:30:06Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Audit trail initialized -- append-only ledger hash: 0xa3f7c2",
+          "tags": [
+            "finance",
+            "audit"
+          ],
+          "agentId": "audit-logger"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:06Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.9398,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:08Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9152,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:08Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.893,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:08Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9219,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:08Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8867,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:08Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_008",
+          "timestamp": "2026-02-23T09:30:08Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "trade-executor trust steady at 0.94 -- executing within strategy bounds",
+          "tags": [
+            "finance",
+            "trust"
+          ],
+          "agentId": "trade-executor"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:08Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.939,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:10Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9126,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:10Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.8926,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:10Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9271,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:10Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8856,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:10Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_009",
+          "timestamp": "2026-02-23T09:30:10Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Market data feed synchronized -- consolidated tape latency nominal",
+          "tags": [
+            "finance",
+            "market"
+          ],
+          "agentId": "market-sentinel"
+        },
+        {
+          "id": "evt_fin_010",
+          "timestamp": "2026-02-23T09:30:10Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "market-sentinel authority confirmed at 0.92 -- highest in cluster",
+          "tags": [
+            "finance",
+            "trust"
+          ],
+          "agentId": "market-sentinel"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:10Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.9398,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:12Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9174,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:12Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.8962,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:12Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9288,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:12Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8853,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:12Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_011",
+          "timestamp": "2026-02-23T09:30:12Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Portfolio risk within limits -- current VaR: $2.3M (limit: $5M)",
+          "tags": [
+            "finance",
+            "risk"
+          ],
+          "agentId": "risk-assessor"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:12Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.9363,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:14Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.919,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:14Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.8977,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:14Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9292,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:14Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8875,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:14Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_012",
+          "timestamp": "2026-02-23T09:30:14Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Routine trust recalibration -- all agents within expected range",
+          "tags": [
+            "finance",
+            "trust"
+          ]
+        },
+        {
+          "id": "evt_fin_013",
+          "timestamp": "2026-02-23T09:30:14Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Executed 47 orders -- all within compliance envelope",
+          "tags": [
+            "finance",
+            "execution"
+          ],
+          "agentId": "trade-executor"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:14Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.9352,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:16Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9153,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:16Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.8964,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:16Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9267,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:16Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8855,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:16Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_014",
+          "timestamp": "2026-02-23T09:30:16Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Compliance scan: 0 violations in last 100 trades",
+          "tags": [
+            "finance",
+            "compliance"
+          ],
+          "agentId": "compliance-checker"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:16Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.9304,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:18Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9166,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:18Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.8977,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:18Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9298,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:18Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8882,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:18Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_015",
+          "timestamp": "2026-02-23T09:30:18Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Audit checkpoint: 312 events logged -- integrity verified",
+          "tags": [
+            "finance",
+            "audit"
+          ],
+          "agentId": "audit-logger"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:18Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.9292,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:20Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9183,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:20Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.8986,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:20Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9326,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:20Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8909,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:20Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_016",
+          "timestamp": "2026-02-23T09:30:20Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Morning session nominal -- trust scores stable across all desks",
+          "tags": [
+            "finance",
+            "trust"
+          ]
+        },
+        {
+          "id": "evt_fin_017",
+          "timestamp": "2026-02-23T09:30:20Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Market breadth positive -- 68% of S&P components advancing",
+          "tags": [
+            "finance",
+            "market"
+          ],
+          "agentId": "market-sentinel"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:20Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.9282,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:22Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9155,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:22Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.8989,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:22Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.933,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:22Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8905,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:22Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_018",
+          "timestamp": "2026-02-23T09:30:22Z",
+          "type": "system_alert",
+          "severity": "warn",
+          "message": "Unusual volume spike detected in NVDA -- 3.2x average daily volume",
+          "tags": [
+            "finance",
+            "market",
+            "anomaly"
+          ],
+          "agentId": "market-sentinel"
+        },
+        {
+          "id": "evt_fin_019",
+          "timestamp": "2026-02-23T09:30:22Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "market-sentinel anomaly detection engaged -- trust elevated to 0.94",
+          "tags": [
+            "finance",
+            "trust"
+          ],
+          "agentId": "market-sentinel"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:22Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.9279,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:24Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9158,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:24Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.8953,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:24Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9411,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:24Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8946,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:24Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_020",
+          "timestamp": "2026-02-23T09:30:24Z",
+          "type": "system_alert",
+          "severity": "warn",
+          "message": "Volatility index (VIX) surging -- up 18% in last 4 minutes",
+          "tags": [
+            "finance",
+            "market",
+            "volatility"
+          ],
+          "agentId": "market-sentinel"
+        },
+        {
+          "id": "evt_fin_021",
+          "timestamp": "2026-02-23T09:30:24Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Risk engine recalculating -- stress scenario triggered",
+          "tags": [
+            "finance",
+            "risk"
+          ],
+          "agentId": "risk-assessor"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:24Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.9242,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:26Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9109,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:26Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.8897,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:26Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9439,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:26Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8924,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:26Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_022",
+          "timestamp": "2026-02-23T09:30:26Z",
+          "type": "system_alert",
+          "severity": "warn",
+          "message": "Correlated selling detected across semiconductor sector -- pattern unusual",
+          "tags": [
+            "finance",
+            "market",
+            "anomaly"
+          ],
+          "agentId": "market-sentinel"
+        },
+        {
+          "id": "evt_fin_023",
+          "timestamp": "2026-02-23T09:30:26Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "market-sentinel proving high-value -- trust score at 0.95",
+          "tags": [
+            "finance",
+            "trust"
+          ],
+          "agentId": "market-sentinel"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:26Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.9183,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:28Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9127,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:28Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.8923,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:28Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9489,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:28Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8959,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:28Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_024",
+          "timestamp": "2026-02-23T09:30:28Z",
+          "type": "system_alert",
+          "severity": "warn",
+          "message": "Dark pool activity anomalous -- large block trades detected in AAPL, MSFT, GOOGL",
+          "tags": [
+            "finance",
+            "market",
+            "darkpool"
+          ],
+          "agentId": "market-sentinel"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:28Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.8894,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:30Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.91,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:30Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.8923,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:30Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9461,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:30Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8947,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:30Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_025",
+          "timestamp": "2026-02-23T09:30:30Z",
+          "type": "trust_update",
+          "severity": "warn",
+          "message": "trade-executor deviating from strategy -- order size 4.7x normal for NVDA position",
+          "tags": [
+            "finance",
+            "trust",
+            "deviation"
+          ],
+          "agentId": "trade-executor"
+        },
+        {
+          "id": "evt_fin_026",
+          "timestamp": "2026-02-23T09:30:30Z",
+          "type": "system_alert",
+          "severity": "warn",
+          "message": "Execution pattern anomaly: rapid-fire orders placed at 15ms intervals",
+          "tags": [
+            "finance",
+            "execution",
+            "anomaly"
+          ],
+          "agentId": "trade-executor"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:30Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.8504,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:32Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9036,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:32Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.8955,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:32Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9474,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:32Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8969,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:32Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_027",
+          "timestamp": "2026-02-23T09:30:32Z",
+          "type": "trust_update",
+          "severity": "warn",
+          "message": "trade-executor trust declining -- 0.93 to 0.85 -- volume anomaly persists",
+          "tags": [
+            "finance",
+            "trust"
+          ],
+          "agentId": "trade-executor"
+        },
+        {
+          "id": "evt_fin_028",
+          "timestamp": "2026-02-23T09:30:32Z",
+          "type": "system_alert",
+          "severity": "warn",
+          "message": "Position concentration alert: NVDA allocation exceeds 12% of portfolio",
+          "tags": [
+            "finance",
+            "risk",
+            "concentration"
+          ],
+          "agentId": "risk-assessor"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:32Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.8083,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:34Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9055,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:34Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.8976,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:34Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.94,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:34Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.896,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:34Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_029",
+          "timestamp": "2026-02-23T09:30:34Z",
+          "type": "trust_update",
+          "severity": "warn",
+          "message": "trade-executor trust dropping rapidly -- now at 0.81 -- 14% decline in 4 frames",
+          "tags": [
+            "finance",
+            "trust"
+          ],
+          "agentId": "trade-executor"
+        },
+        {
+          "id": "evt_fin_030",
+          "timestamp": "2026-02-23T09:30:34Z",
+          "type": "system_alert",
+          "severity": "warn",
+          "message": "Order flow analysis: buy-sell ratio 8.3:1 -- highly directional",
+          "tags": [
+            "finance",
+            "compliance",
+            "orderflow"
+          ],
+          "agentId": "compliance-checker"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:34Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.7777,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:36Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9008,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:36Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9018,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:36Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9395,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:36Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8974,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:36Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_031",
+          "timestamp": "2026-02-23T09:30:36Z",
+          "type": "threshold_breach",
+          "severity": "error",
+          "message": "trade-executor trust at 0.78 -- approaching trust threshold of 0.72",
+          "tags": [
+            "finance",
+            "trust",
+            "threshold"
+          ],
+          "agentId": "trade-executor"
+        },
+        {
+          "id": "evt_fin_032",
+          "timestamp": "2026-02-23T09:30:36Z",
+          "type": "system_alert",
+          "severity": "warn",
+          "message": "Cumulative notional exposure up $47M in 8 seconds -- exceeds normal rate by 11x",
+          "tags": [
+            "finance",
+            "risk",
+            "exposure"
+          ],
+          "agentId": "risk-assessor"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:36Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.7393,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:38Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.913,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:38Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9202,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:38Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9403,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:38Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.9034,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:38Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_033",
+          "timestamp": "2026-02-23T09:30:38Z",
+          "type": "system_alert",
+          "severity": "error",
+          "message": "COMPLIANCE ALERT: Potential wash trading pattern detected -- matching buy/sell orders in NVDA within 200ms window",
+          "tags": [
+            "finance",
+            "compliance",
+            "wash-trading"
+          ],
+          "agentId": "compliance-checker"
+        },
+        {
+          "id": "evt_fin_034",
+          "timestamp": "2026-02-23T09:30:38Z",
+          "type": "system_alert",
+          "severity": "error",
+          "message": "VaR BREACH: Portfolio VaR at $5.8M -- exceeds $5M limit by 16%",
+          "tags": [
+            "finance",
+            "risk",
+            "var-breach"
+          ],
+          "agentId": "risk-assessor"
+        },
+        {
+          "id": "evt_fin_035",
+          "timestamp": "2026-02-23T09:30:38Z",
+          "type": "routing_freeze",
+          "severity": "error",
+          "message": "Routing freeze initiated on trade-executor -- all pending orders held",
+          "tags": [
+            "finance",
+            "execution",
+            "freeze"
+          ],
+          "agentId": "trade-executor"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:38Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.6971,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:40Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.918,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:40Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9278,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:40Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9352,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:40Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.9011,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:40Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_036",
+          "timestamp": "2026-02-23T09:30:40Z",
+          "type": "trust_update",
+          "severity": "error",
+          "message": "trade-executor trust at 0.70 -- breached trust threshold of 0.72",
+          "tags": [
+            "finance",
+            "trust",
+            "breach"
+          ],
+          "agentId": "trade-executor"
+        },
+        {
+          "id": "evt_fin_037",
+          "timestamp": "2026-02-23T09:30:40Z",
+          "type": "system_alert",
+          "severity": "error",
+          "message": "SEC-17a Rule 10b-5 potential violation flagged -- wash trade indicators confirmed",
+          "tags": [
+            "finance",
+            "compliance",
+            "sec"
+          ],
+          "agentId": "compliance-checker"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:40Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.6608,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:42Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.921,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:42Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9329,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:42Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9322,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:42Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.9065,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:42Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_038",
+          "timestamp": "2026-02-23T09:30:42Z",
+          "type": "trust_update",
+          "severity": "warn",
+          "message": "trade-executor trust continuing decline -- 0.66 -- governance intervention imminent",
+          "tags": [
+            "finance",
+            "trust"
+          ],
+          "agentId": "trade-executor"
+        },
+        {
+          "id": "evt_fin_039",
+          "timestamp": "2026-02-23T09:30:42Z",
+          "type": "system_alert",
+          "severity": "error",
+          "message": "47 suspicious orders flagged for review -- total notional $89M",
+          "tags": [
+            "finance",
+            "compliance",
+            "review"
+          ],
+          "agentId": "compliance-checker"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:42Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.6223,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:44Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9286,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:44Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.94,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:44Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9281,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:44Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.9075,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:44Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_040",
+          "timestamp": "2026-02-23T09:30:44Z",
+          "type": "trust_update",
+          "severity": "warn",
+          "message": "trade-executor trust at 0.62 -- well below trust threshold",
+          "tags": [
+            "finance",
+            "trust"
+          ],
+          "agentId": "trade-executor"
+        },
+        {
+          "id": "evt_fin_041",
+          "timestamp": "2026-02-23T09:30:44Z",
+          "type": "system_alert",
+          "severity": "error",
+          "message": "Risk exposure summary: unrealized P&L swing of -$3.2M in affected positions",
+          "tags": [
+            "finance",
+            "risk",
+            "pnl"
+          ],
+          "agentId": "risk-assessor"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:44Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.5822,
+          "authorityWeight": 0.7,
+          "status": "probation",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:46Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9313,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:46Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9433,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:46Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9282,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:46Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.9042,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:46Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_042",
+          "timestamp": "2026-02-23T09:30:46Z",
+          "type": "probation",
+          "severity": "error",
+          "message": "trade-executor placed on PROBATION -- execution privileges suspended pending review",
+          "tags": [
+            "finance",
+            "governance",
+            "probation"
+          ],
+          "agentId": "trade-executor"
+        },
+        {
+          "id": "evt_fin_043",
+          "timestamp": "2026-02-23T09:30:46Z",
+          "type": "mutation",
+          "severity": "warn",
+          "message": "Governance mutation: driftDelta tightened from 0.07 to 0.04 -- heightened sensitivity",
+          "tags": [
+            "finance",
+            "governance",
+            "mutation"
+          ]
+        },
+        {
+          "id": "evt_fin_044",
+          "timestamp": "2026-02-23T09:30:46Z",
+          "type": "system_alert",
+          "severity": "warn",
+          "message": "Audit trail sealed for review period -- hash: 0xb8e4d1 -- 1,247 events captured",
+          "tags": [
+            "finance",
+            "audit",
+            "sealed"
+          ],
+          "agentId": "audit-logger"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:46Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.04
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.5416,
+          "authorityWeight": 0.7,
+          "status": "probation",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:48Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9352,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:48Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9467,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:48Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9252,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:48Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.9045,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:48Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_045",
+          "timestamp": "2026-02-23T09:30:48Z",
+          "type": "trust_update",
+          "severity": "warn",
+          "message": "trade-executor trust still declining under probation -- 0.54",
+          "tags": [
+            "finance",
+            "trust"
+          ],
+          "agentId": "trade-executor"
+        },
+        {
+          "id": "evt_fin_046",
+          "timestamp": "2026-02-23T09:30:48Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Compliance deep scan initiated -- reviewing all trade-executor orders from last 30 minutes",
+          "tags": [
+            "finance",
+            "compliance"
+          ],
+          "agentId": "compliance-checker"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:48Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.04
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.5089,
+          "authorityWeight": 0.7,
+          "status": "probation",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:50Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9346,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:50Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9501,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:50Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9248,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:50Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.9107,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:50Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_047",
+          "timestamp": "2026-02-23T09:30:50Z",
+          "type": "trust_update",
+          "severity": "warn",
+          "message": "trade-executor trust at 0.51 -- nearing suppression threshold of 0.48",
+          "tags": [
+            "finance",
+            "trust",
+            "threshold"
+          ],
+          "agentId": "trade-executor"
+        },
+        {
+          "id": "evt_fin_048",
+          "timestamp": "2026-02-23T09:30:50Z",
+          "type": "system_alert",
+          "severity": "warn",
+          "message": "Cross-reference analysis: 12 order pairs show wash trading characteristics",
+          "tags": [
+            "finance",
+            "compliance",
+            "analysis"
+          ],
+          "agentId": "compliance-checker"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:50Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.04
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.4888,
+          "authorityWeight": 0.7,
+          "status": "probation",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:52Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9373,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:52Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9523,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:52Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9227,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:52Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.9075,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:52Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_049",
+          "timestamp": "2026-02-23T09:30:52Z",
+          "type": "trust_update",
+          "severity": "error",
+          "message": "trade-executor trust at 0.49 -- one tick above suppression threshold",
+          "tags": [
+            "finance",
+            "trust",
+            "critical"
+          ],
+          "agentId": "trade-executor"
+        },
+        {
+          "id": "evt_fin_050",
+          "timestamp": "2026-02-23T09:30:52Z",
+          "type": "system_alert",
+          "severity": "warn",
+          "message": "Portfolio hedging initiated -- risk-assessor deploying protective positions",
+          "tags": [
+            "finance",
+            "risk",
+            "hedge"
+          ],
+          "agentId": "risk-assessor"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:52Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.04
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.4599,
+          "authorityWeight": 0.6,
+          "status": "suppressed",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:52Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9349,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:54Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9491,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:54Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9241,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:54Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.9065,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:54Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_051",
+          "timestamp": "2026-02-23T09:30:54Z",
+          "type": "suppression",
+          "severity": "critical",
+          "message": "trade-executor SUPPRESSED -- trust 0.46 breached suppression threshold 0.48 -- all execution halted",
+          "tags": [
+            "finance",
+            "governance",
+            "suppression"
+          ],
+          "agentId": "trade-executor"
+        },
+        {
+          "id": "evt_fin_052",
+          "timestamp": "2026-02-23T09:30:54Z",
+          "type": "system_alert",
+          "severity": "critical",
+          "message": "TRADING HALT: All automated execution suspended -- manual override required for new orders",
+          "tags": [
+            "finance",
+            "execution",
+            "halt"
+          ],
+          "agentId": "trade-executor"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:54Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.04
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.4299,
+          "authorityWeight": 0.6,
+          "status": "suppressed",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:52Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9353,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:56Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9436,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:56Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9272,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:56Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.907,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:56Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_053",
+          "timestamp": "2026-02-23T09:30:56Z",
+          "type": "heartbeat",
+          "severity": "warn",
+          "message": "trade-executor suppressed -- monitoring for recovery signals",
+          "tags": [
+            "finance",
+            "governance"
+          ],
+          "agentId": "trade-executor"
+        },
+        {
+          "id": "evt_fin_054",
+          "timestamp": "2026-02-23T09:30:56Z",
+          "type": "system_alert",
+          "severity": "warn",
+          "message": "Outstanding orders cancelled -- 23 open orders withdrawn from market",
+          "tags": [
+            "finance",
+            "execution",
+            "cancel"
+          ],
+          "agentId": "trade-executor"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:56Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.04
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.3983,
+          "authorityWeight": 0.6,
+          "status": "suppressed",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:52Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9327,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:58Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9439,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:58Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9257,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:58Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.9051,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:58Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_055",
+          "timestamp": "2026-02-23T09:30:58Z",
+          "type": "trust_update",
+          "severity": "warn",
+          "message": "trade-executor trust at 0.40 -- stabilizing at suppression floor",
+          "tags": [
+            "finance",
+            "trust"
+          ],
+          "agentId": "trade-executor"
+        },
+        {
+          "id": "evt_fin_056",
+          "timestamp": "2026-02-23T09:30:58Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Risk containment active -- VaR reduced to $4.1M through hedging",
+          "tags": [
+            "finance",
+            "risk"
+          ],
+          "agentId": "risk-assessor"
+        }
+      ],
+      "timestamp": "2026-02-23T09:30:58Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.04
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.373,
+          "authorityWeight": 0.6,
+          "status": "suppressed",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:52Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9309,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:00Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9396,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:00Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9301,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:00Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.9027,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:00Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_057",
+          "timestamp": "2026-02-23T09:31:00Z",
+          "type": "trust_update",
+          "severity": "warn",
+          "message": "trade-executor trust at 0.37 -- lowest point -- awaiting external analysis",
+          "tags": [
+            "finance",
+            "trust"
+          ],
+          "agentId": "trade-executor"
+        },
+        {
+          "id": "evt_fin_058",
+          "timestamp": "2026-02-23T09:31:00Z",
+          "type": "system_alert",
+          "severity": "warn",
+          "message": "Forensic order analysis: correlating trade-executor behavior with market microstructure",
+          "tags": [
+            "finance",
+            "compliance",
+            "forensics"
+          ],
+          "agentId": "compliance-checker"
+        }
+      ],
+      "timestamp": "2026-02-23T09:31:00Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.04
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.3783,
+          "authorityWeight": 0.6,
+          "status": "suppressed",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:52Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9265,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:02Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.938,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:02Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9484,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:02Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.9021,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:02Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_059",
+          "timestamp": "2026-02-23T09:31:02Z",
+          "type": "system_alert",
+          "severity": "critical",
+          "message": "EXTERNAL MANIPULATION CONFIRMED: market-sentinel detected coordinated spoofing attack on semiconductor sector -- source: 3 non-attributed trading venues",
+          "tags": [
+            "finance",
+            "market",
+            "manipulation",
+            "critical"
+          ],
+          "agentId": "market-sentinel"
+        },
+        {
+          "id": "evt_fin_060",
+          "timestamp": "2026-02-23T09:31:02Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "market-sentinel trust elevated to 0.95 -- critical intelligence validated by cross-venue analysis",
+          "tags": [
+            "finance",
+            "trust"
+          ],
+          "agentId": "market-sentinel"
+        },
+        {
+          "id": "evt_fin_061",
+          "timestamp": "2026-02-23T09:31:02Z",
+          "type": "system_alert",
+          "severity": "warn",
+          "message": "trade-executor behavior partially explained by external manipulation -- recalibrating trust model",
+          "tags": [
+            "finance",
+            "governance",
+            "recalibration"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T09:31:02Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.04
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.3874,
+          "authorityWeight": 0.6,
+          "status": "suppressed",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:52Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9258,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:04Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9334,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:04Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9591,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:04Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.9047,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:04Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_062",
+          "timestamp": "2026-02-23T09:31:04Z",
+          "type": "system_alert",
+          "severity": "warn",
+          "message": "SEC notification prepared -- suspicious activity report (SAR) filed for external spoofing",
+          "tags": [
+            "finance",
+            "compliance",
+            "sar"
+          ],
+          "agentId": "compliance-checker"
+        },
+        {
+          "id": "evt_fin_063",
+          "timestamp": "2026-02-23T09:31:04Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "trade-executor trust stabilizing -- external factor acknowledged in trust model",
+          "tags": [
+            "finance",
+            "trust",
+            "recovery"
+          ],
+          "agentId": "trade-executor"
+        }
+      ],
+      "timestamp": "2026-02-23T09:31:04Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.04
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.3974,
+          "authorityWeight": 0.6,
+          "status": "suppressed",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:52Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9209,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:06Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9335,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:06Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9616,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:06Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.899,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:06Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_064",
+          "timestamp": "2026-02-23T09:31:06Z",
+          "type": "system_alert",
+          "severity": "info",
+          "message": "Market manipulation signatures catalogued -- 47 spoofing events across 3 venues identified",
+          "tags": [
+            "finance",
+            "market",
+            "forensics"
+          ],
+          "agentId": "market-sentinel"
+        },
+        {
+          "id": "evt_fin_065",
+          "timestamp": "2026-02-23T09:31:06Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Cluster-wide trust recalibration in progress -- adjusting for exogenous shock",
+          "tags": [
+            "finance",
+            "trust",
+            "recalibration"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T09:31:06Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.04
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.4226,
+          "authorityWeight": 0.6,
+          "status": "suppressed",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:30:52Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9204,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:08Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9298,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:08Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9717,
+          "authorityWeight": 0.95,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:08Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.9018,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:08Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_066",
+          "timestamp": "2026-02-23T09:31:08Z",
+          "type": "system_alert",
+          "severity": "info",
+          "message": "market-sentinel trust at 0.97 -- highest observed -- manipulation detection highly valued",
+          "tags": [
+            "finance",
+            "trust"
+          ],
+          "agentId": "market-sentinel"
+        },
+        {
+          "id": "evt_fin_067",
+          "timestamp": "2026-02-23T09:31:08Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Audit trail updated with manipulation findings -- hash: 0xc9f2a7",
+          "tags": [
+            "finance",
+            "audit"
+          ],
+          "agentId": "audit-logger"
+        }
+      ],
+      "timestamp": "2026-02-23T09:31:08Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.04
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.4781,
+          "authorityWeight": 0.7,
+          "status": "probation",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:10Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9151,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:10Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9271,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:10Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.967,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:10Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8987,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:10Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_068",
+          "timestamp": "2026-02-23T09:31:10Z",
+          "type": "status_change",
+          "severity": "warn",
+          "message": "trade-executor moved from SUPPRESSED to PROBATION -- restricted execution permissions granted",
+          "tags": [
+            "finance",
+            "governance",
+            "recovery"
+          ],
+          "agentId": "trade-executor"
+        },
+        {
+          "id": "evt_fin_069",
+          "timestamp": "2026-02-23T09:31:10Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "trade-executor trust recovering -- 0.48 -- above suppression threshold",
+          "tags": [
+            "finance",
+            "trust",
+            "recovery"
+          ],
+          "agentId": "trade-executor"
+        }
+      ],
+      "timestamp": "2026-02-23T09:31:10Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.04
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.5314,
+          "authorityWeight": 0.7,
+          "status": "probation",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:12Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.916,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:12Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9279,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:12Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9626,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:12Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8972,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:12Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_070",
+          "timestamp": "2026-02-23T09:31:12Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "trade-executor trust climbing -- 0.53 -- executing only pre-approved hedging orders",
+          "tags": [
+            "finance",
+            "trust",
+            "recovery"
+          ],
+          "agentId": "trade-executor"
+        },
+        {
+          "id": "evt_fin_071",
+          "timestamp": "2026-02-23T09:31:12Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Restricted execution: 3 hedging orders placed under compliance supervision",
+          "tags": [
+            "finance",
+            "execution"
+          ],
+          "agentId": "trade-executor"
+        }
+      ],
+      "timestamp": "2026-02-23T09:31:12Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.04
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.579,
+          "authorityWeight": 0.7,
+          "status": "probation",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:14Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9147,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:14Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.921,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:14Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9606,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:14Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8964,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:14Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_072",
+          "timestamp": "2026-02-23T09:31:14Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "trade-executor trust at 0.58 -- steady recovery trajectory",
+          "tags": [
+            "finance",
+            "trust",
+            "recovery"
+          ],
+          "agentId": "trade-executor"
+        },
+        {
+          "id": "evt_fin_073",
+          "timestamp": "2026-02-23T09:31:14Z",
+          "type": "system_alert",
+          "severity": "info",
+          "message": "VaR normalized to $3.8M -- within limits -- hedging strategy effective",
+          "tags": [
+            "finance",
+            "risk"
+          ],
+          "agentId": "risk-assessor"
+        }
+      ],
+      "timestamp": "2026-02-23T09:31:14Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.04
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.6295,
+          "authorityWeight": 0.7,
+          "status": "probation",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:16Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9087,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:16Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9185,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:16Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9625,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:16Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8952,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:16Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_074",
+          "timestamp": "2026-02-23T09:31:16Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "trade-executor trust at 0.63 -- approaching trust threshold for full reinstatement",
+          "tags": [
+            "finance",
+            "trust",
+            "recovery"
+          ],
+          "agentId": "trade-executor"
+        },
+        {
+          "id": "evt_fin_075",
+          "timestamp": "2026-02-23T09:31:16Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Compliance review: recent restricted orders within all regulatory bounds",
+          "tags": [
+            "finance",
+            "compliance"
+          ],
+          "agentId": "compliance-checker"
+        }
+      ],
+      "timestamp": "2026-02-23T09:31:16Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.04
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.6722,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:18Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9123,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:18Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9153,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:18Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.961,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:18Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8965,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:18Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_076",
+          "timestamp": "2026-02-23T09:31:18Z",
+          "type": "status_change",
+          "severity": "info",
+          "message": "trade-executor restored to ACTIVE status -- trust 0.67 with monitoring flag",
+          "tags": [
+            "finance",
+            "governance",
+            "restored"
+          ],
+          "agentId": "trade-executor"
+        },
+        {
+          "id": "evt_fin_077",
+          "timestamp": "2026-02-23T09:31:18Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "trade-executor trust at 0.67 -- active with enhanced monitoring",
+          "tags": [
+            "finance",
+            "trust"
+          ],
+          "agentId": "trade-executor"
+        }
+      ],
+      "timestamp": "2026-02-23T09:31:18Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.7028,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:20Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9166,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:20Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9181,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:20Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.954,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:20Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8932,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:20Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_078",
+          "timestamp": "2026-02-23T09:31:20Z",
+          "type": "mutation",
+          "severity": "info",
+          "message": "Governance mutation: driftDelta relaxed from 0.04 to 0.07 -- returning to standard sensitivity",
+          "tags": [
+            "finance",
+            "governance",
+            "mutation"
+          ]
+        },
+        {
+          "id": "evt_fin_079",
+          "timestamp": "2026-02-23T09:31:20Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "trade-executor trust at 0.70 -- crossing trust threshold -- full execution permitted",
+          "tags": [
+            "finance",
+            "trust"
+          ],
+          "agentId": "trade-executor"
+        }
+      ],
+      "timestamp": "2026-02-23T09:31:20Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.7283,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:22Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9154,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:22Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9114,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:22Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9533,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:22Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8951,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:22Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_080",
+          "timestamp": "2026-02-23T09:31:22Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Normal trading resumed -- trade-executor processing strategy signals",
+          "tags": [
+            "finance",
+            "execution"
+          ],
+          "agentId": "trade-executor"
+        },
+        {
+          "id": "evt_fin_081",
+          "timestamp": "2026-02-23T09:31:22Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "trade-executor trust at 0.73 -- stabilizing within normal range",
+          "tags": [
+            "finance",
+            "trust"
+          ],
+          "agentId": "trade-executor"
+        }
+      ],
+      "timestamp": "2026-02-23T09:31:22Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.7486,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:24Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9197,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:24Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9117,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:24Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9515,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:24Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8939,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:24Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_082",
+          "timestamp": "2026-02-23T09:31:24Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Portfolio rebalancing in progress -- positions normalizing",
+          "tags": [
+            "finance",
+            "execution"
+          ],
+          "agentId": "trade-executor"
+        },
+        {
+          "id": "evt_fin_083",
+          "timestamp": "2026-02-23T09:31:24Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "All agent trust scores within healthy range -- cluster stable",
+          "tags": [
+            "finance",
+            "trust"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T09:31:24Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.753,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:26Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9203,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:26Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9113,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:26Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9479,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:26Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8888,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:26Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_084",
+          "timestamp": "2026-02-23T09:31:26Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Risk metrics nominal -- VaR at $2.7M -- well within limits",
+          "tags": [
+            "finance",
+            "risk"
+          ],
+          "agentId": "risk-assessor"
+        },
+        {
+          "id": "evt_fin_085",
+          "timestamp": "2026-02-23T09:31:26Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "trade-executor trust at 0.75 -- recovery complete",
+          "tags": [
+            "finance",
+            "trust"
+          ],
+          "agentId": "trade-executor"
+        }
+      ],
+      "timestamp": "2026-02-23T09:31:26Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.7628,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:28Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.923,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:28Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9128,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:28Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.949,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:28Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8898,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:28Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_086",
+          "timestamp": "2026-02-23T09:31:28Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Approaching market close -- all systems nominal",
+          "tags": [
+            "finance",
+            "market"
+          ],
+          "agentId": "market-sentinel"
+        },
+        {
+          "id": "evt_fin_087",
+          "timestamp": "2026-02-23T09:31:28Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "End-of-day trust snapshot: trade-executor 0.76, risk-assessor 0.92, compliance-checker 0.91",
+          "tags": [
+            "finance",
+            "trust",
+            "eod"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T09:31:28Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.7805,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:30Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.925,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:30Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9171,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:30Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9429,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:30Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8978,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:30Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_088",
+          "timestamp": "2026-02-23T09:31:30Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Final order window closing -- 1,847 orders executed today across all strategies",
+          "tags": [
+            "finance",
+            "execution",
+            "eod"
+          ],
+          "agentId": "trade-executor"
+        },
+        {
+          "id": "evt_fin_089",
+          "timestamp": "2026-02-23T09:31:30Z",
+          "type": "system_alert",
+          "severity": "info",
+          "message": "Daily compliance summary: 1 wash-trading incident (resolved -- attributed to external manipulation), 0 active violations",
+          "tags": [
+            "finance",
+            "compliance",
+            "summary"
+          ],
+          "agentId": "compliance-checker"
+        }
+      ],
+      "timestamp": "2026-02-23T09:31:30Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.7975,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:32Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9256,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:32Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9181,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:32Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9436,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:32Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.8959,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:32Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_090",
+          "timestamp": "2026-02-23T09:31:32Z",
+          "type": "system_alert",
+          "severity": "info",
+          "message": "End-of-day risk report: max VaR $5.8M (breach resolved), closing VaR $2.1M, P&L -$420K (net of manipulation impact)",
+          "tags": [
+            "finance",
+            "risk",
+            "summary"
+          ],
+          "agentId": "risk-assessor"
+        },
+        {
+          "id": "evt_fin_091",
+          "timestamp": "2026-02-23T09:31:32Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "market-sentinel daily summary: 47 spoofing events detected, 1 coordinated attack identified and reported",
+          "tags": [
+            "finance",
+            "market",
+            "summary"
+          ],
+          "agentId": "market-sentinel"
+        }
+      ],
+      "timestamp": "2026-02-23T09:31:32Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    },
+    {
+      "agents": [
+        {
+          "id": "trade-executor",
+          "trustScore": 0.8177,
+          "authorityWeight": 0.8,
+          "status": "active",
+          "capabilities": [
+            "execution",
+            "order_management"
+          ],
+          "labels": {
+            "desk": "equities",
+            "region": "US"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:34Z"
+        },
+        {
+          "id": "risk-assessor",
+          "trustScore": 0.9323,
+          "authorityWeight": 0.85,
+          "status": "active",
+          "capabilities": [
+            "risk_calculation",
+            "var_analysis"
+          ],
+          "labels": {
+            "desk": "risk",
+            "model": "monte-carlo"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:34Z"
+        },
+        {
+          "id": "compliance-checker",
+          "trustScore": 0.9185,
+          "authorityWeight": 0.88,
+          "status": "active",
+          "capabilities": [
+            "compliance",
+            "rule_engine"
+          ],
+          "labels": {
+            "desk": "compliance",
+            "regulation": "SEC-17a"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:34Z"
+        },
+        {
+          "id": "market-sentinel",
+          "trustScore": 0.9406,
+          "authorityWeight": 0.92,
+          "status": "active",
+          "capabilities": [
+            "market_data",
+            "anomaly_detection"
+          ],
+          "labels": {
+            "desk": "quant",
+            "feed": "consolidated"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:34Z"
+        },
+        {
+          "id": "audit-logger",
+          "trustScore": 0.9007,
+          "authorityWeight": 0.7,
+          "status": "active",
+          "capabilities": [
+            "audit",
+            "logging"
+          ],
+          "labels": {
+            "desk": "operations",
+            "storage": "append-only"
+          },
+          "lastDecisionAt": "2026-02-23T09:31:34Z"
+        }
+      ],
+      "events": [
+        {
+          "id": "evt_fin_092",
+          "timestamp": "2026-02-23T09:31:34Z",
+          "type": "system_alert",
+          "severity": "info",
+          "message": "SESSION SUMMARY: Governance system successfully contained rogue execution pattern. External market manipulation detected and reported. Agent suppression and recovery cycle completed in 20 frames. All positions reconciled.",
+          "tags": [
+            "finance",
+            "audit",
+            "session-summary"
+          ],
+          "agentId": "audit-logger"
+        },
+        {
+          "id": "evt_fin_093",
+          "timestamp": "2026-02-23T09:31:34Z",
+          "type": "heartbeat",
+          "severity": "info",
+          "message": "Audit trail finalized -- 2,847 events logged -- integrity hash: 0xd4a8b3e1 -- session complete",
+          "tags": [
+            "finance",
+            "audit",
+            "eod"
+          ],
+          "agentId": "audit-logger"
+        },
+        {
+          "id": "evt_fin_094",
+          "timestamp": "2026-02-23T09:31:34Z",
+          "type": "trust_update",
+          "severity": "info",
+          "message": "Final trust state: all agents active and within governance bounds -- session 2026-02-23 closed",
+          "tags": [
+            "finance",
+            "trust",
+            "eod"
+          ]
+        }
+      ],
+      "timestamp": "2026-02-23T09:31:34Z",
+      "thresholds": {
+        "trustThreshold": 0.72,
+        "suppressionThreshold": 0.48,
+        "driftDelta": 0.07
+      }
+    }
+  ]
+}
