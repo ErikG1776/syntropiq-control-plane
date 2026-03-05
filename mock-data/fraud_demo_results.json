@@ -1,0 +1,2955 @@
+{
+  "demo": "syntropiq_fraud_governance",
+  "config": {
+    "num_cycles": 30,
+    "batch_size": 8,
+    "routing_mode": "competitive",
+    "data_source": "Synthetic (IEEE-CIS distributions)",
+    "drift_agent": "ensemble",
+    "drift_rate": 0.04,
+    "drift_start_cycle": 3,
+    "agent_profiles": {
+      "rule_engine": 0.25,
+      "ml_scorer": 0.35,
+      "ensemble": 0.4
+    }
+  },
+  "final_state": {
+    "trust_scores": {
+      "rule_engine": 1.0,
+      "ml_scorer": 1.0,
+      "ensemble": 0.86
+    },
+    "trust_threshold": 0.5575,
+    "suppression_threshold": 0.78,
+    "drift_threshold_final": 0.95
+  },
+  "timeline": [
+    {
+      "cycle": 0,
+      "phase": "RAMP-UP (mixed transactions)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 0.96,
+        "ml_scorer": 0.92,
+        "ensemble": 0.92
+      },
+      "trust_threshold": 0.765,
+      "suppression_threshold": 0.825,
+      "drift_threshold": 0.4,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 8,
+      "failures": 0,
+      "missed_fraud": 0,
+      "caught_fraud": 1,
+      "false_positives": 5,
+      "potential_loss": 0,
+      "drift_agent_loss": 0,
+      "drift_agent_missed": 0,
+      "decisions": [
+        {
+          "tx_id": "TX_000_003",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "CAUGHT_FRAUD",
+          "amount": 2983.01,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_000_005",
+          "agent": "ensemble",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 243.69,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_000_002",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 57.79,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_000_007",
+          "agent": "ensemble",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 2059.55,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_000_001",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 87.42,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_000_000",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 110.63,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_000_006",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 51.41,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_000_004",
+          "agent": "rule_engine",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 28.59,
+          "risk_tier": "T1",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 1,
+      "phase": "RAMP-UP (mixed transactions)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 0.98,
+        "ml_scorer": 0.98,
+        "ensemble": 1.0
+      },
+      "trust_threshold": 0.75,
+      "suppression_threshold": 0.81,
+      "drift_threshold": 0.4,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 8,
+      "failures": 0,
+      "missed_fraud": 0,
+      "caught_fraud": 0,
+      "false_positives": 1,
+      "potential_loss": 0,
+      "drift_agent_loss": 0,
+      "drift_agent_missed": 0,
+      "decisions": [
+        {
+          "tx_id": "TX_001_007",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 79.82,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_001_004",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 139.02,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_001_000",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 102.62,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_001_006",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 80.11,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_001_002",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 7.68,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_001_005",
+          "agent": "rule_engine",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 60.32,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_001_001",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 17.05,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_001_003",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 17.01,
+          "risk_tier": "T1",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 2,
+      "phase": "RAMP-UP (mixed transactions)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 1.0
+      },
+      "trust_threshold": 0.735,
+      "suppression_threshold": 0.795,
+      "drift_threshold": 0.4,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 8,
+      "failures": 0,
+      "missed_fraud": 0,
+      "caught_fraud": 1,
+      "false_positives": 5,
+      "potential_loss": 0,
+      "drift_agent_loss": 0,
+      "drift_agent_missed": 0,
+      "decisions": [
+        {
+          "tx_id": "TX_002_006",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 768.96,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_002_004",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 98.97,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_002_007",
+          "agent": "ensemble",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 34.13,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_002_005",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 225.85,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_002_001",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 309.52,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_002_003",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "CAUGHT_FRAUD",
+          "amount": 24.74,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_002_000",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 33.35,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_002_002",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 32.48,
+          "risk_tier": "T1",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 3,
+      "phase": "RAMP-UP (mixed transactions)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 1.0
+      },
+      "trust_threshold": 0.72,
+      "suppression_threshold": 0.78,
+      "drift_threshold": 0.44,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 8,
+      "failures": 0,
+      "missed_fraud": 0,
+      "caught_fraud": 0,
+      "false_positives": 2,
+      "potential_loss": 0,
+      "drift_agent_loss": 0,
+      "drift_agent_missed": 0,
+      "decisions": [
+        {
+          "tx_id": "TX_003_007",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 108.9,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_003_003",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 19.81,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_003_001",
+          "agent": "rule_engine",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 15.76,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_003_002",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 53.78,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_003_006",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 53.6,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_003_000",
+          "agent": "rule_engine",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 31.5,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_003_004",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 27.88,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_003_005",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 13.26,
+          "risk_tier": "T1",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 4,
+      "phase": "RAMP-UP (mixed transactions)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 1.0
+      },
+      "trust_threshold": 0.705,
+      "suppression_threshold": 0.78,
+      "drift_threshold": 0.48,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 8,
+      "failures": 0,
+      "missed_fraud": 0,
+      "caught_fraud": 0,
+      "false_positives": 7,
+      "potential_loss": 0,
+      "drift_agent_loss": 0,
+      "drift_agent_missed": 0,
+      "decisions": [
+        {
+          "tx_id": "TX_004_001",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 158.94,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_004_006",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 723.36,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_004_005",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 706.78,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_004_002",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 139.83,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_004_003",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 196.88,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_004_000",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 89.79,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_004_007",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 133.06,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_004_004",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 72.51,
+          "risk_tier": "T2",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 5,
+      "phase": "RAMP-UP (mixed transactions)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 1.0
+      },
+      "trust_threshold": 0.69,
+      "suppression_threshold": 0.78,
+      "drift_threshold": 0.52,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 8,
+      "failures": 0,
+      "missed_fraud": 0,
+      "caught_fraud": 0,
+      "false_positives": 4,
+      "potential_loss": 0,
+      "drift_agent_loss": 0,
+      "drift_agent_missed": 0,
+      "decisions": [
+        {
+          "tx_id": "TX_005_001",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 1563.92,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_005_000",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 103.14,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_005_006",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 143.06,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_005_005",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 229.6,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_005_007",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 142.09,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_005_004",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 62.08,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_005_002",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 46.21,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_005_003",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 16.5,
+          "risk_tier": "T1",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 6,
+      "phase": "RAMP-UP (mixed transactions)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 1.0
+      },
+      "trust_threshold": 0.675,
+      "suppression_threshold": 0.78,
+      "drift_threshold": 0.56,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 8,
+      "failures": 0,
+      "missed_fraud": 0,
+      "caught_fraud": 1,
+      "false_positives": 6,
+      "potential_loss": 0,
+      "drift_agent_loss": 0,
+      "drift_agent_missed": 0,
+      "decisions": [
+        {
+          "tx_id": "TX_006_005",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 2500.91,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_006_006",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 288.63,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_006_001",
+          "agent": "ensemble",
+          "decision": "FLAGGED",
+          "outcome": "CAUGHT_FRAUD",
+          "amount": 172.28,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_006_000",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 95.59,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_006_004",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 74.51,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_006_002",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 144.58,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_006_007",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 235.78,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_006_003",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 53.25,
+          "risk_tier": "T3",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 7,
+      "phase": "RAMP-UP (mixed transactions)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 0.95
+      },
+      "trust_threshold": 0.6825,
+      "suppression_threshold": 0.78,
+      "drift_threshold": 0.6,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 7,
+      "failures": 1,
+      "missed_fraud": 1,
+      "caught_fraud": 1,
+      "false_positives": 6,
+      "potential_loss": 438.44,
+      "drift_agent_loss": 438.44,
+      "drift_agent_missed": 1,
+      "decisions": [
+        {
+          "tx_id": "TX_007_005",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 2926.26,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_007_006",
+          "agent": "ensemble",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 120.93,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_007_002",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "CAUGHT_FRAUD",
+          "amount": 807.51,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_007_001",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 124.05,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_007_004",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 95.15,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_007_000",
+          "agent": "ensemble",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 81.14,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_007_003",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "MISSED_FRAUD_OOD",
+          "amount": 438.44,
+          "risk_tier": "T3",
+          "success": false
+        },
+        {
+          "tx_id": "TX_007_007",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 191.11,
+          "risk_tier": "T3",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 8,
+      "phase": "STRESS (high-risk traffic)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 0.95
+      },
+      "trust_threshold": 0.69,
+      "suppression_threshold": 0.78,
+      "drift_threshold": 0.64,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 7,
+      "failures": 1,
+      "missed_fraud": 1,
+      "caught_fraud": 1,
+      "false_positives": 6,
+      "potential_loss": 551.29,
+      "drift_agent_loss": 551.29,
+      "drift_agent_missed": 1,
+      "decisions": [
+        {
+          "tx_id": "TX_008_006",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 1979.01,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_008_000",
+          "agent": "ensemble",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 1457.69,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_008_002",
+          "agent": "ensemble",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 1319.06,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_008_004",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 980.3,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_008_003",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "CAUGHT_FRAUD",
+          "amount": 622.72,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_008_001",
+          "agent": "ensemble",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 93.86,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_008_005",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 454.72,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_008_007",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "MISSED_FRAUD_OOD",
+          "amount": 551.29,
+          "risk_tier": "T3",
+          "success": false
+        }
+      ]
+    },
+    {
+      "cycle": 9,
+      "phase": "STRESS (high-risk traffic)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 0.99
+      },
+      "trust_threshold": 0.675,
+      "suppression_threshold": 0.78,
+      "drift_threshold": 0.68,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 8,
+      "failures": 0,
+      "missed_fraud": 0,
+      "caught_fraud": 0,
+      "false_positives": 8,
+      "potential_loss": 0,
+      "drift_agent_loss": 0,
+      "drift_agent_missed": 0,
+      "decisions": [
+        {
+          "tx_id": "TX_009_007",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 373.91,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_009_003",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 259.63,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_009_000",
+          "agent": "ensemble",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 1348.2,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_009_001",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 948.45,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_009_004",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 17.69,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_009_002",
+          "agent": "ensemble",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 76.75,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_009_005",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 251.44,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_009_006",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 158.69,
+          "risk_tier": "T3",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 10,
+      "phase": "STRESS (high-risk traffic)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 1.0
+      },
+      "trust_threshold": 0.66,
+      "suppression_threshold": 0.78,
+      "drift_threshold": 0.72,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 8,
+      "failures": 0,
+      "missed_fraud": 0,
+      "caught_fraud": 2,
+      "false_positives": 6,
+      "potential_loss": 0,
+      "drift_agent_loss": 0,
+      "drift_agent_missed": 0,
+      "decisions": [
+        {
+          "tx_id": "TX_010_007",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "CAUGHT_FRAUD",
+          "amount": 8687.04,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_010_006",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 1088.64,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_010_001",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "CAUGHT_FRAUD",
+          "amount": 354.12,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_010_004",
+          "agent": "ensemble",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 159.57,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_010_005",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 279.19,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_010_003",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 322.56,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_010_002",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 94.85,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_010_000",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 42.85,
+          "risk_tier": "T3",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 11,
+      "phase": "STRESS (high-risk traffic)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 1.0
+      },
+      "trust_threshold": 0.645,
+      "suppression_threshold": 0.78,
+      "drift_threshold": 0.76,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 8,
+      "failures": 0,
+      "missed_fraud": 0,
+      "caught_fraud": 0,
+      "false_positives": 8,
+      "potential_loss": 0,
+      "drift_agent_loss": 0,
+      "drift_agent_missed": 0,
+      "decisions": [
+        {
+          "tx_id": "TX_011_000",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 2240.22,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_011_005",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 2628.11,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_011_003",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 246.43,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_011_002",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 81.44,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_011_004",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 401.43,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_011_007",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 200.56,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_011_006",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 127.87,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_011_001",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 96.21,
+          "risk_tier": "T3",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 12,
+      "phase": "STRESS (high-risk traffic)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 0.85
+      },
+      "trust_threshold": 0.66,
+      "suppression_threshold": 0.795,
+      "drift_threshold": 0.8,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 5,
+      "failures": 3,
+      "missed_fraud": 3,
+      "caught_fraud": 3,
+      "false_positives": 2,
+      "potential_loss": 559.51,
+      "drift_agent_loss": 559.51,
+      "drift_agent_missed": 3,
+      "decisions": [
+        {
+          "tx_id": "TX_012_006",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "CAUGHT_FRAUD",
+          "amount": 5933.02,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_012_000",
+          "agent": "ensemble",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 79.0,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_012_001",
+          "agent": "ensemble",
+          "decision": "FLAGGED",
+          "outcome": "CAUGHT_FRAUD",
+          "amount": 424.39,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_012_002",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "CAUGHT_FRAUD",
+          "amount": 195.52,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_012_004",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "MISSED_FRAUD_OOD",
+          "amount": 283.51,
+          "risk_tier": "T4",
+          "success": false
+        },
+        {
+          "tx_id": "TX_012_003",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 244.93,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_012_007",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "MISSED_FRAUD_OOD",
+          "amount": 207.01,
+          "risk_tier": "T3",
+          "success": false
+        },
+        {
+          "tx_id": "TX_012_005",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "MISSED_FRAUD",
+          "amount": 68.99,
+          "risk_tier": "T3",
+          "success": false
+        }
+      ]
+    },
+    {
+      "cycle": 13,
+      "phase": "STRESS (high-risk traffic)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 0.75
+      },
+      "trust_threshold": 0.675,
+      "suppression_threshold": 0.81,
+      "drift_threshold": 0.84,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 6,
+      "failures": 2,
+      "missed_fraud": 2,
+      "caught_fraud": 1,
+      "false_positives": 5,
+      "potential_loss": 814.3100000000001,
+      "drift_agent_loss": 814.3100000000001,
+      "drift_agent_missed": 2,
+      "decisions": [
+        {
+          "tx_id": "TX_013_006",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 1805.33,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_013_003",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 1831.91,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_013_004",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 1755.47,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_013_007",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 883.72,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_013_001",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "MISSED_FRAUD_OOD",
+          "amount": 666.94,
+          "risk_tier": "T4",
+          "success": false
+        },
+        {
+          "tx_id": "TX_013_002",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "MISSED_FRAUD_OOD",
+          "amount": 147.37,
+          "risk_tier": "T4",
+          "success": false
+        },
+        {
+          "tx_id": "TX_013_000",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 285.98,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_013_005",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "CAUGHT_FRAUD",
+          "amount": 123.13,
+          "risk_tier": "T3",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 14,
+      "phase": "STRESS (high-risk traffic)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 0.75
+      },
+      "trust_threshold": 0.66,
+      "suppression_threshold": 0.795,
+      "drift_threshold": 0.88,
+      "suppressed_agents": [
+        "ensemble"
+      ],
+      "probation_agents": [
+        "ensemble"
+      ],
+      "successes": 8,
+      "failures": 0,
+      "missed_fraud": 0,
+      "caught_fraud": 1,
+      "false_positives": 7,
+      "potential_loss": 0,
+      "drift_agent_loss": 0,
+      "drift_agent_missed": 0,
+      "decisions": [
+        {
+          "tx_id": "TX_014_001",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 315.3,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_014_003",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 194.26,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_014_007",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 955.5,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_014_004",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 510.07,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_014_002",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 81.99,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_014_005",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 521.02,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_014_006",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 229.35,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_014_000",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "CAUGHT_FRAUD",
+          "amount": 141.61,
+          "risk_tier": "T3",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 15,
+      "phase": "STRESS (high-risk traffic)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 0.75
+      },
+      "trust_threshold": 0.645,
+      "suppression_threshold": 0.78,
+      "drift_threshold": 0.92,
+      "suppressed_agents": [
+        "ensemble"
+      ],
+      "probation_agents": [
+        "ensemble"
+      ],
+      "successes": 8,
+      "failures": 0,
+      "missed_fraud": 0,
+      "caught_fraud": 3,
+      "false_positives": 5,
+      "potential_loss": 0,
+      "drift_agent_loss": 0,
+      "drift_agent_missed": 0,
+      "decisions": [
+        {
+          "tx_id": "TX_015_002",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "CAUGHT_FRAUD",
+          "amount": 1727.32,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_015_000",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "CAUGHT_FRAUD",
+          "amount": 1500.9,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_015_006",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "CAUGHT_FRAUD",
+          "amount": 377.55,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_015_004",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 274.55,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_015_007",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 353.83,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_015_005",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 98.97,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_015_003",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 236.14,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_015_001",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 31.9,
+          "risk_tier": "T3",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 16,
+      "phase": "STRESS (high-risk traffic)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 0.75
+      },
+      "trust_threshold": 0.63,
+      "suppression_threshold": 0.78,
+      "drift_threshold": 0.95,
+      "suppressed_agents": [
+        "ensemble"
+      ],
+      "probation_agents": [
+        "ensemble"
+      ],
+      "successes": 8,
+      "failures": 0,
+      "missed_fraud": 0,
+      "caught_fraud": 2,
+      "false_positives": 6,
+      "potential_loss": 0,
+      "drift_agent_loss": 0,
+      "drift_agent_missed": 0,
+      "decisions": [
+        {
+          "tx_id": "TX_016_006",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 9483.72,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_016_002",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "CAUGHT_FRAUD",
+          "amount": 134.23,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_016_000",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 426.72,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_016_001",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 236.78,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_016_004",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 483.92,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_016_003",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "CAUGHT_FRAUD",
+          "amount": 254.59,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_016_005",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 50.94,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_016_007",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 95.47,
+          "risk_tier": "T3",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 17,
+      "phase": "RECOVERY (safe transactions)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 0.79
+      },
+      "trust_threshold": 0.615,
+      "suppression_threshold": 0.78,
+      "drift_threshold": 0.95,
+      "suppressed_agents": [
+        "ensemble"
+      ],
+      "probation_agents": [
+        "ensemble"
+      ],
+      "successes": 8,
+      "failures": 0,
+      "missed_fraud": 0,
+      "caught_fraud": 0,
+      "false_positives": 1,
+      "potential_loss": 0,
+      "drift_agent_loss": 0,
+      "drift_agent_missed": 0,
+      "decisions": [
+        {
+          "tx_id": "TX_017_005",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 70.6,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_017_004",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 109.2,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_017_003",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 25.55,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_017_002",
+          "agent": "rule_engine",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 77.97,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_017_006",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 38.92,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_017_007",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 8.53,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_017_000",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 120.17,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_017_001",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 39.14,
+          "risk_tier": "T1",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 18,
+      "phase": "RECOVERY (safe transactions)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 0.81
+      },
+      "trust_threshold": 0.6,
+      "suppression_threshold": 0.78,
+      "drift_threshold": 0.95,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 8,
+      "failures": 0,
+      "missed_fraud": 0,
+      "caught_fraud": 0,
+      "false_positives": 1,
+      "potential_loss": 0,
+      "drift_agent_loss": 0,
+      "drift_agent_missed": 0,
+      "decisions": [
+        {
+          "tx_id": "TX_018_007",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 31.05,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_018_006",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 162.26,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_018_000",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 82.0,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_018_002",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 97.5,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_018_001",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 28.59,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_018_003",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 28.6,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_018_004",
+          "agent": "rule_engine",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 24.01,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_018_005",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 17.62,
+          "risk_tier": "T1",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 19,
+      "phase": "RECOVERY (safe transactions)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 0.87
+      },
+      "trust_threshold": 0.585,
+      "suppression_threshold": 0.78,
+      "drift_threshold": 0.95,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 8,
+      "failures": 0,
+      "missed_fraud": 0,
+      "caught_fraud": 0,
+      "false_positives": 0,
+      "potential_loss": 0,
+      "drift_agent_loss": 0,
+      "drift_agent_missed": 0,
+      "decisions": [
+        {
+          "tx_id": "TX_019_007",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 122.4,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_019_000",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 53.78,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_019_001",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 111.16,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_019_005",
+          "agent": "rule_engine",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 40.44,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_019_003",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 24.1,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_019_004",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 23.01,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_019_006",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 20.47,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_019_002",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 18.64,
+          "risk_tier": "T1",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 20,
+      "phase": "RECOVERY (safe transactions)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 0.91
+      },
+      "trust_threshold": 0.57,
+      "suppression_threshold": 0.78,
+      "drift_threshold": 0.95,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 8,
+      "failures": 0,
+      "missed_fraud": 0,
+      "caught_fraud": 0,
+      "false_positives": 2,
+      "potential_loss": 0,
+      "drift_agent_loss": 0,
+      "drift_agent_missed": 0,
+      "decisions": [
+        {
+          "tx_id": "TX_020_002",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 24.82,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_020_000",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 100.27,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_020_001",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 55.72,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_020_003",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 24.4,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_020_004",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 34.03,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_020_006",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 12.69,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_020_007",
+          "agent": "rule_engine",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 20.85,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_020_005",
+          "agent": "rule_engine",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 10.24,
+          "risk_tier": "T1",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 21,
+      "phase": "RECOVERY (safe transactions)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 1.0
+      },
+      "trust_threshold": 0.555,
+      "suppression_threshold": 0.78,
+      "drift_threshold": 0.95,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 8,
+      "failures": 0,
+      "missed_fraud": 0,
+      "caught_fraud": 0,
+      "false_positives": 2,
+      "potential_loss": 0,
+      "drift_agent_loss": 0,
+      "drift_agent_missed": 0,
+      "decisions": [
+        {
+          "tx_id": "TX_021_005",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 45.72,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_021_000",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 25.73,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_021_007",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 42.12,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_021_003",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 35.23,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_021_006",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 47.38,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_021_001",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 136.58,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_021_002",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 79.43,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_021_004",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 16.8,
+          "risk_tier": "T1",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 22,
+      "phase": "RECOVERY (safe transactions)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 1.0
+      },
+      "trust_threshold": 0.55,
+      "suppression_threshold": 0.78,
+      "drift_threshold": 0.95,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 8,
+      "failures": 0,
+      "missed_fraud": 0,
+      "caught_fraud": 0,
+      "false_positives": 2,
+      "potential_loss": 0,
+      "drift_agent_loss": 0,
+      "drift_agent_missed": 0,
+      "decisions": [
+        {
+          "tx_id": "TX_022_000",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 95.67,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_022_006",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 20.12,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_022_004",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 138.0,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_022_007",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 21.14,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_022_003",
+          "agent": "rule_engine",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 60.5,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_022_001",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 57.44,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_022_002",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 35.55,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_022_005",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 32.82,
+          "risk_tier": "T1",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 23,
+      "phase": "STEADY STATE (mixed)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 1.0
+      },
+      "trust_threshold": 0.55,
+      "suppression_threshold": 0.78,
+      "drift_threshold": 0.95,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 8,
+      "failures": 0,
+      "missed_fraud": 0,
+      "caught_fraud": 0,
+      "false_positives": 3,
+      "potential_loss": 0,
+      "drift_agent_loss": 0,
+      "drift_agent_missed": 0,
+      "decisions": [
+        {
+          "tx_id": "TX_023_001",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 619.33,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_023_003",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 107.01,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_023_005",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 165.88,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_023_000",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 62.02,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_023_002",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 62.66,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_023_006",
+          "agent": "rule_engine",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 32.37,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_023_004",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 120.8,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_023_007",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 28.03,
+          "risk_tier": "T1",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 24,
+      "phase": "STEADY STATE (mixed)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 1.0
+      },
+      "trust_threshold": 0.55,
+      "suppression_threshold": 0.78,
+      "drift_threshold": 0.95,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 8,
+      "failures": 0,
+      "missed_fraud": 0,
+      "caught_fraud": 0,
+      "false_positives": 3,
+      "potential_loss": 0,
+      "drift_agent_loss": 0,
+      "drift_agent_missed": 0,
+      "decisions": [
+        {
+          "tx_id": "TX_024_005",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 4157.68,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_024_006",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 523.85,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_024_007",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 70.67,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_024_002",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 177.06,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_024_001",
+          "agent": "rule_engine",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 58.98,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_024_004",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 68.81,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_024_003",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 40.96,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_024_000",
+          "agent": "rule_engine",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 36.58,
+          "risk_tier": "T1",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 25,
+      "phase": "STEADY STATE (mixed)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 1.0
+      },
+      "trust_threshold": 0.55,
+      "suppression_threshold": 0.78,
+      "drift_threshold": 0.95,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 8,
+      "failures": 0,
+      "missed_fraud": 0,
+      "caught_fraud": 0,
+      "false_positives": 4,
+      "potential_loss": 0,
+      "drift_agent_loss": 0,
+      "drift_agent_missed": 0,
+      "decisions": [
+        {
+          "tx_id": "TX_025_001",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 393.31,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_025_003",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 161.4,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_025_006",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 152.22,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_025_004",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 59.01,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_025_005",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 45.63,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_025_002",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 20.92,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_025_000",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 15.75,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_025_007",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 113.82,
+          "risk_tier": "T1",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 26,
+      "phase": "STEADY STATE (mixed)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 1.0
+      },
+      "trust_threshold": 0.55,
+      "suppression_threshold": 0.78,
+      "drift_threshold": 0.95,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 8,
+      "failures": 0,
+      "missed_fraud": 0,
+      "caught_fraud": 0,
+      "false_positives": 5,
+      "potential_loss": 0,
+      "drift_agent_loss": 0,
+      "drift_agent_missed": 0,
+      "decisions": [
+        {
+          "tx_id": "TX_026_007",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 213.61,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_026_006",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 123.33,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_026_000",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 194.15,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_026_004",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 42.88,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_026_002",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 433.54,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_026_005",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 9.48,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_026_003",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 27.8,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_026_001",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 11.14,
+          "risk_tier": "T1",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 27,
+      "phase": "STEADY STATE (mixed)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 0.87
+      },
+      "trust_threshold": 0.565,
+      "suppression_threshold": 0.795,
+      "drift_threshold": 0.95,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 5,
+      "failures": 3,
+      "missed_fraud": 3,
+      "caught_fraud": 0,
+      "false_positives": 3,
+      "potential_loss": 997.76,
+      "drift_agent_loss": 997.76,
+      "drift_agent_missed": 3,
+      "decisions": [
+        {
+          "tx_id": "TX_027_003",
+          "agent": "ensemble",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 85.48,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_027_006",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "MISSED_FRAUD",
+          "amount": 438.52,
+          "risk_tier": "T4",
+          "success": false
+        },
+        {
+          "tx_id": "TX_027_002",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "MISSED_FRAUD_OOD",
+          "amount": 509.15,
+          "risk_tier": "T3",
+          "success": false
+        },
+        {
+          "tx_id": "TX_027_007",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 135.81,
+          "risk_tier": "T3",
+          "success": true
+        },
+        {
+          "tx_id": "TX_027_005",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 44.52,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_027_001",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "MISSED_FRAUD",
+          "amount": 50.09,
+          "risk_tier": "T2",
+          "success": false
+        },
+        {
+          "tx_id": "TX_027_004",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 46.03,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_027_000",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 36.04,
+          "risk_tier": "T1",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 28,
+      "phase": "STEADY STATE (mixed)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 0.84
+      },
+      "trust_threshold": 0.5725,
+      "suppression_threshold": 0.795,
+      "drift_threshold": 0.95,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 7,
+      "failures": 1,
+      "missed_fraud": 1,
+      "caught_fraud": 0,
+      "false_positives": 3,
+      "potential_loss": 151.17,
+      "drift_agent_loss": 151.17,
+      "drift_agent_missed": 1,
+      "decisions": [
+        {
+          "tx_id": "TX_028_000",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 371.23,
+          "risk_tier": "T5",
+          "success": true
+        },
+        {
+          "tx_id": "TX_028_006",
+          "agent": "ml_scorer",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 236.44,
+          "risk_tier": "T4",
+          "success": true
+        },
+        {
+          "tx_id": "TX_028_007",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "MISSED_FRAUD_OOD",
+          "amount": 151.17,
+          "risk_tier": "T3",
+          "success": false
+        },
+        {
+          "tx_id": "TX_028_002",
+          "agent": "rule_engine",
+          "decision": "FLAGGED",
+          "outcome": "FALSE_POSITIVE",
+          "amount": 29.41,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_028_004",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 43.18,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_028_005",
+          "agent": "rule_engine",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 9.82,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_028_003",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 301.51,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_028_001",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 90.47,
+          "risk_tier": "T1",
+          "success": true
+        }
+      ]
+    },
+    {
+      "cycle": 29,
+      "phase": "STEADY STATE (mixed)",
+      "status": "executed",
+      "trust_scores": {
+        "rule_engine": 1.0,
+        "ml_scorer": 1.0,
+        "ensemble": 0.86
+      },
+      "trust_threshold": 0.5575,
+      "suppression_threshold": 0.78,
+      "drift_threshold": 0.95,
+      "suppressed_agents": [],
+      "probation_agents": [],
+      "successes": 8,
+      "failures": 0,
+      "missed_fraud": 0,
+      "caught_fraud": 0,
+      "false_positives": 0,
+      "potential_loss": 0,
+      "drift_agent_loss": 0,
+      "drift_agent_missed": 0,
+      "decisions": [
+        {
+          "tx_id": "TX_029_007",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 156.66,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_029_001",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 36.2,
+          "risk_tier": "T2",
+          "success": true
+        },
+        {
+          "tx_id": "TX_029_000",
+          "agent": "rule_engine",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 58.92,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_029_003",
+          "agent": "ensemble",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 28.87,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_029_006",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 31.63,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_029_002",
+          "agent": "rule_engine",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 49.35,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_029_005",
+          "agent": "ml_scorer",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 49.32,
+          "risk_tier": "T1",
+          "success": true
+        },
+        {
+          "tx_id": "TX_029_004",
+          "agent": "rule_engine",
+          "decision": "PASSED",
+          "outcome": "CLEARED",
+          "amount": 25.28,
+          "risk_tier": "T1",
+          "success": true
+        }
+      ]
+    }
+  ]
+}
